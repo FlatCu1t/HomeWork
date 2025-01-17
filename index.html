@@ -3,83 +3,88 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css">
-        <title>Большой театр</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+        <title>Заголовок</title>
     </head>
     <body>
         <header>
-            <h1>БОЛЬШОЙ ТЕАТР</h1>
-            <p class="header_desc">Большо́й теа́тр — петербургский театр, существовавший в 1784—1886 годах, с 1886 года — Петербургская консерватория. Первое постоянное в Санкт-Петербурге, крупнейшее в России и одно из крупнейших театральных зданий в Европе XVIII.</p>
-            <div class="header_burger"></div>
-            <nav class="header_links">
-                <ul>
-                    <li><a class="header_link" href="#main">Главная</a></li>
-                    <li><a class="header_link" href="#about">О театре</a></li>
-                    <li><a class="header_link" href="#productions">Наши постановки</a></li>
-                    <li><a class="header_link" href="#contacts">Контакты</a></li>
-                </ul>
-            </nav>
-            <span class="header_number">+7 495 123-45-67</span>
-            <div class="header_number_underline"></div>
-            <img class="header_present" src="/images/header_present.svg" alt="Present">
-            <div class="left-side">
-                <span class="left-side_contacts">Контактная информация</span>
-                <div class="left-side_line"></div>
-                <div class="left-side_icon instagram"></div>
-                <div class="left-side_icon facebook"></div>
-                <div class="left-side_icon VKontakte"></div>
-                <div class="left-side_icon youtube"></div>
+            <h1 class="header_navbar_logo_text">Isaev <span class="header_navbar_logo_text_two">Design</span></h1>
+            <h2 class="header_title">Hello, I'm<br><span class="header_title_two">Vlad Isaev</span></h2>
+            <p class="header_desc">I am a front-end developer, and the quality of my work is impeccable.</p>
+            <div class="burger"></div>
+            <div class="navbar">
+                <nav>
+                    <ul class="navbarNav">
+                        <li><a class="navbar_link" href="#home">Home</a></li>
+                        <li><a class="navbar_link" href="#about">About</a></li>
+                        <li><a class="navbar_link" href="#services">Services</a></li>
+                        <li><a class="navbar_link" href="/portfolio.html">Portfolio</a></li>
+                        <li><a class="navbar_link" href="#store">Store</a></li>
+                        <li><a class="navbar_link" href="#blog">Blog</a></li>
+                        <li><a class="navbar_link" href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
-            <button class="header_button" type="button">АФИША</button>
+            <img class="header_avatar" src="/images/header_avatar.jpg" alt="avatar">
+            <div class="social_container">
+                <div class="social_item VK"></div>
+                <div class="social_item YouTube"></div>
+                <div class="social_item FaceBook"></div>
+            </div>
         </header>
         <main>
-            <section class="aboutTheater">
-                <p class="about_title"><span style="color: #D1A954;">О</span> ТЕАТРЕ</p>
-                <p class="about_desc_title">САМЫЙ ЛУЧШИЙ ТЕАТР СПБ</p>
-                <p class="about_desc">Как свидетельствуют архивные документы, первое каменное здание Большого театра начали возводить в 1775 году по проекту Антонио Ринальди. В дальнейшем, после того как Ринальди упал с лесов и не мог лично наблюдать за ходом работ, Екатерина II поручила немецкому театральному декоратору и архитектору Людвигу Филиппу Тишбейну создать новый проект театра, который и был воплощён архитекторами Ф. В. фон Бауром и М. А. Деденёвым. Открытие его состоялось в 1783 году, хотя, основываясь на других свидетельствах, годом открытия можно считать 1784 год.</p>
-                <span class="about_title_two">НЕМНОГО О ЦИФРАХ</span>
-                <img class="about_icon one" src="/images/about_icon_1.svg" alt="seats">
-                <p class="about_desc_two"><span style="color: #D1A954;">1600 </span>посадочных мест</p>
-                <img class="about_icon two" src="/images/about_icon_2.svg" alt="history">
-                <p class="about_desc_three"><span style="color: #D1A954;">350 </span>лет истории</p>
-                <div class="about_mainicon"></div>
-                <span class="about_productions_title">НАШИ <span class="about_productions_title_two">ПОСТАНОВКИ</span></span>
-                <div class="about_productions_container">
-                    <div class="about_productions_icon one">
-                        <span class="about_productions_icon_title">ОСКАР 2020</span>
-                        <span class="about_productions_icon_desc">СЕНТЯБРЬ 2020</span>
-                    </div>
-                    <div class="about_productions_icon two">
-                    </div>
-                    <div class="about_productions_icon three">
-                        <span class="about_productions_icon_title">ЗОЛОТОЙ ГРАМОФОН</span>
-                        <span class="about_productions_icon_desc">ИЮЛЬ 2020</span>
-                    </div>
-                    <div class="about_productions_icon four">
-                        <span class="about_productions_icon_title">ЩЕЛКУНЧИК</span>
-                        <span class="about_productions_icon_desc">МАЙ 2020</span>
-                    </div>
-                    <div class="about_productions_arrowLeft"></div>
-                    <div class="about_productions_arrowRight"></div>
+            <section class="AboutMe">
+                <h2 class="AboutMe_Title">About Me</h2>
+                <span class="AboutMe_Desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur deserunt maxime similique debitis pariatur autem voluptatum. Perspiciatis omnis aliquam labore! Itaque labore, ipsa reprehenderit optio tempore corrupti dolores expedita suscipit.</span>
+                <button class="hireMe" type="button">Hire Me</button>
+                <span class="AboutMe_SecondTitle">What I'm using?</span>
+                <div class="using_container">
+                    <div class="using_item nodeJS"></div>
+                    <div class="using_item react"></div>
+                    <div class="using_item css"></div>
                 </div>
+            </section>
+            <section class="Offer">
+                <h2 class="Offer_Title">What I Offer</h2>
+                <div class="offers_container">
+                    <div class="offer_item">
+                        <span class="offer_title">Timely Work</span>
+                        <span class="offer_desc">I manage to complete my work within the specified deadlines, so you don't have to worry about it.</span>
+                    </div>
+                    <div class="offer_item">
+                        <span class="offer_title">Title</span>
+                        <span class="offer_desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus veritatis incidunt dolores aut distinctio, perferendis fugit magni eos? Consectetur minus ex fuga sint exercitationem quo? Quis facilis vitae voluptas iusto?</span>
+                    </div>
+                </div>
+            </section>
+            <section class="portfolio">
+                <h2 class="Portfolio_Title">Portfolio</h2>
+                <div class="portfolio_button" onclick="location.href='./portfolio.html'"><span>Click Me</span></div>
             </section>
         </main>
         <footer>
-            <span class="footer_title">КОНТАКТЫ</span>
-            <span class="footer_number one">+7 (812) 123-45-55</span>
-            <span class="footer_number two">+7 (812) 123-45-66</span>
-            <span class="footer_number email">info@theater.ru</span>
-            <span class="footer_number address">г. санкт-петербург, невский 140</span>
-            <form action="/send" method="post">
-                <input type="text" class="username" name="username" placeholder="Имя" required>
-                <input type="text" class="telephone" name="telephone" placeholder="Телефон" required>
-                <input type="text" class="company" name="company" placeholder="Компания" required>
-                <input type="text" class="email" name="email" placeholder="E-mail" required>
-                <textarea class="message" placeholder="Сообщение" required></textarea>
-                <button class="footer_form_button" type="submit">Отправить</button>
-            </form>
-            <span class="footer_end_info">* Ваши данные не будут переданы третьим лицам, 100% вероятность. Конфиденциальность мы гарантируем, и защищаем персональные данные согласно законку ФЗ-52.</span>
+            <h2 class="title">Did I interest you?</h2>
+            <span class="contacts">Contacts</span>
+            <span class="contacts_desc">For business proposals: ivlad6543@gmail.com</span>
+            <span class="brands">Brands I've Worked</span>
+            <span class="follow">You can follow me on</span>
             <div class="footer_line"></div>
-            <span class="footer_end_privacy">(с) Все права защищены. Большой театр. 2020</span>
+            <span class="footer_reserved">(c) All rights reserved. Isaev Design. 2025</span>
+            <div class="HoverMe">
+                <span>Click Me</span>
+            </div>
+            <div class="HoverMe_tooltip">
+                <div class="HoverMe_tooltip_item company1"></div>
+                <div class="HoverMe_tooltip_item company2"></div>
+                <div class="HoverMe_tooltip_item company3"></div>
+                <div class="HoverMe_tooltip_item company4"></div>
+                <div class="HoverMe_tooltip_item company5"></div>
+                <div class="HoverMe_tooltip_item company6"></div>
+                <div class="HoverMe_tooltip_item company7"></div>
+                <div class="HoverMe_tooltip_item company8"></div>
+                <div class="HoverMe_tooltip_item company9"></div>
+            </div>
         </footer>
+        <script src="/scripts/tooltip.js"></script>
     </body>
 </html>
