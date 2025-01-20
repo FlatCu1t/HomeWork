@@ -3,88 +3,107 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
-        <title>Заголовок</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <title>Perfume store</title>
     </head>
     <body>
         <header>
-            <h1 class="header_navbar_logo_text">Isaev <span class="header_navbar_logo_text_two">Design</span></h1>
-            <h2 class="header_title">Hello, I'm<br><span class="header_title_two">Vlad Isaev</span></h2>
-            <p class="header_desc">I am a front-end developer, and the quality of my work is impeccable.</p>
-            <div class="burger"></div>
             <div class="navbar">
+                <img class="header_logo" src="/images/logo.svg" alt="logo" loading="lazy">
                 <nav>
                     <ul class="navbarNav">
-                        <li><a class="navbar_link" href="#home">Home</a></li>
-                        <li><a class="navbar_link" href="#about">About</a></li>
-                        <li><a class="navbar_link" href="#services">Services</a></li>
-                        <li><a class="navbar_link" href="/portfolio.html">Portfolio</a></li>
-                        <li><a class="navbar_link" href="#store">Store</a></li>
-                        <li><a class="navbar_link" href="#blog">Blog</a></li>
-                        <li><a class="navbar_link" href="#contact">Contact</a></li>
+                        <li><a class="navbar_link" href="#contacts">Contacts</a></li>
+                        <li><a class="navbar_link" href="/perfumes.html">Perfumes</a></li>
                     </ul>
                 </nav>
             </div>
-            <img class="header_avatar" src="/images/header_avatar.jpg" alt="avatar">
-            <div class="social_container">
-                <div class="social_item VK"></div>
-                <div class="social_item YouTube"></div>
-                <div class="social_item FaceBook"></div>
+            <h1>Perfume store</h1>
+            <p class="header_title_desc">We are the <span class="header_title_desc_span">Best</span> perfume store in all of Kazakhstan.</p>
+            <span class="title_two">You can also find us here</span>
+            <div class="socials_container">
+                <div class="social_item vk"></div>
+                <div class="social_item facebook"></div>
+                <div class="social_item x"></div>
+                <div class="social_item instagram"></div>
             </div>
+            <div class="header_carousel">
+                <div class="header_carousel-slides">
+                  <div class="header_carousel-slide">
+                    <img src="/images/chanel_5.jpg" alt="background">
+                  </div>
+                  <div class="header_carousel-slide">
+                    <img src="/images/dior.jpg" alt="background">
+                  </div>
+                </div>
+                <div class="header_carousel-controls">
+                  <button class="header_carousel-button" id="header_prev">&lt;</button>
+                  <button class="header_carousel-button" id="header_next">&gt;</button>
+                </div>
+              </div>
         </header>
         <main>
-            <section class="AboutMe">
-                <h2 class="AboutMe_Title">About Me</h2>
-                <span class="AboutMe_Desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur deserunt maxime similique debitis pariatur autem voluptatum. Perspiciatis omnis aliquam labore! Itaque labore, ipsa reprehenderit optio tempore corrupti dolores expedita suscipit.</span>
-                <button class="hireMe" type="button">Hire Me</button>
-                <span class="AboutMe_SecondTitle">What I'm using?</span>
-                <div class="using_container">
-                    <div class="using_item nodeJS"></div>
-                    <div class="using_item react"></div>
-                    <div class="using_item css"></div>
-                </div>
-            </section>
-            <section class="Offer">
-                <h2 class="Offer_Title">What I Offer</h2>
+            <section class="offers_section">
+                <h2>What can we offer you?</h2>
+                <p class="offers_title_desc">We have the best perfumes from the most famous brands:<br><span>Chanel, Guerlain Shalimar, Dior, Lancome, Lanvin and others.</span></p>
                 <div class="offers_container">
-                    <div class="offer_item">
-                        <span class="offer_title">Timely Work</span>
-                        <span class="offer_desc">I manage to complete my work within the specified deadlines, so you don't have to worry about it.</span>
+                    <div class="offer_item chanel_5">
+                        <h2 class="offer_item_title">Chanel №5</h2>
+                        <span class="offer_item_desc">Exquisite. Sensual N°5. An aldehydic floral composition with a deep sensual trail of vanilla and sandalwood.</span>
+                        <button class="offer_item_button" type="button" onclick="location.href='./perfume_chanel.html'">Find Out More</button>
                     </div>
-                    <div class="offer_item">
-                        <span class="offer_title">Title</span>
-                        <span class="offer_desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus veritatis incidunt dolores aut distinctio, perferendis fugit magni eos? Consectetur minus ex fuga sint exercitationem quo? Quis facilis vitae voluptas iusto?</span>
+                    <div class="offer_item dior">
+                      <h2 class="offer_item_title">Dior</h2>
+                      <span class="offer_item_desc">Description for Dior</span>
+                      <button class="offer_item_button" type="button" onclick="location.href='./perfume_dior.html'">Find Out More</button>
+                  </div>
+                    <div class="offer_item Eau_de_Parfum">
+                        <h2 class="offer_item_title">Eau de Parfum</h2>
+                        <span class="offer_item_desc">Gardens of Love - the true love story of the Indian Shah for his concubine, which became a legend, is embodied in a mysterious, enveloping, forbidden and ardent exotic aroma.</span>
+                        <button class="offer_item_button" type="button" onclick="location.href='./index.html'">Find Out More</button>
                     </div>
                 </div>
             </section>
-            <section class="portfolio">
-                <h2 class="Portfolio_Title">Portfolio</h2>
-                <div class="portfolio_button" onclick="location.href='./portfolio.html'"><span>Click Me</span></div>
+            <section class="WhyUs">
+                <h2>Why us?</h2>
+                <span class="title_desc">We have the widest selection of different perfumes, excellent quality, a crowd of satisfied customers, and also have our own fast delivery throughout the country.</span>
+                <span class="reviews_title">Reviews from our clients</span>
+                <div class="carousel">
+                    <div class="carousel-slides">
+                      <div class="carousel-slide">
+                        <div class="carousel-image Natalya"></div>
+                        <span class="review_title">Natalya</span>
+                        <span class="review_desc">Really good store</span>
+                      </div>
+                      <div class="carousel-slide">
+                        <div class="carousel-image Jonathan"></div>
+                        <span class="review_title">Jonathan</span>
+                        <span class="review_desc">The wife was simply delighted!</span>
+                      </div>
+                    </div>
+                    <div class="carousel-controls">
+                      <button class="carousel-button" id="prev">&lt;</button>
+                      <button class="carousel-button" id="next">&gt;</button>
+                    </div>
+                  </div>
             </section>
         </main>
         <footer>
-            <h2 class="title">Did I interest you?</h2>
-            <span class="contacts">Contacts</span>
-            <span class="contacts_desc">For business proposals: ivlad6543@gmail.com</span>
-            <span class="brands">Brands I've Worked</span>
-            <span class="follow">You can follow me on</span>
-            <div class="footer_line"></div>
-            <span class="footer_reserved">(c) All rights reserved. Isaev Design. 2025</span>
-            <div class="HoverMe">
-                <span>Click Me</span>
-            </div>
-            <div class="HoverMe_tooltip">
-                <div class="HoverMe_tooltip_item company1"></div>
-                <div class="HoverMe_tooltip_item company2"></div>
-                <div class="HoverMe_tooltip_item company3"></div>
-                <div class="HoverMe_tooltip_item company4"></div>
-                <div class="HoverMe_tooltip_item company5"></div>
-                <div class="HoverMe_tooltip_item company6"></div>
-                <div class="HoverMe_tooltip_item company7"></div>
-                <div class="HoverMe_tooltip_item company8"></div>
-                <div class="HoverMe_tooltip_item company9"></div>
-            </div>
-        </footer>
-        <script src="/scripts/tooltip.js"></script>
+            <span class="footer_title">The best perfume store in Kazakhstan</span>
+            <div class="underline"></div>
+            <span class="business">For business</span>
+            <span class="business_desc">G-mail: perfume@gmail.com</span>
+            <span class="location">We are here</span>
+            <iframe class="location_map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1253.024551453668!2d71.40744645797005!3d51.089101308404736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585f61eb2b643%3A0x7dab7bd233d66bf3!2z0JfQvtC70L7RgtC-0LUg0K_QsdC70L7QutC-!5e0!3m2!1sru!2skz!4v1737391764696!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <span class="navigation">Navigation</span>
+            <nav class="footer_navbar">
+              <ul class="footer_navbarNav">
+                <li><a class="navbar_link" href="#home">Home</a></li>
+                <li><a class="navbar_link" href="#help">Help</a></li>
+                <li><a class="navbar_link" href="#contacts">Contacts</a></li>
+                <li><a class="navbar_link" href="#404">404</a></li>
+              </ul>
+            </nav>
+          </footer>
+        <script src="/scripts/carousel.js"></script>
     </body>
 </html>
