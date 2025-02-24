@@ -7,9 +7,19 @@
     </head>
     <body>
         <button class="test_button" type="button" onclick="pickFunction()">Click Me</button>
-        <input class="testInput" type="text" placeholder="Введите текст">
-        <span class="inputText"></span>
-        <button class="InputButton" type="button" onclick="func_4()">Вызывать функцию</button>
+
+        <div class="form_container">
+            <h2>Отправка данных</h2>
+            <form action="" method="dialog">
+                <input class="input name" type="text" placeholder="Ваше имя..." required>
+                <input class="input surname" type="text" placeholder="Ваша фамилия..." required>
+                <input class="input number" type="text" placeholder="Ваш номер телефона..." required>
+                <input class="input email" type="text" placeholder="Ваша электронная почта..." required>
+                <input class="input age" type="text" placeholder="Ваш возраст..." required>
+                <button class="submitButton" type="submit" onclick="test()">ОТПРАВИТЬ</button>
+            </form>
+        </div>
+
         <script src="/scripts/index.js"></script>
     </body>
 </html>

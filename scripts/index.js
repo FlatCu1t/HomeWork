@@ -21,34 +21,56 @@ const utils = {
     }
 }
 
-function func_1() {
-    const date = "2025-12-31";
-    let dateReversed = date.split('-').reverse().join("/");
-    return `${dateReversed}`;
+function getUnix() {
+    return Math.floor(new Date().getTime());
 }
 
-function func_2(str) {
-    if (!str || typeof str !== "string") return "Функция требует String.";
-    return str.split('').reverse().join('');
+function unixStamp(stamp) {
+    let date = new Date(stamp),
+        year = date.getFullYear(),
+        month = date.getMonth() + 1,
+        month2 = month < 10 ? "0"+month : month,
+        day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate(),
+        hour = date.getHours() < 10 ? "0"+date.getHours() : date.getHours(),
+        minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes(),
+        secs = date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds();
+
+    return `${day}.${month2}.${year}, ${hour}:${minutes}:${secs}`;
 }
 
-function func_3(str, symbol) {
-    if ((!str || !symbol) || (typeof str !== "string" || typeof symbol !== "string")) return "Функция требует две String.";
-    return str.includes(symbol) ? `Символ "${symbol}" есть в строке "${str}"` : `Символа "${symbol}" нет в строке "${str}"`;
-}
-
-function func_4() {
-    const input = document.querySelector(".testInput").value.toString();
-    const inputText = document.querySelector(".inputText");
-    if (input.length < 1) {
-        inputText ? inputText.textContent = "" : null;
-        return console.log("Значение в Input пустое. Если в inputText был контент он автоматически очищен.");
+function inputChecker(inputs) {
+    const telephoneRegex = /^(\+7|8|7)?[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$/;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!inputs || inputs.length <= 0) throw new Error("Функции требуется массив с инпутами.");
+    for (let i = 0; i < inputs.length; i++) {
+        switch(i) {
+            case 0:
+                if (typeof inputs[i].value !== "string") throw new Error("В поле \"Имя\" должен быть текст.");
+                break;
+            case 1:
+                if (typeof inputs[i].value !== "string") throw new Error("В поле \"Фамилия\" должен быть текст.");
+                break;
+            case 2:
+                if (!telephoneRegex.test(inputs[i].value)) throw new Error("Поле \"Номер телефона\" некорректно.");
+                break;
+            case 3:
+                if (!emailRegex.test(inputs[i].value)) throw new Error("Поле \"Электронная почта\" некорректно.");
+                break;
+            case 4:
+                if (isNaN(parseInt(inputs[i].value))) throw new Error("В поле \"Возраст\" должно быть число.");
+                break;
+        }
     }
-    if (input && inputText) {
-        console.log(input.trim());
-        inputText.textContent = input.trim();
-    } else {
-        return console.error("Input или inputText не инициализированы.");
+}
+
+function test() {
+    try {
+        const inputs = document.querySelectorAll("input");
+        inputChecker(inputs);
+        const user = { name: inputs[0].value, surname: inputs[1].value, number: `${inputs[2].value}`, email: inputs[3].value, age: parseInt(inputs[4].value) };
+        return console.log(`🙍‍♂️ ЗАПРОС НА НОВУЮ ОТПРАВКУ ДАННЫХ\n\n`, user, `\n\n⌛ Дата отправки: ${unixStamp(getUnix())}`);
+    } catch (error) {
+        return console.error(error.stack);
     }
 }
 
