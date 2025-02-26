@@ -16,9 +16,7 @@ const utils = {
             return int;
         }
     },
-    random: (x, y) => {
-        return y ? Math.round(Math.random() * (y - x)) + x : Math.round(Math.random() * x);
-    }
+    decl: (n, titles) => { return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2] }
 }
 
 function getUnix() {
@@ -28,49 +26,139 @@ function getUnix() {
 function unixStamp(stamp) {
     let date = new Date(stamp),
         year = date.getFullYear(),
-        month = date.getMonth() + 1,
-        month2 = month < 10 ? "0"+month : month,
-        day = date.getDate() < 10 ? "0"+date.getDate() : date.getDate(),
-        hour = date.getHours() < 10 ? "0"+date.getHours() : date.getHours(),
-        minutes = date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes(),
-        secs = date.getSeconds() < 10 ? "0"+date.getSeconds() : date.getSeconds();
+        month = (date.getMonth() + 1).toString().padStart(2, "0"),
+        day = date.getDate().toString().padStart(2, "0"),
+        hour = date.getHours().toString().padStart(2, "0"),
+        minutes = date.getMinutes().toString().padStart(2, "0"),
+        secs = date.getSeconds().toString().padStart(2, "0");
 
-    return `${day}.${month2}.${year}, ${hour}:${minutes}:${secs}`;
+    return `${day}.${month}.${year}, ${hour}:${minutes}:${secs}`;
 }
 
-function inputChecker(inputs) {
-    const telephoneRegex = /^(\+7|8|7)?[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}$/;
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!inputs || inputs.length <= 0) throw new Error("Функции требуется массив с инпутами.");
-    for (let i = 0; i < inputs.length; i++) {
-        switch(i) {
-            case 0:
-                if (typeof inputs[i].value !== "string") throw new Error("В поле \"Имя\" должен быть текст.");
-                break;
-            case 1:
-                if (typeof inputs[i].value !== "string") throw new Error("В поле \"Фамилия\" должен быть текст.");
-                break;
-            case 2:
-                if (!telephoneRegex.test(inputs[i].value)) throw new Error("Поле \"Номер телефона\" некорректно.");
-                break;
-            case 3:
-                if (!emailRegex.test(inputs[i].value)) throw new Error("Поле \"Электронная почта\" некорректно.");
-                break;
-            case 4:
-                if (isNaN(parseInt(inputs[i].value))) throw new Error("В поле \"Возраст\" должно быть число.");
-                break;
-        }
+function unixStampDays(stamp, stamp2) {
+    const date = new Date(stamp -= stamp2);
+    let text = ``;
+
+    stamp = stamp / 1000;
+
+    let s = stamp % 60;
+    stamp = ( stamp - s ) / 60;
+
+    let m = stamp % 60;
+    stamp = ( stamp - m ) / 60;
+
+    let	h = ( stamp ) % 24;
+    let	d = ( stamp - h ) / 24;
+
+    d > 0 ? text += `${Math.floor(d)} ${utils.decl(d, ["день", "дня", "дней"])}, ` : null;
+    h > 0 ? text += `${Math.floor(h)} ${utils.decl(h, ["час", "часа", "часов"])} ` : null;
+    m > 0 ? text += `${Math.floor(m)} ${utils.decl(m, ["минуту", "минуты", "минут"])} ` : null;
+    text += `${Math.floor(s)} ${utils.decl(s, ["секунду", "секунды", "секунд"])}`;
+
+    return text;
+}
+
+console.log(`Для удобства: fractions(new Fraction(1,2), new Fraction(3,4));`);
+
+const car = {
+    manufacturer: "Toyota",
+    model: "Corolla",
+    year: 2020,
+    averageSpeed: 80
+};
+
+function displayCarInfo() {
+    const infoDiv = document.querySelector(".car-info");
+    if (!infoDiv.style.display) {
+        infoDiv.style.display = "block"
+        infoDiv.innerHTML = `
+            <p class='carInfo'><strong>Производитель:</strong> ${car.manufacturer}</p>
+            <p class='carInfo'><strong>Модель:</strong> ${car.model}</p>
+            <p class='carInfo'><strong>Год выпуска:</strong> ${car.year}</p>
+            <p class='carInfo'><strong>Средняя скорость:</strong> ${car.averageSpeed} км/ч</p>
+        `;
+    } else {
+        infoDiv.style.display = null
+        infoDiv.innerHTML = ``;
     }
 }
 
-function test() {
+function calculateTravelTime() {
+    const distance = parseFloat(document.querySelector(".distance").value);
+    if (isNaN(distance) || distance <= 0) {
+        throw new Error("Пожалуйста, введите корректное расстояние");
+        return;
+    }
+
+    const time = distance / car.averageSpeed;
+    const hours = Math.floor(time);
+    const minutes = Math.round((time - hours) * 60);
+    document.querySelector(".time-result").innerHTML =
+        `<p>Необходимое время в пути: ${hours} ч ${minutes} мин</p>`;
+}
+
+class Fraction {
+    constructor(numerator, denominator) {
+        if (denominator === 0) {
+            throw new Error("Знаменатель не может быть равен 0");
+        }
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+
+    static gcd(a, b) {
+        return b === 0 ? a : Fraction.gcd(b, a % b);
+    }
+
+    reduce() {
+        const divisor = Fraction.gcd(Math.abs(this.numerator), Math.abs(this.denominator));
+        return new Fraction(this.numerator / divisor, this.denominator / divisor);
+    }
+
+    add(other) {
+        const newNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator).reduce();
+    }
+
+    subtract(other) {
+        const newNumerator = this.numerator * other.denominator - other.numerator * this.denominator;
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator).reduce();
+    }
+
+    multiply(other) {
+        const newNumerator = this.numerator * other.numerator;
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator).reduce();
+    }
+
+    divide(other) {
+        if (other.numerator === 0) {
+            throw new Error("Деление на ноль невозможно");
+        }
+        const newNumerator = this.numerator * other.denominator;
+        const newDenominator = this.denominator * other.numerator;
+        return new Fraction(newNumerator, newDenominator).reduce();
+    }
+
+    toString() {
+        return `${this.numerator}/${this.denominator}`;
+    }
+}
+
+function fractions(a, b) {
+    if ((!a || !b) || (!(a instanceof Fraction) || !(b instanceof Fraction))) throw new Error("Функция требует 2 объекта, содержащие числитель и знаменатель.");
+
     try {
-        const inputs = document.querySelectorAll("input");
-        inputChecker(inputs);
-        const user = { name: inputs[0].value, surname: inputs[1].value, number: `${inputs[2].value}`, email: inputs[3].value, age: parseInt(inputs[4].value) };
-        return console.log(`🙍‍♂️ ЗАПРОС НА НОВУЮ ОТПРАВКУ ДАННЫХ\n\n`, user, `\n\n⌛ Дата отправки: ${unixStamp(getUnix())}`);
+        console.log(`Сложение: ${a.toString()} + ${b.toString()} = ${a.add(b).toString()}
+Вычитание: ${a.toString()} - ${b.toString()} = ${a.subtract(b).toString()}
+Умножение: ${a.toString()} * ${b.toString()} = ${a.multiply(b).toString()}
+Деление: ${a.toString()} / ${b.toString()} = ${a.divide(b).toString()}`);
+        return "Конец функции.";
     } catch (error) {
-        return console.error(error.stack);
+        console.error(error.message);
+        return "Функция завершилась с ошибкой.";
     }
 }
 
