@@ -7,15 +7,66 @@
     </head>
     <body>
         <button class="test_button" type="button" onclick="pickFunction()">Click Me</button>
-        <h1>Информация об автомобиле</h1>
-        <div class="car-info"></div>
-        
-        <h2>Расчёт времени в пути</h2>
-        <label for="distance">Введите расстояние (км): </label>
-        <input type="number" class="distance" placeholder="Расстояние">
-        <button class="calculateButton" onclick="calculateTravelTime()">Рассчитать</button>
-        <button class="displayCarInfoButton" onclick="displayCarInfo()">Информация об автомобиле</button>
-        <div class="time-result"></div>
+        <div class="task1">
+            <form class="task1_form" action="" method="dialog">
+                <input class="task1_input" type="text" placeholder="День" required>
+                <input class="task1_input" type="text" placeholder="Месяц" required>
+                <input class="task1_input" type="text" placeholder="Год" required>
+                <button class="task1_button" type="submit" onclick="fullYears()">Отправить</button>
+            </form>
+            <p class="task1_text"></p>
+            <div class="card"></div>
+            <div class="colourButtons">
+                <button class="colourStart" type="button" onclick="randomColour()">Рандомный цвет</button>
+                <button class="colourStop" type="button" onclick="stopRandomColour()">Стоп</button>
+            </div>
+        </div>
+        <div class="task2">
+            <div class="books">
+                <div class="book">
+                    <img src="https://m.media-amazon.com/images/I/61odXIvwy+L._AC_UF1000,1000_QL80_.jpg" alt="HTML & CSS">
+                    <p><strong>HTML & CSS</strong></p>
+                    <p>Цена: 500₽</p>
+                </div>
+                <div class="book">
+                    <img src="https://m.media-amazon.com/images/I/91dOB9d+zsL.jpg" alt="Learning Javascript">
+                    <p><strong>Learning Javascript: JavaScript Essentials for Modern Application Development</strong></p>
+                    <p>Цена: 400₽</p>
+                </div>
+                <div class="book">
+                    <img src="https://m.media-amazon.com/images/I/7186YfjgHHL._AC_UF1000,1000_QL80_.jpg" alt="You Don't Know JS">
+                    <p><strong>You Don't Know JS</strong></p>
+                    <p>Цена: 600₽</p>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <label for="bookSelect">Выберите книгу:</label>
+                <select id="bookSelect">
+                    <option value="HTML & CSS">HTML & CSS</option>
+                    <option value="Learning Javascript">Learning Javascript</option>
+                    <option value="You Don't Know JS">You Don't Know JS</option>
+                </select>
+            
+                <label for="quantity">Количество экземпляров:</label>
+                <input type="number" id="quantity" min="1" value="1">
+            
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name">
+            
+                <label for="deliveryDate">Дата доставки:</label>
+                <input type="date" id="deliveryDate">
+            
+                <label for="address">Адрес доставки:</label>
+                <input type="text" id="address">
+
+                <label for="comment">Комментарий:</label>
+                <textarea id="comment" rows="3"></textarea>
+
+                <button type="button" onclick="placeOrder()">Оформить заказ</button>
+                <div id="result"></div>
+            </div>
+        </div>
         <script src="/scripts/index.js"></script>
     </body>
 </html>

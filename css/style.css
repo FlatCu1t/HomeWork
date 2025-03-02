@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
 
 body {
-    margin: 0;
+    margin: 20px;
     background-color: rgb(31, 31, 31);
     font-family: "JetBrains Mono", serif;
     font-optical-sizing: auto;
@@ -50,34 +50,155 @@ body {
     }
 }
 
-h1, h2 {
-    color: #333;
+.task1_input {
+    width: 200px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    padding-left: 20px;
+    font-size: 20px;
 }
 
-label {
+.task1_input::placeholder {
+    font-size: 20px;
+}
+
+.task1_button {
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    left: 435px;
+    top: 70px;
+}
+
+.task1_text {
+    position: absolute;
     color: white;
+    font-size: 20px;
+    font-weight: 500;
+    left: 40px;
+    top: 60px;
+    width: 350px;
 }
 
-.car-info {
-    display: none;
+.card {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 400px;
+    border-radius: 15px;
+    background-color: red;
 }
 
-.carInfo {
+.colourButtons {
+    position: relative;
+    width: 400px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5%;
+}
+
+.colourStart {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
     font-size: 16px;
-    color: white;
+    cursor: pointer;
 }
 
-input {
+.colourStop {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.task1 {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.task2 {
+    position: relative;
+    width: 100%;
+    height: 115vh;
+}
+
+.books {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.book {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+}
+
+.book img {
+    max-width: 100%;
+    height: auto;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-container label {
+    display: block;
+    margin-top: 10px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container input[type="number"],
+.form-container textarea,
+.form-container select {
+    width: 100%;
     padding: 5px;
-    font-size: 16px;
+    margin-top: 5px;
+    box-sizing: border-box;
 }
 
-.calculateButton {
-    padding: 5px 10px;
-    font-size: 16px;
+.form-container button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-.displayCarInfoButton {
-    padding: 5px 10px;
-    font-size: 16px;
+label, p {
+    color: white;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    white-space: pre-line;
+    color: white;
 }
