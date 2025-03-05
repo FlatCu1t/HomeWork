@@ -77,83 +77,60 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-function fullYears() {
-    const inputs = document.querySelectorAll(".task1_input");
-    if (!inputs) throw new Error("Инпуты не инициализированы.");
-    let day, month, year = 0;
-    inputs.forEach((el, index) => {
-        if (el.value) {
-            if (!el.value || typeof parseInt(el.value) !== "number") throw new Error("Некорректный value у элемента.");
+function printEmail() {
+    const input = document.getElementById("footerInput");
+    if (!input) throw new Error("Инпут не инициализирован.");
+    if (!input.value) throw new Error("Значение инпута пустое.");
+    return console.log(`New Subscribtion: ${input.value}`);
+}
+
+function showTooltip(tt) {
+    const tooltip = document.querySelector(tt);
+    if (!tooltip) throw new Error("Тултип не инициализирован.");
+
+    if (!tooltip.style.display) {
+
+        tooltip.style.display = "block"
+
+        if(!tooltip.classList.contains("opened")) {
+            tooltip.classList.contains("closed") ? tooltip.classList.remove("closed") : null;
+            tooltip.classList.add("opened");
+        };
+
+    } else {
+
+        if(tooltip.classList.contains("opened")) {
+            tooltip.classList.remove("opened");
+            tooltip.classList.add("closed");
+        };
+
+        setTimeout(() => {
+            tooltip.style.display = null;
+        }, 800);
+    }
+}
+
+function randomizeNumbers() {
+    const texts = document.querySelectorAll(".stat_container");
+    texts.forEach((el, index) => {
+        if (el.children[0]) {
+            const rand = getRandomInRange(50, 1000);
             switch (index) {
                 case 0:
-                    day = el.value;
+                    el.children[0].textContent = rand + "K";
                     break;
                 case 1:
-                    month = el.value;
+                    el.children[0].textContent = rand + "K";
                     break;
                 case 2:
-                    year = el.value;
+                    el.children[0].textContent = rand;
                     break;
-                default:
+                case 3:
+                    el.children[0].textContent = rand + "+";
                     break;
             }
         }
     });
-
-    const totalyears = unixStampDays(getUnix(), new Date(`${year}/${month}/${day}`).getTime());
-    const WindowText = document.querySelector(".task1_text");
-    if (WindowText && totalyears.years > 0) {
-        return WindowText.textContent = `Вам сейчас ${totalyears.years} ${utils.decl(totalyears.years, ["полный", "полных", "полных"])} ${utils.decl(totalyears.years, ["год", "лет", "лет"])}`;
-    }
-}
-
-const colours = ["Black", "White", "Red", "Green", "Blue", "Pink", "violet"];
-let timer = false;
-
-function randomColour() {
-    if (!colours || colours.length <= 0) throw new Error("Массив с цветами не инициализирован.");
-    const maxLength = colours.length-1;
-    console.log("Запускаю таймер...");
-    timer = setInterval(() => {
-        const card = document.querySelector(".card");
-        if (!card && timer) {
-            clearInterval(timer);
-            throw new Error("Карточка не инициализирована.");
-        }
-
-        card.style.backgroundColor = colours[getRandomInRange(0, maxLength)];
-        console.log(`Цвет поменялся. Текущий цвет: ${card.style.backgroundColor}`);
-    }, 3000);
-}
-
-function stopRandomColour() {
-    if (timer && typeof timer == "number") {
-        clearInterval(timer);
-        timer = false;
-        return console.log(`Таймер остановлен.`);
-    }
-    return console.log(`Таймер не обнаружен.`);
-}
-
-function placeOrder() {
-    const book = document.getElementById('bookSelect').value;
-    const quantity = document.getElementById('quantity').value;
-    const name = document.getElementById('name').value.trim();
-    const deliveryDate = document.getElementById('deliveryDate').value;
-    const address = document.getElementById('address').value.trim();
-    const comment = document.getElementById('comment').value.trim();
-
-    if (!name || !deliveryDate || !address || !quantity) {
-        throw new Error('Пожалуйста, заполните все обязательные поля.');
-    }
-
-    const message = 
-        `${name}, спасибо за заказ!\n` +
-        `${quantity} экземпляр(ов) книги "${book}" будет доставлен(ы) ` +
-        `${deliveryDate} по адресу: ${address}.\n` +
-        (comment ? `Комментарий: ${comment}` : '');
-
-    document.getElementById('result').textContent = message;
 }
 
 function pickFunction() {

@@ -7,66 +7,118 @@
     </head>
     <body>
         <button class="test_button" type="button" onclick="pickFunction()">Click Me</button>
-        <div class="task1">
-            <form class="task1_form" action="" method="dialog">
-                <input class="task1_input" type="text" placeholder="День" required>
-                <input class="task1_input" type="text" placeholder="Месяц" required>
-                <input class="task1_input" type="text" placeholder="Год" required>
-                <button class="task1_button" type="submit" onclick="fullYears()">Отправить</button>
-            </form>
-            <p class="task1_text"></p>
-            <div class="card"></div>
-            <div class="colourButtons">
-                <button class="colourStart" type="button" onclick="randomColour()">Рандомный цвет</button>
-                <button class="colourStop" type="button" onclick="stopRandomColour()">Стоп</button>
-            </div>
-        </div>
-        <div class="task2">
-            <div class="books">
-                <div class="book">
-                    <img src="https://m.media-amazon.com/images/I/61odXIvwy+L._AC_UF1000,1000_QL80_.jpg" alt="HTML & CSS">
-                    <p><strong>HTML & CSS</strong></p>
-                    <p>Цена: 500₽</p>
-                </div>
-                <div class="book">
-                    <img src="https://m.media-amazon.com/images/I/91dOB9d+zsL.jpg" alt="Learning Javascript">
-                    <p><strong>Learning Javascript: JavaScript Essentials for Modern Application Development</strong></p>
-                    <p>Цена: 400₽</p>
-                </div>
-                <div class="book">
-                    <img src="https://m.media-amazon.com/images/I/7186YfjgHHL._AC_UF1000,1000_QL80_.jpg" alt="You Don't Know JS">
-                    <p><strong>You Don't Know JS</strong></p>
-                    <p>Цена: 600₽</p>
+        <header>
+            <div class="header_burger"></div>
+            <div class="navbar">
+                <h2 class="brandname">Brandname</h2>
+                <nav>
+                    <ul>
+                        <li><a class="navbar_li" href="#">Home</a></li>
+                        <li><a class="navbar_li" href="#">Product</a></li>
+                        <li><a class="navbar_li" href="#">Pricing</a></li>
+                        <li><a class="navbar_li" href="#">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="navbar_button_container">
+                    <button class="navbar_button loginButton" type="button">LogIn</button>
+                    <button class="navbar_button cartButton" type="button">CART</button>
                 </div>
             </div>
-            
-            <div class="form-container">
-                <label for="bookSelect">Выберите книгу:</label>
-                <select id="bookSelect">
-                    <option value="HTML & CSS">HTML & CSS</option>
-                    <option value="Learning Javascript">Learning Javascript</option>
-                    <option value="You Don't Know JS">You Don't Know JS</option>
-                </select>
-            
-                <label for="quantity">Количество экземпляров:</label>
-                <input type="number" id="quantity" min="1" value="1">
-            
-                <label for="name">Ваше имя:</label>
-                <input type="text" id="name">
-            
-                <label for="deliveryDate">Дата доставки:</label>
-                <input type="date" id="deliveryDate">
-            
-                <label for="address">Адрес доставки:</label>
-                <input type="text" id="address">
-
-                <label for="comment">Комментарий:</label>
-                <textarea id="comment" rows="3"></textarea>
-
-                <button type="button" onclick="placeOrder()">Оформить заказ</button>
-                <div id="result"></div>
+            <h2>25K+ STUDENTS TRUST US</h2>
+            <p>Every day brings with it a fresh set of learning possibilities.</p>
+            <div class="header_buttons_container">
+                <button class="header_button quote" type="button">Get Quote Now</button>
+                <button class="header_button learnMore" type="button" onclick="showTooltip(`.header_clue.learnMore`)">Learn More</button>
+                <div class="header_clue learnMore">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo sunt atque quod commodi laboriosam aliquam iusto, est quisquam qui adipisci? Corporis a quasi distinctio obcaecati dolores incidunt deleniti quod! Officia?</span>
+                </div>
             </div>
-        </div>
+            <div class="small_about_container">
+                <div class="small_about_item">
+                    <h2>Expert instruction</h2>
+                    <p>The gradual accumulation of information about atomic and small-scale behaviour...</p>
+                    <img class="small_about_item img" src="/images/small_about_img_1.svg" alt="About_1 img" loading="lazy">
+                </div>
+                <div class="small_about_item">
+                    <h2>Training Courses</h2>
+                    <p>The gradual accumulation of information about atomic and small-scale behaviour...</p>
+                    <img class="small_about_item img" src="/images/small_about_img_2.svg" alt="About_2 img" loading="lazy">
+                </div>
+                <div class="small_about_item">
+                    <h2>Expert instruction</h2>
+                    <p>The gradual accumulation of information about atomic and small-scale behaviour...</p>
+                    <img class="small_about_item img" src="/images/small_about_img_3.svg" alt="About_3 img" loading="lazy">
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="main_section one">
+                <img class="ramka" src="/images/ramka.png" alt="" loading="lazy">
+                <div class="stats_container">
+                    <div class="stat_container">
+                        <span>15K</span>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat_container">
+                        <span>150K</span>
+                        <p>Monthly Visitors</p>
+                    </div>
+                    <div class="stat_container">
+                        <span>15</span>
+                        <p>Countries Worldwide</p>
+                    </div>
+                    <div class="stat_container">
+                        <span>100+</span>
+                        <p>Top Partners</p>
+                    </div>
+                    <button type="button" onclick="randomizeNumbers()">Magic Button</button>
+                </div>
+            </section>
+            <section class="main_section two">
+                <img src="/images/coder.png" alt="coder" loading="lazy">
+                <h2>Every Client Matters</h2>
+                <p>Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics </p>
+                <button class="main_section_button learnMore" type="button" onclick="showTooltip(`.header_clue.learnMore_two`)">Learn More ▶</button>
+                <div class="header_clue learnMore_two">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo sunt atque quod commodi laboriosam aliquam iusto, est quisquam qui adipisci? Corporis a quasi distinctio obcaecati dolores incidunt deleniti quod! Officia?</span>
+                </div>
+            </section>
+            <section class="main_section three">
+                <div class="additional_info_container">
+                    <div class="additional_item">
+                        <img class="additional_item mainIcon" src="https://www.in2code.de/fileadmin/_processed_/0/b/csm_code_javascript_49d002a67e.webp" alt="Additional_1" loading="lazy">
+                        <img class="additional_item smallIcon" src="/images/cart_icon.svg" alt="cart" loading="lazy">
+                        <h2>Get Quality Education</h2>
+                        <p>We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
+                        <button type="button">Learn More ▶</button>
+                    </div>
+                    <div class="additional_item">
+                        <img class="additional_item mainIcon" src="https://s3-ap-southeast-2.amazonaws.com/ish-oncourse-scc/edff9605-34ee-47c3-b0d8-14c11c183875?versionId=ESq0zGB6_Ihc1g5fuZKz1wGql77fNI1J" alt="Additional_2" loading="lazy">
+                        <img class="additional_item smallIcon" src="/images/cart_icon.svg" alt="cart" loading="lazy">
+                        <h2>Our Popular Courses</h2>
+                        <p>We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
+                        <button type="button">Learn More ▶</button>
+                    </div>
+                    <div class="additional_item">
+                        <img class="additional_item mainIcon" src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/38937415/original/559cfb9013524c25d1569e33a9eb775213a1ed70/write-php-or-correct-your-php-code-and-php-website.png" alt="Additional_3" loading="lazy">
+                        <img class="additional_item smallIcon" src="/images/cart_icon.svg" alt="cart" loading="lazy">
+                        <h2>Most Popular Courses</h2>
+                        <p>We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
+                        <button type="button">Learn More ▶</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>Made With Love By Figmaland All Right Reserved </p>
+            <label for="footer_name">Your email:</label>
+            <input id="footerInput" type="text" name="footer_name" placeholder="Email...">
+            <p class="supp">You can always contact our technical support: example@mail.ru</p>
+            <button type="button" onclick="printEmail()">SUBSCRIBE</button>
+            <img class="vk" src="/images/vk.png" alt="VK" loading="lazy">
+            <img class="facebook" src="/images/facebook.png" alt="Facebook" loading="lazy">
+            <img class="instagram" src="/images/instagram.png" alt="Instagram" loading="lazy">
+        </footer>
         <script src="/scripts/index.js"></script>
     </body>
 </html>
