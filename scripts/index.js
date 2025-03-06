@@ -16,12 +16,9 @@ const utils = {
             return int;
         }
     },
-    decl: (n, titles) => { return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2] }
+    decl: (n, titles) => { return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2] },
+    rand: (min, max) => { return Math.floor(Math.random() * (max - min + 1)) + min }
 }
-
-function getRandomInRange(min, max) { 
-    return Math.floor(Math.random() * (max - min + 1)) + min; 
-};
 
 function getUnix() {
     return Math.floor(new Date().getTime());
@@ -77,60 +74,170 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-function printEmail() {
-    const input = document.getElementById("footerInput");
-    if (!input) throw new Error("Инпут не инициализирован.");
-    if (!input.value) throw new Error("Значение инпута пустое.");
-    return console.log(`New Subscribtion: ${input.value}`);
-}
+const form = document.forms["myForm"];
+const usernameInput = form.elements[0];
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const subForm_container = document.querySelector(".subform_container");
+    if (subForm_container) {
+        subForm_container.childNodes.forEach((e, index) => {
+            if (index < 6) {
+                switch (index) {
+                    case 1:
+                        e.textContent = "Имя: " + form.elements[0].value;
+                        break;
+                    case 3:
+                        e.textContent = "Фамилия: " + form.elements[1].value;
+                        break;
+                    case 5:
+                        e.textContent = "Почта: " + form.elements[2].value;
+                        break;
+                }
+            }
+        });
 
-function showTooltip(tt) {
-    const tooltip = document.querySelector(tt);
-    if (!tooltip) throw new Error("Тултип не инициализирован.");
-
-    if (!tooltip.style.display) {
-
-        tooltip.style.display = "block"
-
-        if(!tooltip.classList.contains("opened")) {
-            tooltip.classList.contains("closed") ? tooltip.classList.remove("closed") : null;
-            tooltip.classList.add("opened");
-        };
-
+        return console.log(`Новая регистрация:\n\n`, JSON.parse(`{"name": "${form.elements[0].value}", "surname": "${form.elements[1].value}", "email": "${form.elements[2].value}"}`));
     } else {
+        throw new Error("SubForm container is not initializied.");
+    }
+});
 
-        if(tooltip.classList.contains("opened")) {
-            tooltip.classList.remove("opened");
-            tooltip.classList.add("closed");
-        };
+usernameInput.addEventListener("input", () => {
+    const inputContainer = document.querySelector(".input_container");
+    if (inputContainer) {
+        inputContainer.children[0].textContent = usernameInput.value;
+    }
+});
 
-        setTimeout(() => {
-            tooltip.style.display = null;
-        }, 800);
+usernameInput.addEventListener("focus", (e) => {
+    const inputContainer = document.querySelector(".input_container");
+    if (inputContainer) {
+        inputContainer.children[0].style.color = "blue"
+    }
+});
+
+usernameInput.addEventListener("blur", (e) => {
+    const inputContainer = document.querySelector(".input_container");
+    if (inputContainer) {
+        inputContainer.children[0].style.color = "gray"
+    }
+});
+
+function showForm(type) {
+    if (!type) return;
+    const authForm = document.querySelector(".form.form_login");
+    const regForm = document.querySelector(".form.form_register");
+    switch (type) {
+        case "register":
+            authForm.style.display = "block" ? authForm.style.display = "none" : authForm.style.display = "block";
+            regForm.style.display = "none" ? regForm.style.display = "block" : regForm.style.display = "none";
+            break;
+        case "login":
+            regForm.style.display = "block" ? regForm.style.display = "none" : regForm.style.display = "block";
+            authForm.style.display = "none" ? authForm.style.display = "block" : authForm.style.display = "none";
+            break;
     }
 }
 
-function randomizeNumbers() {
-    const texts = document.querySelectorAll(".stat_container");
-    texts.forEach((el, index) => {
-        if (el.children[0]) {
-            const rand = getRandomInRange(50, 1000);
-            switch (index) {
-                case 0:
-                    el.children[0].textContent = rand + "K";
-                    break;
-                case 1:
-                    el.children[0].textContent = rand + "K";
-                    break;
-                case 2:
-                    el.children[0].textContent = rand;
-                    break;
-                case 3:
-                    el.children[0].textContent = rand + "+";
-                    break;
-            }
-        }
+function login() {
+    const authForm = document.forms["loginForm"];
+    if (!authForm) throw new Error("Login form is not initializied.");
+    const username = authForm["username"].value;
+    const password = authForm["pass"].value;
+    if (!username || !password) throw new Error("Not all data received.");
+    return console.log(`LOGIN REQUEST:\nUsername: ${username}\nPassword: ${password}`);
+}
+
+function register() {
+    const regForm = document.forms["registerForm"];
+    if (!regForm) throw new Error("Register form is not initializied.");
+    const username = regForm["username"].value;
+    const email = regForm["email"].value;
+    const password = regForm["pass"].value;
+    if (!username || !email || !password) throw new Error("Not all data received.");
+    return console.log(`REGISTER REQUEST:\nUsername: ${username}\nEmail: ${email}\nPassword: ${password}`);
+}
+
+function addOption() {
+    const selector = document.getElementById("sel");
+    const option = selector.querySelector(`option[value="yellow"]`);
+    if (selector && !option) {
+        const newOption = new Option("Жёлтый", "yellow");
+        selector.appendChild(newOption);
+    } else {
+        throw new Error("Опция уже существует.");
+    }
+}
+
+const item_container = document.querySelector(".items_container");
+
+function addItem(itemID) {
+    if (!item_container) throw new Error("Items container not initializied.");
+    item_container.children[itemID].children[4].value++;
+    return total();
+}
+
+function removeItem(itemID) {
+    if (!item_container) throw new Error("Items container not initializied.");
+    item_container.children[itemID].children[4].value > 0 ? item_container.children[itemID].children[4].value-- : null;
+    return total();
+}
+
+function calculateTotalSum() {
+    if (!item_container) throw new Error("Items container or texts not initializied.");
+    let totalSum = 0;
+
+    const parquet = item_container.children[0].children[4].value;
+    const linoleum = item_container.children[1].children[4].value;
+    const carpet = item_container.children[2].children[4].value;
+
+    totalSum += parquet * 200;
+    totalSum += linoleum * 500;
+    totalSum += carpet * 1000;
+
+    return {totalSum: totalSum, parquet: parquet * 200, linoleum: linoleum * 500, carpet: carpet * 1000};
+}
+
+function total() {
+    const texts = document.querySelectorAll(".calculator_container p");
+    if (!item_container || !texts) throw new Error("Items container or texts not initializied.");
+    const parquet = texts[4];
+    const linoleum = texts[5];
+    const carpet = texts[6];
+    const summ = texts[7];
+    const totalSum = calculateTotalSum();
+    parquet.textContent = "Паркет: " + item_container.children[0].children[4].value + "x " + `(${utils.ssp(totalSum.parquet)},00₸)`;
+    linoleum.textContent = "Линолеум: " + item_container.children[1].children[4].value + "x " + `(${utils.ssp(totalSum.linoleum)},00₸)`;
+    carpet.textContent = "Ковролин: " + item_container.children[2].children[4].value + "x " + `(${utils.ssp(totalSum.carpet)},00₸)`;
+    summ.textContent = "Сумма: " + utils.ssp(totalSum.totalSum) + ",00₸";
+}
+
+const usnameInput = document.getElementById("usnameInput");
+usnameInput.addEventListener("keydown", (e) => {
+    const regex = /[0-9]+/g;
+    return regex.test(e.key) ? e.preventDefault() : null;
+});
+
+let currentIndex = 0;
+function switchTraffic() {
+    const trafficItems = document.querySelectorAll(".traffic_item");
+    if (!trafficItems || trafficItems.length < 1) throw new Error("Traffic items is not initializied.");
+    
+    trafficItems.forEach(item => {
+        item.style.backgroundImage = "url(/images/traffic_nolight.png)";
     });
+    
+    trafficItems[currentIndex].style.backgroundImage = "url(/images/traffic_light.png)";
+    currentIndex = (currentIndex + 1) % trafficItems.length;
+}
+
+function switchBackground(clickedLi) {
+    const li = document.querySelectorAll(".homework_section li");
+    if (!li || li.length < 1) throw new Error("li texts is not initializied.");
+    li.forEach((e) => {
+        e.style.backgroundColor = null;
+    });
+    clickedLi ? clickedLi.style.backgroundColor = "orange" : null;
 }
 
 function pickFunction() {
