@@ -74,170 +74,21 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const form = document.forms["myForm"];
-const usernameInput = form.elements[0];
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const subForm_container = document.querySelector(".subform_container");
-    if (subForm_container) {
-        subForm_container.childNodes.forEach((e, index) => {
-            if (index < 6) {
-                switch (index) {
-                    case 1:
-                        e.textContent = "Имя: " + form.elements[0].value;
-                        break;
-                    case 3:
-                        e.textContent = "Фамилия: " + form.elements[1].value;
-                        break;
-                    case 5:
-                        e.textContent = "Почта: " + form.elements[2].value;
-                        break;
-                }
-            }
-        });
+const Quotes = ["«Жизнь — это мозаика, собранная из маленьких, но значимых моментов.»", "«Свет надежды всегда пробивается сквозь тьму сомнений.»", "«Каждый новый день — шанс начать всё заново и открыть себя с новой стороны.»", "«Любовь — не просто чувство, а искусство видеть красоту в каждом человеке.»", "«Мудрость приходит, когда мы учимся принимать свои ошибки и двигаться дальше.»", "«Внутренний покой — ключ к гармонии с окружающим миром.»", "«Смелость — это не отсутствие страха, а умение идти вперёд, несмотря на него.»", "«Жизнь становится ярче, когда мы умеем ценить каждый мгновенье.»", "«Преодолев преграды, мы открываем в себе новые горизонты.»", "«Истинная сила человека кроется в его способности верить в лучшее.»", "«Судьба благоволит тем, кто смело следует за своей мечтой.»", "«В каждом прощании скрывается начало чего-то удивительного.»", "«Наша жизнь — как книга, и каждый день — новая страница.»", "«Иногда тишина говорит больше, чем тысячи слов.»", "«Улыбка — это маленькое чудо, способное изменить мир вокруг нас.»"];
+const Colors = ["red", "yellow", "green", "lime", "violet", "black"];
+const button = document.querySelector(".quoteButton");
+const image = document.querySelector(".figure");
 
-        return console.log(`Новая регистрация:\n\n`, JSON.parse(`{"name": "${form.elements[0].value}", "surname": "${form.elements[1].value}", "email": "${form.elements[2].value}"}`));
-    } else {
-        throw new Error("SubForm container is not initializied.");
-    }
+button.addEventListener("click", () => {
+    const container = document.querySelector(".quote_container");
+    if (!container) throw new Error("Контейнер для цитаты не инициализирован.");
+    container.children[0].textContent = Quotes[utils.rand(0, (Quotes.length-1))];
 });
 
-usernameInput.addEventListener("input", () => {
-    const inputContainer = document.querySelector(".input_container");
-    if (inputContainer) {
-        inputContainer.children[0].textContent = usernameInput.value;
-    }
-});
-
-usernameInput.addEventListener("focus", (e) => {
-    const inputContainer = document.querySelector(".input_container");
-    if (inputContainer) {
-        inputContainer.children[0].style.color = "blue"
-    }
-});
-
-usernameInput.addEventListener("blur", (e) => {
-    const inputContainer = document.querySelector(".input_container");
-    if (inputContainer) {
-        inputContainer.children[0].style.color = "gray"
-    }
-});
-
-function showForm(type) {
-    if (!type) return;
-    const authForm = document.querySelector(".form.form_login");
-    const regForm = document.querySelector(".form.form_register");
-    switch (type) {
-        case "register":
-            authForm.style.display = "block" ? authForm.style.display = "none" : authForm.style.display = "block";
-            regForm.style.display = "none" ? regForm.style.display = "block" : regForm.style.display = "none";
-            break;
-        case "login":
-            regForm.style.display = "block" ? regForm.style.display = "none" : regForm.style.display = "block";
-            authForm.style.display = "none" ? authForm.style.display = "block" : authForm.style.display = "none";
-            break;
-    }
-}
-
-function login() {
-    const authForm = document.forms["loginForm"];
-    if (!authForm) throw new Error("Login form is not initializied.");
-    const username = authForm["username"].value;
-    const password = authForm["pass"].value;
-    if (!username || !password) throw new Error("Not all data received.");
-    return console.log(`LOGIN REQUEST:\nUsername: ${username}\nPassword: ${password}`);
-}
-
-function register() {
-    const regForm = document.forms["registerForm"];
-    if (!regForm) throw new Error("Register form is not initializied.");
-    const username = regForm["username"].value;
-    const email = regForm["email"].value;
-    const password = regForm["pass"].value;
-    if (!username || !email || !password) throw new Error("Not all data received.");
-    return console.log(`REGISTER REQUEST:\nUsername: ${username}\nEmail: ${email}\nPassword: ${password}`);
-}
-
-function addOption() {
-    const selector = document.getElementById("sel");
-    const option = selector.querySelector(`option[value="yellow"]`);
-    if (selector && !option) {
-        const newOption = new Option("Жёлтый", "yellow");
-        selector.appendChild(newOption);
-    } else {
-        throw new Error("Опция уже существует.");
-    }
-}
-
-const item_container = document.querySelector(".items_container");
-
-function addItem(itemID) {
-    if (!item_container) throw new Error("Items container not initializied.");
-    item_container.children[itemID].children[4].value++;
-    return total();
-}
-
-function removeItem(itemID) {
-    if (!item_container) throw new Error("Items container not initializied.");
-    item_container.children[itemID].children[4].value > 0 ? item_container.children[itemID].children[4].value-- : null;
-    return total();
-}
-
-function calculateTotalSum() {
-    if (!item_container) throw new Error("Items container or texts not initializied.");
-    let totalSum = 0;
-
-    const parquet = item_container.children[0].children[4].value;
-    const linoleum = item_container.children[1].children[4].value;
-    const carpet = item_container.children[2].children[4].value;
-
-    totalSum += parquet * 200;
-    totalSum += linoleum * 500;
-    totalSum += carpet * 1000;
-
-    return {totalSum: totalSum, parquet: parquet * 200, linoleum: linoleum * 500, carpet: carpet * 1000};
-}
-
-function total() {
-    const texts = document.querySelectorAll(".calculator_container p");
-    if (!item_container || !texts) throw new Error("Items container or texts not initializied.");
-    const parquet = texts[4];
-    const linoleum = texts[5];
-    const carpet = texts[6];
-    const summ = texts[7];
-    const totalSum = calculateTotalSum();
-    parquet.textContent = "Паркет: " + item_container.children[0].children[4].value + "x " + `(${utils.ssp(totalSum.parquet)},00₸)`;
-    linoleum.textContent = "Линолеум: " + item_container.children[1].children[4].value + "x " + `(${utils.ssp(totalSum.linoleum)},00₸)`;
-    carpet.textContent = "Ковролин: " + item_container.children[2].children[4].value + "x " + `(${utils.ssp(totalSum.carpet)},00₸)`;
-    summ.textContent = "Сумма: " + utils.ssp(totalSum.totalSum) + ",00₸";
-}
-
-const usnameInput = document.getElementById("usnameInput");
-usnameInput.addEventListener("keydown", (e) => {
-    const regex = /[0-9]+/g;
-    return regex.test(e.key) ? e.preventDefault() : null;
-});
-
-let currentIndex = 0;
-function switchTraffic() {
-    const trafficItems = document.querySelectorAll(".traffic_item");
-    if (!trafficItems || trafficItems.length < 1) throw new Error("Traffic items is not initializied.");
-    
-    trafficItems.forEach(item => {
-        item.style.backgroundImage = "url(/images/traffic_nolight.png)";
+if (image) {
+    image.addEventListener("mouseenter", () => {
+        image.style.fill = Colors[utils.rand(0, (Colors.length-1))];
     });
-    
-    trafficItems[currentIndex].style.backgroundImage = "url(/images/traffic_light.png)";
-    currentIndex = (currentIndex + 1) % trafficItems.length;
-}
-
-function switchBackground(clickedLi) {
-    const li = document.querySelectorAll(".homework_section li");
-    if (!li || li.length < 1) throw new Error("li texts is not initializied.");
-    li.forEach((e) => {
-        e.style.backgroundColor = null;
-    });
-    clickedLi ? clickedLi.style.backgroundColor = "orange" : null;
 }
 
 function pickFunction() {

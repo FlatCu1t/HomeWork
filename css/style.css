@@ -2,18 +2,11 @@
 
 body {
     margin: 0;
-    background-color: rgb(68, 68, 68);
+    background-color: white;
     font-family: "JetBrains Mono", serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
-}
-
-:root {
-    --primary-color: #81159c;
-    --text-color: #c0d315;
-    --second-text-color: #cccccc;
-    --background-color-main: white;
 }
 
 .test_button {
@@ -57,440 +50,39 @@ body {
     }
 }
 
-header {
-    position: relative;
-    width: 100%;
-    height: 130vh;
-}
-
-.class_title {
-    margin: 0;
-    padding: 0;
+.quoteButton {
     position: absolute;
-    color: white;
-    font-weight: 600;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 30px;
-    font-size: 32px;
-}
-
-.form_container {
-    position: relative;
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%, -20%);
-    width: 400px;
-    height: 500px;
-    background-color: black;
+    left: 200px;
+    top: 100px;
+    border: none;
     border-radius: 10px;
-}
-.form_container h2 {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 30px;
-    font-size: 24px;
-    color: white;
-    font-weight: 600;
-}
-
-.form_container input {
-    width: 250px;
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    padding-left: 15px;
-    font-size: 20px;
-}
-
-.form_container input::placeholder {
-    font-size: 20px;
-}
-
-.form_form {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 50px;
-    align-items: center;
-    justify-content: center;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.submitButton {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -75px;
-    width: 200px;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
-}
-
-.submitButton:hover {
-    cursor: pointer;
-    transform: translateX(-50%) scale(1.1);
-}
-
-.subform_container {
-    position: absolute;
-    width: 300px;
-    height: 500px;
-    background-color: rgb(150, 0, 0);
-    border-radius: 5px;
-    right: 20%;
-    top: 20%;
-    transform: translateY(-20%);
-}
-
-.subform_container p {
-    margin-left: 20px;
-    font-size: 18px;
-}
-
-.input_container {
-    position: absolute;
-    width: 500px;
-    height: 250px;
     background-color: black;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 300px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.input_container p {
     color: white;
+    width: 200px;
+    height: 50px;
     font-size: 20px;
-    text-wrap: wrap;
-    max-width: 460px;
+    text-align: center;
+    cursor: pointer;
 }
 
-section {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-}
-
-section .form {
+.quote_container {
     position: relative;
     width: 400px;
-    height: 500px;
-    background-color: black;
-    border-radius: 5px;
-    left: 50%;
-    top: 100px;
-    transform: translateX(-50%);
-}
-
-section .form form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    position: absolute;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%, -30%);
-}
-
-section .form.form_register form {
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-section .form input {
-    width: 300px;
-    height: 40px;
-    border-radius: 8px;
-    border: none;
-    font-size: 20px;
-    padding-left: 20px;
-}
-
-section .form input::placeholder {
-    font-size: 20px;
-}
-
-section .form h2 {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    font-weight: 600;
-    color: white;
-    top: 30px;
-}
-
-section .form p {
-    position: absolute;
-    color: white;
-    font-size: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 20px;
-    text-wrap: nowrap;
-    cursor: default;
-}
-
-section .form p:hover {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-section .form.form_register {
-    display: none;
-}
-
-section .form button {
-    width: 180px;
-    height: 40px;
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    transition: transform 0.3s;
-}
-
-section .form button:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-#sel {
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    left: 200px;
-    top: 200px;
-}
-
-.optionButton {
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    left: 200px;
-    top: 400px;
-}
-
-.optionButton:hover {
-    cursor: pointer;
-}
-
-.calculator_container {
-    position: relative;
-    width: 85%;
-    height: 600px;
-    left: 50%;
-    top: -50px;
-    transform: translateX(-50%);
-    background-color: black;
-    overflow: hidden;
-}
-
-.items_container {
-    position: relative;
-    width: 33%;
-    height: inherit;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 20px 20px 20px 20px;
-    align-items: start;
-    justify-content: start;
-}
-
-.item {
-    position: relative;
-    width: 250px;
-    height: 250px;
+    height: 200px;
     border-radius: 7px;
-}
-
-.item p {
-    position: absolute;
-    left: 10%;
-    transform: translateX(-10%);
-    bottom: 10px;
-    font-size: 20px;
+    background-color: black;
     color: white;
+    font-size: 18px;
+    left: 500px;
+    top: 50px;
+    padding: 20px 20px 20px 20px;
+    overflow-y: auto;
 }
 
-.item .buttonAdd {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    bottom: 32px;
-    right: 10px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-}
-
-.item .buttonRemove {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    bottom: 32px;
-    right: 80px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-}
-
-.item input {
-    position: absolute;
-    width: 35px;
-    height: 20px;
-    bottom: 32px;
-    right: 35px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.item img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: inherit;
-    height: 180px;
-}
-
-.calculator_container p {
-    position: absolute;
-    color: white;
-    font-size: 24px;
-}
-
-.calculator_container .total {
-    right: 250px;
-    top: 10px;
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.calculator_container #parquet {
-    right: 350px;
-    top: 100px;
-}
-
-.calculator_container #linoleum {
-    right: 322px;
-    top: 150px;
-}
-
-.calculator_container #carpet {
-    right: 322px;
-    top: 200px;
-}
-
-.calculator_container #summ {
-    right: 280px;
-    top: 300px;
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.homework_section .homework_title {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    color: white;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 32px;
-}
-
-.homework_section input {
-    position: absolute;
-    width: 250px;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    padding-left: 20px;
-    left: 200px;
-    top: 200px;
-}
-
-.homework_section input::placeholder {
-    font-size: 20px;
-}
-
-.homework_section .Traffic_light_container {
-    position: relative;
-    width: 300px;
-    height: 150px;
-    border: 1px solid black;
-    left: 700px;
-    top: 150px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-}
-
-.homework_section .Traffic_light_container .traffic_item {
-    width: 80px;
-    height: 80px;
-    background-image: url(/images/traffic_nolight.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.homework_section .Traffic_button {
-    position: absolute;
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    right: 700px;
-    top: 200px;
-    cursor: pointer;
-}
-
-.homework_section nav ul {
-    list-style-type: none;
+.figure {
+    width: 128px;
+    height: 128px;
     position: absolute;
     left: 150px;
-    top: 400px;
-}
-
-.homework_section nav ul li {
-    color: white;
-    margin-bottom: 30px;
-    cursor: pointer;
-    background-color: none;
+    top: 500px;
 }
