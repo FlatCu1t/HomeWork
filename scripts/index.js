@@ -26,12 +26,12 @@ function getUnix() {
 
 function unixStamp(stamp) {
     let date = new Date(stamp),
-        year = date.getFullYear(),
-        month = (date.getMonth() + 1).toString().padStart(2, "0"),
-        day = date.getDate().toString().padStart(2, "0"),
-        hour = date.getHours().toString().padStart(2, "0"),
-        minutes = date.getMinutes().toString().padStart(2, "0"),
-        secs = date.getSeconds().toString().padStart(2, "0");
+    year = date.getFullYear(),
+    month = (date.getMonth() + 1).toString().padStart(2, "0"),
+    day = date.getDate().toString().padStart(2, "0"),
+    hour = date.getHours().toString().padStart(2, "0"),
+    minutes = date.getMinutes().toString().padStart(2, "0"),
+    secs = date.getSeconds().toString().padStart(2, "0");
 
     return `${day}.${month}.${year}, ${hour}:${minutes}:${secs}`;
 }
@@ -55,7 +55,6 @@ function unixStampDays(stamp, stamp2) {
     let h = Math.floor(remainderMs / (1000 * 60 * 60)) % 24;
     let d = Math.floor(remainderMs / (1000 * 60 * 60 * 24));
 
-    // Формирование итоговой строки
     let text = "";
     if (years > 0) {
         text += `${years} ${utils.decl(years, ["год", "года", "лет"])}, `;
@@ -74,22 +73,50 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const Quotes = ["«Жизнь — это мозаика, собранная из маленьких, но значимых моментов.»", "«Свет надежды всегда пробивается сквозь тьму сомнений.»", "«Каждый новый день — шанс начать всё заново и открыть себя с новой стороны.»", "«Любовь — не просто чувство, а искусство видеть красоту в каждом человеке.»", "«Мудрость приходит, когда мы учимся принимать свои ошибки и двигаться дальше.»", "«Внутренний покой — ключ к гармонии с окружающим миром.»", "«Смелость — это не отсутствие страха, а умение идти вперёд, несмотря на него.»", "«Жизнь становится ярче, когда мы умеем ценить каждый мгновенье.»", "«Преодолев преграды, мы открываем в себе новые горизонты.»", "«Истинная сила человека кроется в его способности верить в лучшее.»", "«Судьба благоволит тем, кто смело следует за своей мечтой.»", "«В каждом прощании скрывается начало чего-то удивительного.»", "«Наша жизнь — как книга, и каждый день — новая страница.»", "«Иногда тишина говорит больше, чем тысячи слов.»", "«Улыбка — это маленькое чудо, способное изменить мир вокруг нас.»"];
-const Colors = ["red", "yellow", "green", "lime", "violet", "black"];
-const button = document.querySelector(".quoteButton");
-const image = document.querySelector(".figure");
+const display = document.getElementById('display');
 
-button.addEventListener("click", () => {
-    const container = document.querySelector(".quote_container");
-    if (!container) throw new Error("Контейнер для цитаты не инициализирован.");
-    container.children[0].textContent = Quotes[utils.rand(0, (Quotes.length-1))];
+function press(key) {
+    display.value += key;
+}
+
+function clearDisplay() {
+    display.value = '';
+}
+
+function calculate() {
+    try {
+        const displayValue = document.getElementById('display').value;
+        const result = new Function('return ' + displayValue)();
+        display.value = result;
+    } catch (error) {
+        display.value = 'Ошибка';
+        console.error(error);
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+    const key = event.key;
+    (key >= "0" && key <= "9") || ["+", "-", "*", "/", "."].includes(key) ? display.value += key : key === "Enter" ? calculate() : key === "Escape" ? clearDisplay() : key === "Backspace" ? display.value = display.value.slice(0, -1) : null;
 });
 
-if (image) {
-    image.addEventListener("mouseenter", () => {
-        image.style.fill = Colors[utils.rand(0, (Colors.length-1))];
-    });
-}
+const field = document.querySelector(".field");
+const ball = document.querySelector(".ball");
+const BALL_SIZE = 100;
+
+field.addEventListener("click", (e) => {
+    const rect = field.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    x < 0 ? x = 0 : null;
+    y < 0 ? y = 0 : null;
+
+    x > field.clientWidth - BALL_SIZE ? x = field.clientWidth - BALL_SIZE : null;
+    y > field.clientHeight - BALL_SIZE ? y = field.clientHeight - BALL_SIZE : null;
+
+    ball.style.left = x + 'px';
+    ball.style.top = y + 'px';
+});
 
 function pickFunction() {
     return alert("Пока отключено");
