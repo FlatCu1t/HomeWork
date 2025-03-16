@@ -2,12 +2,20 @@
 
 body {
     margin: 0;
-    background-color: rgb(255, 255, 255);
     font-family: "JetBrains Mono", serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
+    transition: background-color 0.3s;
+}
+
+body.dark {
+    background-color: rgb(2, 22, 41);
+}
+
+body.light {
+    background-color: rgb(7, 96, 179);
 }
 
 .test_button {
@@ -51,81 +59,185 @@ body {
     }
 }
 
-section {
+header {
     position: relative;
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
+    height: 15vh;
+    transition: background-color 0.3s;
 }
 
-.calculator {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 220px;
-    margin: 50px auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-family: Arial, sans-serif;
+body.dark header {
     background-color: black;
 }
 
-#display {
-    width: 200px;
-    height: 30px;
-    font-size: 16px;
-    text-align: right;
-    margin-bottom: 10px;
-    padding-right: 5px;
-    box-sizing: border-box;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
+body.light header {
+    background-color: rgb(207, 207, 207);
 }
 
-.btn {
-    width: 50px;
-    height: 40px;
-    margin: 2px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: gray;
+header h2 {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    transition: color 0.3s;
+}
+
+body.dark header h2 {
     color: white;
+}
+
+body.light header h2 {
+    color: black;
+}
+
+.themeButton {
+    width: 150px;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 18px;
+    transition: transform 0.3s;
 
     &:hover {
-        background-color: rgb(68, 68, 68);
+        cursor: pointer;
+        transform: translateY(-50%) scale(1.1);
     }
 }
 
-.buttons_container {
-    width: inherit;
-    height: inherit;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.field {
-    position: relative;
+section {
     width: 100vw;
     height: 100vh;
-    background-image: url(/images/field.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    cursor: pointer;
+    position: relative;
 }
 
-.ball {
+.auth_container, .reg_container {
+    position: relative;
+    width: 600px;
+    height: 700px;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -20%);
+    border-radius: 12px;
+    transition: background-color 0.3s;
+}
+
+body.dark .auth_container {
+    background-color: black;
+}
+
+body.dark .reg_container {
+    background-color: black;
+}
+
+body.light .auth_container {
+    background-color: rgb(207, 207, 207);
+}
+
+body.light .reg_container {
+    background-color: rgb(207, 207, 207);
+}
+
+.auth_container h2, .reg_container h2 {
+    margin: 0;
+    padding: 0;
     position: absolute;
-    width: 100px;
-    height: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    font-size: 32px;
+    transition: color 0.3s;
+}
+
+body.dark .auth_container h2 {
+    color: white;
+}
+
+body.dark .reg_container h2 {
+    color: white;
+}
+
+body.light .auth_container h2 {
+    color: black;
+}
+
+body.light .reg_container h2 {
+    color: black;
+}
+
+form {
+    position: relative;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: left 0.5s ease, top 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 35px;
+    align-items: center;
+    justify-content: center;
+}
+
+form input {
+    width: 200px;
+    height: 35px;
+    border: none;
+    font-size: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+}
+
+form button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -100px;
+    width: 210px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+form p {
+    position: absolute;
+    font-size: 18px;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    bottom: -180px;
+    cursor: default;
+    width: 400px;
+
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+body.dark form p {
+    color: white;
+}
+
+body.light form p {
+    color: black;
+}
+
+.hidden {
+    display: none;
 }

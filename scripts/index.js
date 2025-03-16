@@ -73,49 +73,140 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const display = document.getElementById('display');
+const body = document.querySelector("body");
+const themeButton = document.querySelector(".themeButton");
 
-function press(key) {
-    display.value += key;
+if (themeButton) {
+    themeButton.addEventListener("click", () => {
+
+        if (body.classList.contains("dark")) {
+            body.classList.remove("dark");
+            localStorage.setItem("themeMode", "light");
+            return body.classList.add("light");
+        }
+
+        if (body.classList.contains("light")) {
+            body.classList.remove("light");
+            localStorage.setItem("themeMode", "dark");
+            return body.classList.add("dark");
+        }
+    });
+};
+
+const reg = document.querySelector(".reg_container");
+const auth = document.querySelector(".auth_container");
+const showReg = document.getElementById("showReg");
+const showAuth = document.getElementById("showAuth");
+
+const reg_inputs = document.querySelectorAll(".reg_input");
+const auth_inputs = document.querySelectorAll(".auth_input");
+
+const regSubmit = reg.querySelector(".submitButton");
+const authSubmit = auth.querySelector(".submitButton");
+
+function applyAuthText() {
+    auth_inputs.forEach((e, index) => {
+        e.value = localStorage.getItem(`authInput_${index}`);
+    });
 }
 
-function clearDisplay() {
-    display.value = '';
+function applyRegText() {
+    reg_inputs.forEach((e, index) => {
+        e.value = localStorage.getItem(`regInput_${index}`);
+    });
 }
 
-function calculate() {
-    try {
-        const displayValue = document.getElementById('display').value;
-        const result = new Function('return ' + displayValue)();
-        display.value = result;
-    } catch (error) {
-        display.value = 'Ошибка';
-        console.error(error);
-    }
+function clearStorage() {
+    return localStorage.clear();
 }
 
-document.addEventListener("keydown", function(event) {
-    const key = event.key;
-    (key >= "0" && key <= "9") || ["+", "-", "*", "/", "."].includes(key) ? display.value += key : key === "Enter" ? calculate() : key === "Escape" ? clearDisplay() : key === "Backspace" ? display.value = display.value.slice(0, -1) : null;
+reg_inputs.forEach((e, index) => {
+    e.addEventListener("input", () => {
+        localStorage.setItem(`regInput_${index}`, e.value);
+    });
 });
 
-const field = document.querySelector(".field");
-const ball = document.querySelector(".ball");
-const BALL_SIZE = 100;
+auth_inputs.forEach((e, index) => {
+    e.addEventListener("input", () => {
+        localStorage.setItem(`authInput_${index}`, e.value);
+    });
+});
 
-field.addEventListener("click", (e) => {
-    const rect = field.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let y = e.clientY - rect.top;
+showReg.addEventListener("click", () => {
+    if (auth) {
+        !auth.classList.contains("hidden") ? auth.classList.add("hidden") : null;
+        reg.classList.contains("hidden") ? reg.classList.remove("hidden") : null;
+        return applyRegText();
+    }
+});
 
-    x < 0 ? x = 0 : null;
-    y < 0 ? y = 0 : null;
+showAuth.addEventListener("click", () => {
+    if (reg) {
+        !reg.classList.contains("hidden") ? reg.classList.add("hidden") : null;
+        auth.classList.contains("hidden") ? auth.classList.remove("hidden") : null;
+        return applyAuthText();
+    }
+});
 
-    x > field.clientWidth - BALL_SIZE ? x = field.clientWidth - BALL_SIZE : null;
-    y > field.clientHeight - BALL_SIZE ? y = field.clientHeight - BALL_SIZE : null;
+regSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
 
-    ball.style.left = x + 'px';
-    ball.style.top = y + 'px';
+    let blocked = false;
+
+    reg_inputs.forEach((el) => {
+        if (!el.value || el.value.length < 1) {
+            blocked = true;
+        }
+    });
+
+    if (!blocked) {
+        console.log(`👤 НОВАЯ РЕГИСТРАЦИЯ:
+
+    Имя: ${reg_inputs[0].value}
+    Фамилия: ${reg_inputs[1].value}
+    Телефон: ${reg_inputs[2].value}
+    Почта: ${reg_inputs[3].value}
+    Возраст: ${reg_inputs[4].value}
+    `);
+        return clearStorage();
+    }
+});
+
+authSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    let blocked = false;
+
+    auth_inputs.forEach((el) => {
+        if (!el.value || el.value.length < 1) {
+            blocked = true;
+        }
+    });
+
+    if (!blocked) {
+        console.log(`👤 НОВАЯ АВТОРИЗАЦИЯ:
+
+    Имя: ${auth_inputs[0].value}
+    `);
+        return clearStorage();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (!reg.classList.contains("hidden")) {
+        applyRegText();
+    }
+
+    if (!auth.classList.contains("hidden")) {
+        applyAuthText();
+    }
+
+    if (localStorage.getItem("themeMode") == "dark") {
+        body.classList.contains("light") ? body.classList.remove("light") : null;
+        body.classList.add("dark");
+    } else {
+        body.classList.contains("dark") ? body.classList.remove("dark") : null;
+        body.classList.add("light");
+    }
 });
 
 function pickFunction() {

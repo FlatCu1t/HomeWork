@@ -5,40 +5,33 @@
         <link rel="stylesheet" href="css/style.css">
         <title>Заголовок</title>
     </head>
-    <body>
+    <body class="dark">
+        <header>
+            <button class="test_button" type="button">Click Me</button>
+            <h2>Brand Name</h2>
+            <button class="themeButton" type="button">Поменять тему</button>
+        </header>
         <main>
             <section>
-                <button class="test_button" type="button">Click Me</button>
-                <div class="calculator">
-                    <input type="text" id="display" disabled />
-                    
-                    <div class="buttons_container">
-                        <button class="btn" onclick="press('7')">7</button>
-                        <button class="btn" onclick="press('8')">8</button>
-                        <button class="btn" onclick="press('9')">9</button>
-                        <button class="btn" onclick="press('/')">/</button>
-
-                        <button class="btn" onclick="press('4')">4</button>
-                        <button class="btn" onclick="press('5')">5</button>
-                        <button class="btn" onclick="press('6')">6</button>
-                        <button class="btn" onclick="press('*')">*</button>
-
-                        <button class="btn" onclick="press('1')">1</button>
-                        <button class="btn" onclick="press('2')">2</button>
-                        <button class="btn" onclick="press('3')">3</button>
-                        <button class="btn" onclick="press('-')">-</button>
-
-                        <button class="btn" onclick="press('0')">0</button>
-                        <button class="btn" onclick="press('.')">.</button>
-                        <button class="btn" onclick="calculate()">=</button>
-                        <button class="btn" onclick="press('+')">+</button>
-                        <button class="btn" style="width: 106px;" onclick="clearDisplay()">C</button>
-                    </div>
+                <div class="reg_container hidden">
+                    <h2>РЕГИСТРАЦИЯ</h2>
+                    <form action="">
+                        <input class="reg_input" type="text" placeholder="Имя" required>
+                        <input class="reg_input" type="text" placeholder="Фамилия" required>
+                        <input class="reg_input" type="text" placeholder="Телефон" required>
+                        <input class="reg_input" type="text" placeholder="Почта" required>
+                        <input class="reg_input" type="text" placeholder="Возраст" required>
+                        <button class="submitButton" type="submit">Зарегистрироваться</button>
+                        <p id="showAuth">Уже есть аккаунт? Войти</p>
+                    </form>
                 </div>
-            </section>
-            <section>
-                <div class="field">
-                    <img class="ball" src="/images/ball.png" alt="Ball" loading="lazy">
+                <div class="auth_container">
+                    <h2>АВТОРИЗАЦИЯ</h2>
+                    <form action="">
+                        <input class="auth_input" type="text" placeholder="Имя" required>
+                        <button class="submitButton" type="submit">Авторизоваться</button>
+                        <p id="showReg">Еще нет аккаунта? Регистрация</p>
+                    </form>
                 </div>
             </section>
         </main>
