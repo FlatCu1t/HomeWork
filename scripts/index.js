@@ -73,153 +73,124 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const body = document.querySelector("body");
-const themeButton = document.querySelector(".themeButton");
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 
-if (themeButton) {
-    themeButton.addEventListener("click", () => {
+const buttons = Array.from(document.querySelector(".buttons_container").children);
+const settings = { drawingCursor: true, eraserCursor: false, fillingCursor: false, radius: 5, color: "black" };
 
-        if (body.classList.contains("dark")) {
-            body.classList.remove("dark");
-            localStorage.setItem("themeMode", "light");
-            return body.classList.add("light");
-        }
+const settings_container = Array.from(document.querySelector(".settings_container").children);
 
-        if (body.classList.contains("light")) {
-            body.classList.remove("light");
-            localStorage.setItem("themeMode", "dark");
-            return body.classList.add("dark");
-        }
-    });
-};
+canvas.width = 900;
+canvas.height = 700;
 
-const reg = document.querySelector(".reg_container");
-const auth = document.querySelector(".auth_container");
-const showReg = document.getElementById("showReg");
-const showAuth = document.getElementById("showAuth");
+let isDrawing = false;
+let isEraser = false;
 
-const reg_inputs = document.querySelectorAll(".reg_input");
-const auth_inputs = document.querySelectorAll(".auth_input");
-
-const regSubmit = reg.querySelector(".submitButton");
-const authSubmit = auth.querySelector(".submitButton");
-
-function applyAuthText() {
-    auth_inputs.forEach((e, index) => {
-        e.value = localStorage.getItem(`authInput_${index}`);
-    });
+function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
 }
 
-function applyRegText() {
-    reg_inputs.forEach((e, index) => {
-        e.value = localStorage.getItem(`regInput_${index}`);
-    });
-}
-
-function clearStorage() {
-    return localStorage.clear();
-}
-
-reg_inputs.forEach((e, index) => {
-    e.addEventListener("input", () => {
-        localStorage.setItem(`regInput_${index}`, e.value);
-    });
-});
-
-auth_inputs.forEach((e, index) => {
-    e.addEventListener("input", () => {
-        localStorage.setItem(`authInput_${index}`, e.value);
-    });
-});
-
-showReg.addEventListener("click", () => {
-    if (auth) {
-        !auth.classList.contains("hidden") ? auth.classList.add("hidden") : null;
-        reg.classList.contains("hidden") ? reg.classList.remove("hidden") : null;
-        return applyRegText();
-    }
-});
-
-showAuth.addEventListener("click", () => {
-    if (reg) {
-        !reg.classList.contains("hidden") ? reg.classList.add("hidden") : null;
-        auth.classList.contains("hidden") ? auth.classList.remove("hidden") : null;
-        return applyAuthText();
-    }
-});
-
-regSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    let blocked = false;
-
-    reg_inputs.forEach((el) => {
-        if (!el.value || el.value.length < 1) {
-            blocked = true;
-        }
+buttons[0].addEventListener("click", () => {
+    buttons.forEach((el) => {
+        el.classList.contains("active") ? el.classList.remove("active") : null;
+        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
     });
 
-    if (!blocked) {
-        console.log(`👤 НОВАЯ РЕГИСТРАЦИЯ:
+    buttons[0].classList.remove("notActive");
+    buttons[0].classList.add("active");
 
-    Имя: ${reg_inputs[0].value}
-    Фамилия: ${reg_inputs[1].value}
-    Телефон: ${reg_inputs[2].value}
-    Почта: ${reg_inputs[3].value}
-    Возраст: ${reg_inputs[4].value}
-    `);
-        return clearStorage();
-    }
+    settings.drawingCursor = false;
+    settings.fillingCursor = false;
+    return settings.eraserCursor = true;
 });
 
-authSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-    let blocked = false;
-
-    auth_inputs.forEach((el) => {
-        if (!el.value || el.value.length < 1) {
-            blocked = true;
-        }
+buttons[1].addEventListener("click", () => {
+    buttons.forEach((el) => {
+        el.classList.contains("active") ? el.classList.remove("active") : null;
+        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
     });
 
-    if (!blocked) {
-        console.log(`👤 НОВАЯ АВТОРИЗАЦИЯ:
+    buttons[1].classList.remove("notActive");
+    buttons[1].classList.add("active");
 
-    Имя: ${auth_inputs[0].value}
-    `);
-        return clearStorage();
+    settings.drawingCursor = true;
+    settings.fillingCursor = false;
+    return settings.eraserCursor = false;
+});
+
+buttons[2].addEventListener("click", () => {
+    buttons.forEach((el) => {
+        el.classList.contains("active") ? el.classList.remove("active") : null;
+        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
+    });
+
+    buttons[2].classList.remove("notActive");
+    buttons[2].classList.add("active");
+
+    settings.drawingCursor = false;
+    settings.fillingCursor = true;
+    return settings.eraserCursor = false;
+});
+
+settings_container[0].addEventListener("input", () => {
+    if (settings_container[0].value.length > 0 && !isNaN(parseInt(settings_container[0].value)) && typeof parseInt(settings_container[0].value) == "number") {
+        return parseInt(settings_container[0].value) > 50 ? settings.radius = 50 : settings.radius = parseInt(settings_container[0].value);
     }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (!reg.classList.contains("hidden")) {
-        applyRegText();
+settings_container[1].addEventListener("input", () => {
+    if (isNaN(parseInt(settings_container[1].value))) {
+        return settings.color = settings_container[1].value;
+    }
+});
+
+settings_container[2].addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+document.addEventListener('mousedown', (e) => {
+    if (e.button == 0 && settings.drawingCursor) {
+        isDrawing = true;
+        isEraser = false;
     }
 
-    if (!auth.classList.contains("hidden")) {
-        applyAuthText();
+    if (e.button == 0 && settings.eraserCursor) {
+        isDrawing = false;
+        isEraser = true;
     }
+});
 
-    if (localStorage.getItem("themeMode") == "dark") {
-        body.classList.contains("light") ? body.classList.remove("light") : null;
-        body.classList.add("dark");
+canvas.addEventListener('mousedown', (e) => {
+    if (e.button == 0 && settings.fillingCursor) {
+        isDrawing = false;
+        isEraser = false;
+        ctx.fillStyle = settings.color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+});
+
+document.addEventListener('mouseup', () => {
+    isDrawing = false;
+    isEraser = false;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    if (!isDrawing && !isEraser) return;
+    const pos = getMousePos(e);
+    ctx.beginPath();
+    ctx.fillStyle = settings.color;
+    ctx.arc(pos.x, pos.y, settings.radius, 0, Math.PI * 2);
+    
+    if (isEraser) {
+        ctx.globalCompositeOperation = 'destination-out';
     } else {
-        body.classList.contains("dark") ? body.classList.remove("dark") : null;
-        body.classList.add("light");
+        ctx.globalCompositeOperation = 'source-over';
     }
+
+    ctx.fill();
 });
-
-function pickFunction() {
-    return alert("Пока отключено");
-}
-
-// function pickFunction() {
-//     const text = prompt("Выберите функцию (1-1):");
-//     if (text == null) return;
-//     try {
-//         eval("func_" + text + "()");
-//     } catch (error) {
-//         console.error(error);
-//         return alert("Такой функции нет.");
-//     }
-// }

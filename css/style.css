@@ -1,210 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
 
-body {
+* {
     margin: 0;
+    padding: 0;
+}
+canvas {
+    display: block;
+    border: 1px solid black;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+}
+
+body {
     font-family: "JetBrains Mono", serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
-    transition: background-color 0.3s;
+    background-color: white;
 }
 
-body.dark {
-    background-color: rgb(2, 22, 41);
-}
-
-body.light {
-    background-color: rgb(7, 96, 179);
-}
-
-.test_button {
-    display: none;
-    position: fixed;
-    left: 10%;
-    top: 15%;
-    transform: translate(-10%, -15%);
-    width: 250px;
-    height: 250px;
-    border: none;
-    border-radius: 50%;
-    background-color: rgb(0, 140, 150);
-    font-size: 42px;
-    color: rgb(48, 48, 48);
-    font-weight: bold;
-    animation: buttonAnim 2.5s ease-in-out infinite;
-    box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 0.65);
-    transition: background-color 0.8s;
-
-    &:hover {
-        cursor: pointer;
-        background-color: rgb(0, 167, 179);
-    }
-}
-
-@keyframes buttonAnim {
-    0% {
-        transform: translateX(-50%) scale(1.0);
-        box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 0.5);
-    }
-
-    50% {
-        transform: translateX(-50%) scale(1.25);
-        box-shadow: 0px 0px 25px 5px rgba(255, 255, 255, 1.0);
-    }
-
-    100% {
-        transform: translateX(-50%) scale(1.0);
-        box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 0.5);
-    }
-}
-
-header {
-    position: relative;
-    width: 100vw;
-    height: 15vh;
-    transition: background-color 0.3s;
-}
-
-body.dark header {
-    background-color: black;
-}
-
-body.light header {
-    background-color: rgb(207, 207, 207);
-}
-
-header h2 {
-    margin: 0;
-    padding: 0;
+.buttons_container {
     position: absolute;
-    left: 150px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 32px;
-    transition: color 0.3s;
-}
-
-body.dark header h2 {
-    color: white;
-}
-
-body.light header h2 {
-    color: black;
-}
-
-.themeButton {
-    width: 150px;
-    height: 45px;
-    border: none;
-    border-radius: 7px;
-    position: absolute;
-    right: 100px;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    font-size: 18px;
-    transition: transform 0.3s;
-
-    &:hover {
-        cursor: pointer;
-        transform: translateY(-50%) scale(1.1);
-    }
-}
-
-section {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-}
-
-.auth_container, .reg_container {
-    position: relative;
-    width: 600px;
-    height: 700px;
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%, -20%);
-    border-radius: 12px;
-    transition: background-color 0.3s;
-}
-
-body.dark .auth_container {
-    background-color: black;
-}
-
-body.dark .reg_container {
-    background-color: black;
-}
-
-body.light .auth_container {
-    background-color: rgb(207, 207, 207);
-}
-
-body.light .reg_container {
-    background-color: rgb(207, 207, 207);
-}
-
-.auth_container h2, .reg_container h2 {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 48vw;
     top: 50px;
-    font-size: 32px;
-    transition: color 0.3s;
-}
-
-body.dark .auth_container h2 {
-    color: white;
-}
-
-body.dark .reg_container h2 {
-    color: white;
-}
-
-body.light .auth_container h2 {
-    color: black;
-}
-
-body.light .reg_container h2 {
-    color: black;
-}
-
-form {
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: 150px;
+    background-color: black;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 35px;
     align-items: center;
     justify-content: center;
 }
 
-form input {
-    width: 200px;
-    height: 35px;
+.buttons_container button {
+    width: 45px;
+    height: 45px;
     border: none;
-    font-size: 20px;
-    padding-left: 20px;
-    border-radius: 5px;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 18px;
+    transition: transform 0.3s, background-color 0.3s;
+    margin: 15px 15px 15px 15px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 }
 
-form button {
+.buttons_container button img {
+    width: 48px;
+    height: 48px;
+}
+
+.settings_container {
     position: absolute;
+    left: 60vw;
+    top: 50px;
+    width: 400px;
+    height: 250px;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.settings_container input {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+    font-size: 20px;
+    padding-left: 10px;
+    margin: 20px 20px 20px 20px;
+}
+
+.settings_container button {
+    position: absolute;
+    width: 200px;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 18px;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -100px;
-    width: 210px;
-    height: 50px;
-    text-align: center;
-    font-size: 20px;
-    border: none;
-    border-radius: 10px;
+    bottom: 20px;
     transition: transform 0.3s;
 
     &:hover {
@@ -213,31 +98,10 @@ form button {
     }
 }
 
-form p {
-    position: absolute;
-    font-size: 18px;
-    color: white;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    bottom: -180px;
-    cursor: default;
-    width: 400px;
-
-    &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-    }
+.active {
+    background-color: gray;
 }
 
-body.dark form p {
-    color: white;
-}
-
-body.light form p {
-    color: black;
-}
-
-.hidden {
-    display: none;
+.notActive {
+    background-color: white;
 }
