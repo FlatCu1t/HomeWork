@@ -73,124 +73,65 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+document.getElementById("myForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-const buttons = Array.from(document.querySelector(".buttons_container").children);
-const settings = { drawingCursor: true, eraserCursor: false, fillingCursor: false, radius: 5, color: "black" };
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const age = document.getElementById("age").value.trim();
 
-const settings_container = Array.from(document.querySelector(".settings_container").children);
+    let valid = true;
+    let errors = [];
 
-canvas.width = 900;
-canvas.height = 700;
-
-let isDrawing = false;
-let isEraser = false;
-
-function getMousePos(e) {
-    const rect = canvas.getBoundingClientRect();
-    return {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-    };
-}
-
-buttons[0].addEventListener("click", () => {
-    buttons.forEach((el) => {
-        el.classList.contains("active") ? el.classList.remove("active") : null;
-        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
-    });
-
-    buttons[0].classList.remove("notActive");
-    buttons[0].classList.add("active");
-
-    settings.drawingCursor = false;
-    settings.fillingCursor = false;
-    return settings.eraserCursor = true;
-});
-
-buttons[1].addEventListener("click", () => {
-    buttons.forEach((el) => {
-        el.classList.contains("active") ? el.classList.remove("active") : null;
-        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
-    });
-
-    buttons[1].classList.remove("notActive");
-    buttons[1].classList.add("active");
-
-    settings.drawingCursor = true;
-    settings.fillingCursor = false;
-    return settings.eraserCursor = false;
-});
-
-buttons[2].addEventListener("click", () => {
-    buttons.forEach((el) => {
-        el.classList.contains("active") ? el.classList.remove("active") : null;
-        !el.classList.contains("notActive") ? el.classList.add("notActive") : null;
-    });
-
-    buttons[2].classList.remove("notActive");
-    buttons[2].classList.add("active");
-
-    settings.drawingCursor = false;
-    settings.fillingCursor = true;
-    return settings.eraserCursor = false;
-});
-
-settings_container[0].addEventListener("input", () => {
-    if (settings_container[0].value.length > 0 && !isNaN(parseInt(settings_container[0].value)) && typeof parseInt(settings_container[0].value) == "number") {
-        return parseInt(settings_container[0].value) > 50 ? settings.radius = 50 : settings.radius = parseInt(settings_container[0].value);
-    }
-});
-
-settings_container[1].addEventListener("input", () => {
-    if (isNaN(parseInt(settings_container[1].value))) {
-        return settings.color = settings_container[1].value;
-    }
-});
-
-settings_container[2].addEventListener("click", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
-
-document.addEventListener('mousedown', (e) => {
-    if (e.button == 0 && settings.drawingCursor) {
-        isDrawing = true;
-        isEraser = false;
+    const nameRegex = /^влад$/i;
+    if (!nameRegex.test(name)) {
+        valid = false;
+        errors.push("Имя должно быть 'Влад'.");
     }
 
-    if (e.button == 0 && settings.eraserCursor) {
-        isDrawing = false;
-        isEraser = true;
+    const cleanedPhone = phone.replace(/[()\-\+]/g, "");
+    if (!/^\d+$/.test(cleanedPhone)) {
+        valid = false;
+        errors.push("Телефон может содержать только цифры, скобки, тире и плюс.");
     }
-});
 
-canvas.addEventListener('mousedown', (e) => {
-    if (e.button == 0 && settings.fillingCursor) {
-        isDrawing = false;
-        isEraser = false;
-        ctx.fillStyle = settings.color;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const emailRegex = /^(?=.{8,156}$)(?=.*\d)(?=.*@)(?=.*\.)/;
+    if (!emailRegex.test(email)) {
+        valid = false;
+        errors.push("Почта должна быть от 8 до 156 символов и содержать @, точку и цифру.");
     }
-});
 
-document.addEventListener('mouseup', () => {
-    isDrawing = false;
-    isEraser = false;
-});
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,12}$/;
+    if (!passwordRegex.test(password)) {
+        valid = false;
+        errors.push("Пароль должен быть от 6 до 12 символов и содержать одну маленькую, одну большую букву и цифру.");
+    }
 
-canvas.addEventListener('mousemove', (e) => {
-    if (!isDrawing && !isEraser) return;
-    const pos = getMousePos(e);
-    ctx.beginPath();
-    ctx.fillStyle = settings.color;
-    ctx.arc(pos.x, pos.y, settings.radius, 0, Math.PI * 2);
-    
-    if (isEraser) {
-        ctx.globalCompositeOperation = 'destination-out';
+    if (!/^\d+$/.test(age)) {
+        valid = false;
+        errors.push("Возраст должен содержать только цифры.");
     } else {
-        ctx.globalCompositeOperation = 'source-over';
+        const ageNum = parseInt(age, 10);
+        if (ageNum < 10 || ageNum > 120) {
+        valid = false;
+        errors.push("Возраст должен быть в диапазоне от 10 до 120.");
+        }
     }
 
-    ctx.fill();
+    if (!valid) {
+        alert("Ошибки: \n" + errors.join("\n"));
+        return;
+    }
+
+    const formData = {
+        name: name,
+        phone: cleanedPhone,
+        email: email,
+        password: password,
+        age: age
+    };
+
+    return console.log("НОВАЯ АВТОРИЗАЦИЯ:", formData);
 });

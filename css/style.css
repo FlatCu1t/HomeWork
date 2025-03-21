@@ -4,13 +4,6 @@
     margin: 0;
     padding: 0;
 }
-canvas {
-    display: block;
-    border: 1px solid black;
-    position: absolute;
-    left: 10px;
-    top: 50px;
-}
 
 body {
     font-family: "JetBrains Mono", serif;
@@ -21,87 +14,62 @@ body {
     background-color: white;
 }
 
-.buttons_container {
-    position: absolute;
-    left: 48vw;
-    top: 50px;
-    width: 150px;
+.form_container {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    width: 500px;
+    height: 450px;
     background-color: black;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    border-radius: 10px;
 }
 
-.buttons_container button {
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 7px;
+.form_container h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
     text-align: center;
-    font-size: 18px;
-    transition: transform 0.3s, background-color 0.3s;
-    margin: 15px 15px 15px 15px;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-    }
+    color: white;
+    font-size: 24px;
 }
 
-.buttons_container button img {
-    width: 48px;
-    height: 48px;
-}
-
-.settings_container {
+form {
     position: absolute;
-    left: 60vw;
-    top: 50px;
-    width: 400px;
-    height: 250px;
-    background-color: black;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 80px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
+    gap: 30px;
 }
 
-.settings_container input {
-    width: 100px;
+form input {
+    width: 280px;
+    height: 25px;
+    border: none;
+    font-size: 20px;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+form button {
+    width: 150px;
     height: 30px;
     border: none;
     border-radius: 7px;
-    font-size: 20px;
-    padding-left: 10px;
-    margin: 20px 20px 20px 20px;
-}
-
-.settings_container button {
     position: absolute;
-    width: 200px;
-    height: 45px;
-    border: none;
-    border-radius: 7px;
-    text-align: center;
-    font-size: 18px;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
+    bottom: -50px;
+    text-align: center;
+    font-size: 18px;
     transition: transform 0.3s;
 
     &:hover {
         cursor: pointer;
         transform: translateX(-50%) scale(1.1);
     }
-}
-
-.active {
-    background-color: gray;
-}
-
-.notActive {
-    background-color: white;
 }

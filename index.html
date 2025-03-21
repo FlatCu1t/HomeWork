@@ -6,22 +6,26 @@
         <title>Заголовок</title>
     </head>
     <body>
-        <canvas id="myCanvas"></canvas>
-        <div class="buttons_container">
-            <button class="notActive" type="button">
-                <img src="https://www.svgrepo.com/show/506468/eraser.svg" alt="img" loading="lazy">
-            </button>
-            <button class="active" type="button">
-                <img src="https://www.svgrepo.com/show/370024/draw-paintbrush.svg" alt="img" loading="lazy">
-            </button>
-            <button class="notActive" type="button">
-                <img src="https://www.svgrepo.com/show/487148/bucket-paint.svg" alt="img" loading="lazy">
-            </button>
-        </div>
-        <div class="settings_container">
-            <input type="text" placeholder="Радиус">
-            <input type="text" placeholder="Цвет">
-            <button type="button">Очистить холст</button>
+        <div class="form_container">
+            <h2>АВТОРИЗАЦИЯ</h2>
+            <form id="myForm" novalidate>
+                <div>
+                  <input type="text" id="name" name="name" placeholder="Имя (должно быть Влад):" required>
+                </div>
+                <div>
+                  <input type="text" id="phone" name="phone" placeholder="Телефон:" required>
+                </div>
+                <div>
+                  <input type="text" id="email" name="email" placeholder="Почта:" required>
+                </div>
+                <div>
+                  <input type="password" id="password" name="password" placeholder="Пароль:" required>
+                </div>
+                <div>
+                  <input type="text" id="age" name="age" placeholder="Возраст:" required>
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
         </div>
         <script src="/scripts/index.js"></script>
     </body>
