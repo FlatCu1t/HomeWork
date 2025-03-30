@@ -1,0 +1,7 @@
+{
+    "name": "Vlad",
+    "age": 21,
+    "city": "Astana",
+    "country": "Kazakhstan",
+    "skills": ["Node.js", "React", "Vue.js"]
+}
