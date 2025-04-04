@@ -127,4 +127,4 @@ fetch(url).then(response => response.json()).then(data => {
     } else {
         container.innerHTML = '<p>Фильм не найден</p>';
     }}).catch(err => console.error(err));
-});
+})
