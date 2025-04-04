@@ -73,20 +73,58 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-let data;
-let text = "";
+function updateAuthSection() {
+    const authSection = document.getElementById('auth-section');
+    const token = localStorage.getItem('token');
+    const name = localStorage.getItem('name');
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://reqres.in/api/unknown", true);
-xhr.onload = function(){
-    data = JSON.parse(xhr.responseText).data;
-    data.forEach((el, index) => {
-        text += ((index + 1) !== data.length) ? `${el.color}, ` : el.color;
-        const cubes = document.querySelectorAll(".cube_item");
-        cubes[index].style.backgroundColor = el.color;
-    })
-    console.log(`[ПАРСИНГ ЦВЕТОВ] Ответ сервера:\n${text}`);
-    console.log(`Ответ сервера без парсинга:`, JSON.parse(xhr.responseText));
-};
-xhr.send();
+    if (token && name) {
+        authSection.innerHTML = `<span class="auth_span">Привет, ${name}</span> <button id="logout-btn">Выйти</button>`;
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('name');
+            updateAuthSection();
+        });
+    } else {
+        authSection.innerHTML = `<button id="login-btn">Авторизация</button>`;
+        document.getElementById('login-btn').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    }
+}
 
+updateAuthSection();
+
+document.getElementById('search-btn').addEventListener('click', function() {
+const title = document.getElementById('movie-title').value.trim();
+if (!title) return;
+const url = `https://www.omdbapi.com/?apikey=83f2b988&s=${encodeURIComponent(title)}`;
+
+fetch(url).then(response => response.json()).then(data => {
+    const container = document.getElementById('movie-container');
+    container.innerHTML = '';
+
+    if (data.Response === "True") {
+        data.Search.sort(function(a, b) { 
+            if (b.Year > a.Year) return 1 
+            if (b.Year < a.Year) return -1 
+            return 0
+        });
+
+        data.Search.forEach(movie => {
+        const poster = (movie.Poster && movie.Poster !== "N/A") ? movie.Poster : "./images/no-logo.png";
+        const movieHTML = `
+            <div class="movie">
+            <img src="${poster}" alt="Постер фильма">
+            <div class="movie-details">
+                <h2>${movie.Title}</h2>
+                <p><strong>Год:</strong> ${movie.Year}</p>
+            </div>
+            </div>
+        `;
+        container.innerHTML += movieHTML;
+        });
+    } else {
+        container.innerHTML = '<p>Фильм не найден</p>';
+    }}).catch(err => console.error(err));
+});

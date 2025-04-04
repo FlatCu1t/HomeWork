@@ -7,14 +7,16 @@
     </head>
     <body>
       <div class="container">
-        <div class="cubes_container">
-          <div class="cube_item"></div>
-          <div class="cube_item"></div>
-          <div class="cube_item"></div>
-          <div class="cube_item"></div>
-          <div class="cube_item"></div>
-          <div class="cube_item"></div>
+        <header>
+          <h1>Фильмотека</h1>
+          <div id="auth-section"></div>
+        </header>
+        <div class="search-container">
+          <input type="text" id="movie-title" placeholder="Введите название фильма">
+          <button id="search-btn">Найти фильм</button>
         </div>
+      
+        <div id="movie-container"></div>
       </div>
       <script src="/scripts/index.js"></script>
     </body>

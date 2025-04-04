@@ -11,7 +11,13 @@ body {
     font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
-    background-color: rgb(100, 100, 100);
+    background-color: rgb(240, 240, 240);
+    background-image: url(/images/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .container {
@@ -19,26 +25,120 @@ body {
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    height: max-content;
 }
 
-.cubes_container {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header button {
+    background-color: #555;
+    border: none;
+    padding: 8px 16px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 110px;
+    height: 35px;
+}
+
+.search-container {
+    margin: 20px;
+    text-align: center;
+}
+
+.search-container input {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 7px;
+}
+
+.search-container button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+}
+
+#movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    row-gap: 30px;
+    padding: 0 20px 20px;
+}
+
+.movie {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    cursor: pointer;
     position: relative;
-    left: 200px;
-    top: 100px;
-    background-color: white;
-    width: 800px;
-    height: 500px;
+}
+
+.movie::before,
+.movie::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.movie::before {
+    box-shadow: 5px 5px 30px rgba(255, 0, 0, 0.75);
+}
+
+.movie::after {
+    box-shadow: -5px -5px 30px rgba(0, 0, 255, 0.75);
+}
+
+.movie img {
+    width: 100%;
+    height: 375px;
+    object-fit: cover;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.movie-details {
+    padding: 10px;
+}
+
+.movie-details h2 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: white;
+}
+
+.movie-details p {
+    font-size: 14px;
+    color: white;
+}
+
+#auth-section {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-}
-
-.cube_item {
-    width: 200px;
-    height: 200px;
-    background-color: black;
+    gap: 30px;
+    position: absolute;
+    right: 60px;
 }
