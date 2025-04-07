@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-=======
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
->>>>>>> 825c18195df7a24e21932d6d2f19c5fd3ae09c87
 
 * {
     margin: 0;
@@ -10,25 +6,12 @@
 }
 
 body {
-<<<<<<< HEAD
     font-family: "Nunito Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
     overflow-x: hidden;
     background-color: rgb(240, 240, 240);
-=======
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    overflow-x: hidden;
-    background-image: url(/images/bg.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: darken;
-    background-color: rgba(0, 0, 0, 0.90);
->>>>>>> 825c18195df7a24e21932d6d2f19c5fd3ae09c87
 }
 
 .container {
@@ -39,7 +22,6 @@ body {
     height: max-content;
 }
 
-<<<<<<< HEAD
 #photo {
     max-width: 80%;
     height: auto;
@@ -99,9 +81,6 @@ section {
     margin: 5px 10px;
     font-size: 14px;
     color: #272727;
-=======
-.weather_container {
->>>>>>> 825c18195df7a24e21932d6d2f19c5fd3ae09c87
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -113,7 +92,6 @@ section {
     border-radius: 15px;
 }
 
-<<<<<<< HEAD
 .subtitle {
     margin-bottom: 20px !important;
     color: #555 !important;
@@ -143,163 +121,4 @@ img {
 
 .employeesText span {
     font-weight: 800 !important;
-=======
-.weather_container::before,
-.weather_container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  z-index: -1;
-}
-
-.weather_container::before {
-    box-shadow: 5px 5px 20px rgba(98, 184, 246, 0.9);
-}
-
-.weather_container::after {
-    box-shadow: -5px -5px 20px rgba(44, 121, 193, 0.9);
-}
-
-.weather_img {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-    width: 128px;
-    height: 128px;
-}
-
-.currentDay_container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 210px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.currentDay_container p {
-    color: white;
-    font-size: 16px;
-}
-
-.degrees_container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 220px;
-}
-
-.degrees {
-    color: white;
-    font-size: 72px;
-    font-weight: 600 !important;
-    position: relative;
-}
-
-.degree_icon {
-    position: absolute;
-    right: -12px;
-    top: 20px;
-}
-
-.weather_type {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 100px;
-    color: white;
-    font-size: 16px;
-    text-wrap: nowrap;
-}
-
-.cityInput {
-    position: absolute;
-    top: 145px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    padding-left: 10px;
-    font-size: 18px;
-    background-color: #D9D9D9;
-    color: #6F6F6F;
-}
-
-.secondSeparator {
-    position: absolute;
-    left: 0;
-    bottom: 120px;
-    width: inherit;
-    height: 1px;
-    background-color: #FFFFFF;
-}
-
-.detailedInfo_container {
-    position: absolute;
-    max-width: inherit;
-    width: inherit;
-    height: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: inherit;
-    align-items: start;
-    justify-content: space-between;
-    gap: 50px;
-    row-gap: 10px;
-    padding: 17px 40px 10px 40px;
-    box-sizing: border-box;
-}
-
-.windSpeed, .rainChance, .pressure_container, .humidity_container {
-    position: relative;
-    width: 90px;
-    max-width: 90px;
-}
-
-.rainChance {
-    width: 125px;
-    max-width: 125px;
-}
-
-.humidity_container {
-    width: 125px;
-    max-width: 125px;
-}
-
-.windSpeed img, .rainChance img, .pressure_container img, .humidity_container img {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-}
-
-.speed_container, .rain_container, .pressureInfo_container, .humidityInfo_container {
-    position: absolute;
-    right: 0;
-    top: -2px;
-    color: white;
-    font-size: 12px;
-}
-
-.pressureInfo_container {
-    right: -5px;
-}
-
-.humidityInfo_container {
-    right: 7px;
->>>>>>> 825c18195df7a24e21932d6d2f19c5fd3ae09c87
 }
