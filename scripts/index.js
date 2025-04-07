@@ -165,7 +165,7 @@ async function fetchUsers() {
     } catch (error) {
         console.error("Ошибка при получении данных пользователей:", error);
     }
-}
+};
 
 function createUserCard(user) {
     const card = document.createElement('div');
