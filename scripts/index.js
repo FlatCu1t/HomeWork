@@ -24,7 +24,7 @@ function getUnix() {
     return Math.floor(new Date().getTime());
 }
 
-function unixStamp(stamp, type) {
+function unixStamp(stamp) {
     let date = new Date(stamp),
     year = date.getFullYear(),
     month = (date.getMonth() + 1).toString().padStart(2, "0"),
@@ -33,7 +33,7 @@ function unixStamp(stamp, type) {
     minutes = date.getMinutes().toString().padStart(2, "0"),
     secs = date.getSeconds().toString().padStart(2, "0");
 
-    return `${day}.${month}.${year}, ${hour}:${minutes}:${secs}`;
+    return { text: `${day}.${month}.${year}, ${hour}:${minutes}:${secs}`, y: year, m: month, d: day, h: hour, m: minutes, s: secs };
 }
 
 function unixStampDays(stamp, stamp2) {
@@ -73,58 +73,88 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-function updateAuthSection() {
-    const authSection = document.getElementById('auth-section');
-    const token = localStorage.getItem('token');
-    const name = localStorage.getItem('name');
+const WEATHER_API_KEY = "5247757012a3493eb1a142844250704";
 
-    if (token && name) {
-        authSection.innerHTML = `<span class="auth_span">Привет, ${name}</span> <button id="logout-btn">Выйти</button>`;
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('name');
-            updateAuthSection();
-        });
-    } else {
-        authSection.innerHTML = `<button id="login-btn">Авторизация</button>`;
-        document.getElementById('login-btn').addEventListener('click', function() {
-            window.location.href = 'login.html';
-        });
+// Input с городом
+const cityInput = document.querySelector(".cityInput");
+
+// Картинка погоды
+const weatherImage = document.querySelector(".weather_img");
+
+// Сегодняшний день
+const currentDayWeek = document.querySelector(".currentDayWeek");
+const currentDay = document.querySelector(".currentDay");
+
+// Текущие градусы
+const degrees = document.querySelector(".degrees");
+const weatherType = document.querySelector(".weather_type");
+
+// Ветер
+const windSpeed = document.querySelector(".speed");
+const windType = document.querySelector(".speed_second");
+const SpeedContainer = document.querySelector(".speed_container");
+
+// Шанс дождя
+const rainChance = document.querySelector(".chanceRain");
+
+// Давление
+const mbar = document.querySelector(".mbar");
+
+// Влажность
+const humidityChance = document.querySelector(".percent");
+const secondHumidityChance = document.querySelector(".humidityPercent");
+
+function currentDayFunc() {
+    const today = new Date();
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const months = ["Dec", "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov"]
+    const dayName = daysOfWeek[today.getDay()];
+    const monthName = months[(today.getMonth() + 1)];
+    currentDayWeek.textContent = dayName;
+    currentDay.textContent = `${monthName} ${today.getDate().toString().padStart(2, "0")}`;
+}
+
+currentDayFunc();
+
+function getWindDescription(windSpeed) {
+    switch (true) {
+        case (windSpeed < 1):
+            return "Calm";
+        case (windSpeed >= 1 && windSpeed < 15):
+            return "Light breeze";
+        case (windSpeed >= 15 && windSpeed < 30):
+            return "Moderate breeze";
+        case (windSpeed >= 30 && windSpeed < 50):
+            return "Strong wind";
+        case (windSpeed >= 50 && windSpeed < 75):
+            return "Storm";
+        default:
+            return "Hurricane";
     }
 }
 
-updateAuthSection();
+async function getWeatherData(location) {
+    const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${location}&aqi=no`);
+    if (response.ok && response.status == 200) {
+        const data = await response.json();
+        return data;
+    }
+}
 
-document.getElementById('search-btn').addEventListener('click', function() {
-const title = document.getElementById('movie-title').value.trim();
-if (!title) return;
-const url = `https://www.omdbapi.com/?apikey=83f2b988&s=${encodeURIComponent(title)}`;
+cityInput.addEventListener("input", async function() {
+    const city = cityInput.value.trim();
 
-fetch(url).then(response => response.json()).then(data => {
-    const container = document.getElementById('movie-container');
-    container.innerHTML = '';
-
-    if (data.Response === "True") {
-        data.Search.sort(function(a, b) { 
-            if (b.Year > a.Year) return 1 
-            if (b.Year < a.Year) return -1 
-            return 0
-        });
-
-        data.Search.forEach(movie => {
-        const poster = (movie.Poster && movie.Poster !== "N/A") ? movie.Poster : "./images/no-logo.png";
-        const movieHTML = `
-            <div class="movie">
-            <img src="${poster}" alt="Постер фильма">
-            <div class="movie-details">
-                <h2>${movie.Title}</h2>
-                <p><strong>Год:</strong> ${movie.Year}</p>
-            </div>
-            </div>
-        `;
-        container.innerHTML += movieHTML;
-        });
-    } else {
-        container.innerHTML = '<p>Фильм не найден</p>';
-    }}).catch(err => console.error(err));
-})
+    if (city) {
+        const weatherData = await getWeatherData(city);
+        degrees.textContent = Math.floor(weatherData.current.temp_c);
+        weatherType.textContent = weatherData.current.condition.text;
+        windSpeed.textContent = weatherData.current.wind_mph + " km/h";
+        windType.textContent = getWindDescription(weatherData.current.wind_mph);
+        SpeedContainer.style.right = (windType.textContent.length > 4 && windType.textContent.length <= 12) ? "-15px" : windType.textContent.length > 12 ? "-45px" : "0";
+        rainChance.textContent = `${weatherData.current.precip_mm}%`
+        mbar.textContent = `${weatherData.current.pressure_mb} mbar`;
+        humidityChance.textContent = `${weatherData.current.humidity}%`;
+        secondHumidityChance.textContent = `Humidity ${weatherData.current.humidity}%`;
+        weatherImage.src = weatherData.current.condition.icon;
+    }
+});
