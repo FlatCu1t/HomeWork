@@ -73,58 +73,143 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-function updateAuthSection() {
-    const authSection = document.getElementById('auth-section');
-    const token = localStorage.getItem('token');
-    const name = localStorage.getItem('name');
+// Задание 1
 
-    if (token && name) {
-        authSection.innerHTML = `<span class="auth_span">Привет, ${name}</span> <button id="logout-btn">Выйти</button>`;
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('name');
-            updateAuthSection();
-        });
+async function asyncAdd(a, b) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(a + b);
+        }, 0);
+    });
+}
+
+function printCurrentDate() {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    console.log(`${day.toString().padStart(2, "0")}.${month.toString().padStart(2, "0")}.${year}`);
+}
+
+printCurrentDate();
+
+(async () => {
+    const result = await asyncAdd(5, 7);
+    console.log(result);
+})();
+
+// Задание 2
+
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = 400;
+canvas.height = 400;
+
+function isAuthorized() {
+    return localStorage.getItem('isAuthorized') === 'true';
+}
+
+function login() {
+    const username = prompt("Введите имя пользователя:");
+    if (username) {
+        localStorage.setItem('isAuthorized', 'true');
+        alert("Вы авторизованы как " + username);
+        loadPhoto();
     } else {
-        authSection.innerHTML = `<button id="login-btn">Авторизация</button>`;
-        document.getElementById('login-btn').addEventListener('click', function() {
-            window.location.href = 'login.html';
-        });
+        alert("Логин отменён или не введён.");
     }
 }
 
-updateAuthSection();
+async function fetchPhoto() {
+    try {
+        const response = await fetch('https://sun9-62.userapi.com/impg/pQCEKM6RaiDMP6thveFgf-vSxuzU52QD3bpW6A/n9xx58nziA0.jpg?size=647x722&quality=95&sign=876347249c793ab6345e02e109a71d63&type=album');
+        return response;
+    } catch (error) {
+        console.error("Ошибка при получении данных фото:", error);
+    }
+}
 
-document.getElementById('search-btn').addEventListener('click', function() {
-const title = document.getElementById('movie-title').value.trim();
-if (!title) return;
-const url = `https://www.omdbapi.com/?apikey=83f2b988&s=${encodeURIComponent(title)}`;
+document.getElementById('loginBtn').addEventListener('click', login);
 
-fetch(url).then(response => response.json()).then(data => {
-    const container = document.getElementById('movie-container');
-    container.innerHTML = '';
+const img = new Image();
+img.crossOrigin = 'anonymous';
 
-    if (data.Response === "True") {
-        data.Search.sort(function(a, b) { 
-            if (b.Year > a.Year) return 1 
-            if (b.Year < a.Year) return -1 
-            return 0
-        });
+fetchPhoto().then((res) => {
+    img.src = res.url;
+});
 
-        data.Search.forEach(movie => {
-        const poster = (movie.Poster && movie.Poster !== "N/A") ? movie.Poster : "./images/no-logo.png";
-        const movieHTML = `
-            <div class="movie">
-            <img src="${poster}" alt="Постер фильма">
-            <div class="movie-details">
-                <h2>${movie.Title}</h2>
-                <p><strong>Год:</strong> ${movie.Year}</p>
-            </div>
-            </div>
-        `;
-        container.innerHTML += movieHTML;
+img.onload = async function() {
+    await ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const quality = 0.1;
+    const dataURL = await canvas.toDataURL('image/jpeg', quality);
+    !isAuthorized() ? img.src = dataURL : null;
+};
+
+async function loadPhoto() {
+    const photo = await fetchPhoto();
+    if (photo) {
+        img.src = isAuthorized() ? photo.url : img.src;
+    }
+}
+
+// Задание 3
+
+async function fetchUsers() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (!response.ok) {
+            throw new Error("Ошибка сети: " + response.status);
+        }
+        const users = await response.json();
+        return users;
+    } catch (error) {
+        console.error("Ошибка при получении данных пользователей:", error);
+    }
+}
+
+function createUserCard(user) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <h3>${user.name}</h3>
+        <p class="subtitle">CEO, ProCrew</p>
+        <p class="phoneText">
+        Tel: ${user.phone}
+        <img src="/images/phone.svg" alt="icon" loading="lazy">
+        </p>
+        <p class="emailText">
+        Email: ${user.email}
+        <img src="/images/email.svg" alt="icon" loading="lazy">
+        </p>
+        <p class="companyDetails">Company Details</p>
+        <p class="siteText">
+        ${user.website}
+        <img src="/images/home.svg" alt="icon" loading="lazy">
+        </p>
+        <p class="employeesText">
+        <span>Employees:</span> 50 - 100
+        <img src="/images/employees.svg" alt="icon" loading="lazy">
+        </p>
+        <p class="employeesText">
+        <span>Location:</span> ${user.address.street}
+        <img src="/images/location.svg" alt="icon" loading="lazy">
+        </p>
+    `;
+    return card;
+}
+
+async function loadUserCards() {
+    const users = await fetchUsers();
+    const container = document.getElementById('cardContainer');
+
+    if (users && Array.isArray(users)) {
+        users.forEach(user => {
+        const card = createUserCard(user);
+            container.appendChild(card);
         });
     } else {
-        container.innerHTML = '<p>Фильм не найден</p>';
-    }}).catch(err => console.error(err));
-})
+        container.innerHTML = "<p>Не удалось загрузить данные пользователей.</p>";
+    }
+}
+
+loadUserCards();
