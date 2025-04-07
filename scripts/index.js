@@ -158,3 +158,21 @@ cityInput.addEventListener("input", async function() {
         weatherImage.src = weatherData.current.condition.icon;
     }
 });
+
+async function defaultData() {
+    const weatherData = await getWeatherData("Astana");
+    degrees.textContent = Math.floor(weatherData.current.temp_c);
+    weatherType.textContent = weatherData.current.condition.text;
+    windSpeed.textContent = weatherData.current.wind_mph + " km/h";
+    windType.textContent = getWindDescription(weatherData.current.wind_mph);
+    SpeedContainer.style.right = (windType.textContent.length > 4 && windType.textContent.length <= 12) ? "-15px" : windType.textContent.length > 12 ? "-45px" : "0";
+    rainChance.textContent = `${weatherData.current.precip_mm}%`
+    mbar.textContent = `${weatherData.current.pressure_mb} mbar`;
+    humidityChance.textContent = `${weatherData.current.humidity}%`;
+    secondHumidityChance.textContent = `Humidity ${weatherData.current.humidity}%`;
+    weatherImage.src = weatherData.current.condition.icon;
+}
+
+(async () => {
+    await defaultData();
+})();
