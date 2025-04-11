@@ -73,143 +73,169 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-// Задание 1
+const regButton = document.querySelector(".regButton");
+const regInput = document.getElementById("regInput");
+const notification = document.querySelector(".notification");
+const regContainer = document.querySelector(".reg_container");
+const timer = document.querySelector(".timer");
+const mainContainer = document.querySelector(".quiz_container");
+const questionContainer = document.querySelector(".question_container");
+const answerContainer = document.querySelector(".answers_container");
+const finalContainer = document.querySelector(".final_container");
+const nextButton = document.querySelector(".nextButton");
+let notifTimeout = false, timerInterval = false, currentQuestion = 0, correctAnswers = 0;
 
-async function asyncAdd(a, b) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(a + b);
-        }, 0);
+function addToLocal(param, value) {
+    if ((typeof param !== "string" || typeof value !== "string") || (!param || !value)) throw new Error("Запись в localStorage отменена. param или value не являются String.");
+    return localStorage.setItem(param, value);
+};
+
+if (localStorage.getItem("userName").length > 0 && regInput) {
+    regInput.value = localStorage.getItem("userName");
+}
+
+function sendNotification(text, type, width) {
+    if (notifTimeout) return;
+    let teext = "";
+
+    !text ? teext += "text " : null;
+    !type ? teext += "type " : null;
+
+    if (!text || !type) throw new Error(`Ошибка отправления оповещения. Не хватает следующих параметров:\n${teext}`);
+    if (!width) {
+        width = Math.floor(150 + Math.floor(text.length * 5.1875));
+    };
+
+    if (notification) {
+        notification.style.width = width;
+        notification.children[0].textContent = text;
+
+        if (type.toLowerCase() == "error") {
+            notification.style.backgroundColor = "#a30000";
+            notification.children[1].src = "/images/error.svg";
+        } else if (type.toLowerCase() == "success") {
+            notification.style.backgroundColor = "#0d9e00";
+            notification.children[1].src = "/images/success.svg";
+        }
+
+        if (notification.classList.contains("hidden")) {
+            notification.classList.remove("hidden");
+            notification.classList.add("visible");
+            notifTimeout = setTimeout(() => {
+                notification.classList.remove("visible");
+                notification.classList.add("hidden");
+                notifTimeout = false;
+            }, 3000);
+        }
+    };
+};
+
+async function getQuestion(id) {
+    const response = await fetch("./questions.json");
+
+    if (response.ok && response.status == 200) {
+        const data = await response.json();
+        return data[id];
+    }
+};
+
+async function startGame() {
+    timer.style.display = null;
+    mainContainer.children[0].style.display = "none";
+    regContainer.style.display = "none";
+    questionContainer.style.display = "block";
+    answerContainer.style.display = "flex";
+
+    const question = await getQuestion(currentQuestion);
+    questionContainer.children[1].textContent = question.text;
+
+    for (let i = 0; i < question.options.length; i++) {
+        answerContainer.children[i].textContent = question.options[i];
+    }
+};
+
+function resetGame() {
+    answerContainer.style.display = "none";
+    questionContainer.style.display = "none";
+    finalContainer.style.display = "none";
+    mainContainer.children[0].style.display = "block";
+    regContainer.style.display = "block";
+    regContainer.classList.contains("regHide") ? regContainer.classList.remove("regHide") : null;
+    currentQuestion = 0;
+    correctAnswers = 0;
+    timer.textContent = "5";
+    Array.from(answerContainer.children).forEach((el) => {
+        el.style.backgroundColor = "rgba(93, 155, 164, 0.7)";
     });
 }
 
-function printCurrentDate() {
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    console.log(`${day.toString().padStart(2, "0")}.${month.toString().padStart(2, "0")}.${year}`);
-}
-
-printCurrentDate();
-
-(async () => {
-    const result = await asyncAdd(5, 7);
-    console.log(result);
-})();
-
-// Задание 2
-
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = 400;
-canvas.height = 400;
-
-function isAuthorized() {
-    return localStorage.getItem('isAuthorized') === 'true';
-}
-
-function login() {
-    const username = prompt("Введите имя пользователя:");
-    if (username) {
-        localStorage.setItem('isAuthorized', 'true');
-        alert("Вы авторизованы как " + username);
-        loadPhoto();
+async function askQuestion(id, button) {
+    const question = await getQuestion(currentQuestion);
+    if (button.textContent == question.correctAnswer) {
+        button.style.backgroundColor = "rgba(5, 158, 0, 0.7)";
+        correctAnswers++;
+        currentQuestion++
     } else {
-        alert("Логин отменён или не введён.");
+        currentQuestion++
+        button.style.backgroundColor = "rgba(156, 0, 0, 0.9)";
     }
-}
+    nextButton.style.display = "block";
+};
 
-async function fetchPhoto() {
-    try {
-        const response = await fetch('https://sun9-62.userapi.com/impg/pQCEKM6RaiDMP6thveFgf-vSxuzU52QD3bpW6A/n9xx58nziA0.jpg?size=647x722&quality=95&sign=876347249c793ab6345e02e109a71d63&type=album');
-        return response;
-    } catch (error) {
-        console.error("Ошибка при получении данных фото:", error);
+async function nextQuestion() {
+    nextButton.style.display = "none";
+    if (currentQuestion <= 9) {
+        Array.from(answerContainer.children).forEach((el) => {
+            el.style.backgroundColor = "rgba(93, 155, 164, 0.7)";
+        });
+
+        const question = await getQuestion(currentQuestion);
+        questionContainer.children[1].textContent = question.text;
+
+        for (let i = 0; i < question.options.length; i++) {
+            answerContainer.children[i].textContent = question.options[i];
+        }
+    } else {
+        answerContainer.style.display = "none";
+        questionContainer.style.display = "none";
+        finalContainer.style.display = "block";
+        finalContainer.children[0].textContent = `Правильных ответов: ${correctAnswers}`;
     }
-}
+};
 
-document.getElementById('loginBtn').addEventListener('click', login);
-
-const img = new Image();
-img.crossOrigin = 'anonymous';
-
-fetchPhoto().then((res) => {
-    img.src = res.url;
+nextButton.addEventListener("click", async () => {
+    return await nextQuestion(currentQuestion);
 });
 
-img.onload = async function() {
-    await ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    const quality = 0.1;
-    const dataURL = await canvas.toDataURL('image/jpeg', quality);
-    !isAuthorized() ? img.src = dataURL : null;
-};
+regButton.addEventListener("click", () => {
+    if (!regInput || regInput.value.length < 1) throw new Error("Регистрация отменена. Значение в Input пустое.");
+    if (regInput.value.length < 3) throw new Error("Регистрация отменена. Значение в Input меньше 3х символов.");
+    addToLocal("userName", regInput.value);
 
-async function loadPhoto() {
-    const photo = await fetchPhoto();
-    if (photo) {
-        img.src = isAuthorized() ? photo.url : img.src;
+    if (!regContainer.classList.contains("regHide")) {
+        regContainer.classList.add("regHide");
     }
-}
 
-// Задание 3
+    sendNotification(`Привет, ${regInput.value}!`, "success");
+    timer.style.display = "block";
 
-async function fetchUsers() {
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        if (!response.ok) {
-            throw new Error("Ошибка сети: " + response.status);
+    timerInterval = setInterval(async () => {
+        let newNumber = parseInt(timer.textContent) - 1;
+        if (newNumber > 0) {
+            timer.textContent = newNumber;
+        } else {
+            clearInterval(timerInterval);
+            await startGame();
         }
-        const users = await response.json();
-        return users;
-    } catch (error) {
-        console.error("Ошибка при получении данных пользователей:", error);
-    }
-};
+    }, 1000);
+});
 
-function createUserCard(user) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-        <h3>${user.name}</h3>
-        <p class="subtitle">CEO, ProCrew</p>
-        <p class="phoneText">
-        Tel: ${user.phone}
-        <img src="/images/phone.svg" alt="icon" loading="lazy">
-        </p>
-        <p class="emailText">
-        Email: ${user.email}
-        <img src="/images/email.svg" alt="icon" loading="lazy">
-        </p>
-        <p class="companyDetails">Company Details</p>
-        <p class="siteText">
-        ${user.website}
-        <img src="/images/home.svg" alt="icon" loading="lazy">
-        </p>
-        <p class="employeesText">
-        <span>Employees:</span> 50 - 100
-        <img src="/images/employees.svg" alt="icon" loading="lazy">
-        </p>
-        <p class="employeesText">
-        <span>Location:</span> ${user.address.street}
-        <img src="/images/location.svg" alt="icon" loading="lazy">
-        </p>
-    `;
-    return card;
-}
+Array.from(answerContainer.children).forEach((el) => {
+    el.addEventListener("click", async () => {
+        await askQuestion(currentQuestion, el);
+    });
+})
 
-async function loadUserCards() {
-    const users = await fetchUsers();
-    const container = document.getElementById('cardContainer');
-
-    if (users && Array.isArray(users)) {
-        users.forEach(user => {
-        const card = createUserCard(user);
-            container.appendChild(card);
-        });
-    } else {
-        container.innerHTML = "<p>Не удалось загрузить данные пользователей.</p>";
-    }
-}
-
-loadUserCards();
+document.querySelector(".resetButton").addEventListener("click", () => {
+    return resetGame();
+});

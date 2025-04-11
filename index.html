@@ -7,13 +7,33 @@
     </head>
     <body>
       <div class="container">
-        <canvas id="myCanvas"></canvas>
-        <button id="loginBtn">Логин</button>
-        <main>
-          <section>
-            <div class="card-container" id="cardContainer"></div>
-          </section>
-        </main>
+        <div class="quiz_container">
+          <img src="/images/logo.png" alt="logo" loading="lazy">
+          <div class="reg_container">
+            <input id="regInput" type="text" placeholder="Ваше имя..." required>
+            <button class="regButton" type="button">Регистрация</button>
+          </div>
+          <p class="timer">5</p>
+          <div class="question_container">
+            <h2>Вопрос:</h2>
+            <span class="question"></span>
+          </div>
+          <div class="answers_container">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+          </div>
+          <button class="nextButton">NEXT</button>
+          <div class="final_container">
+            <p></p>
+            <button class="resetButton">RESET</button>
+          </div>
+        </div>
+        <div class="notification hidden">
+          <span></span>
+          <img src="/images/error.svg" alt="notif_icon" loading="lazy">
+        </div>
       </div>
       <script src="/scripts/index.js"></script>
     </body>
