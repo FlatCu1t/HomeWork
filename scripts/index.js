@@ -73,169 +73,36 @@ function unixStampDays(stamp, stamp2) {
     return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
 }
 
-const regButton = document.querySelector(".regButton");
-const regInput = document.getElementById("regInput");
-const notification = document.querySelector(".notification");
-const regContainer = document.querySelector(".reg_container");
-const timer = document.querySelector(".timer");
-const mainContainer = document.querySelector(".quiz_container");
-const questionContainer = document.querySelector(".question_container");
-const answerContainer = document.querySelector(".answers_container");
-const finalContainer = document.querySelector(".final_container");
-const nextButton = document.querySelector(".nextButton");
-let notifTimeout = false, timerInterval = false, currentQuestion = 0, correctAnswers = 0;
-
-function addToLocal(param, value) {
-    if ((typeof param !== "string" || typeof value !== "string") || (!param || !value)) throw new Error("Запись в localStorage отменена. param или value не являются String.");
-    return localStorage.setItem(param, value);
-};
-
-if (localStorage.getItem("userName").length > 0 && regInput) {
-    regInput.value = localStorage.getItem("userName");
+const user = { name: "Vlad", age: 21 };
+user.checkLength = function(str) {
+    return str.length;
 }
 
-function sendNotification(text, type, width) {
-    if (notifTimeout) return;
-    let teext = "";
+console.log(user.checkLength("Stringa"));
 
-    !text ? teext += "text " : null;
-    !type ? teext += "type " : null;
-
-    if (!text || !type) throw new Error(`Ошибка отправления оповещения. Не хватает следующих параметров:\n${teext}`);
-    if (!width) {
-        width = Math.floor(150 + Math.floor(text.length * 5.1875));
-    };
-
-    if (notification) {
-        notification.style.width = width;
-        notification.children[0].textContent = text;
-
-        if (type.toLowerCase() == "error") {
-            notification.style.backgroundColor = "#a30000";
-            notification.children[1].src = "/images/error.svg";
-        } else if (type.toLowerCase() == "success") {
-            notification.style.backgroundColor = "#0d9e00";
-            notification.children[1].src = "/images/success.svg";
-        }
-
-        if (notification.classList.contains("hidden")) {
-            notification.classList.remove("hidden");
-            notification.classList.add("visible");
-            notifTimeout = setTimeout(() => {
-                notification.classList.remove("visible");
-                notification.classList.add("hidden");
-                notifTimeout = false;
-            }, 3000);
-        }
-    };
-};
-
-async function getQuestion(id) {
-    const response = await fetch("./questions.json");
-
-    if (response.ok && response.status == 200) {
-        const data = await response.json();
-        return data[id];
-    }
-};
-
-async function startGame() {
-    timer.style.display = null;
-    mainContainer.children[0].style.display = "none";
-    regContainer.style.display = "none";
-    questionContainer.style.display = "block";
-    answerContainer.style.display = "flex";
-
-    const question = await getQuestion(currentQuestion);
-    questionContainer.children[1].textContent = question.text;
-
-    for (let i = 0; i < question.options.length; i++) {
-        answerContainer.children[i].textContent = question.options[i];
-    }
-};
-
-function resetGame() {
-    answerContainer.style.display = "none";
-    questionContainer.style.display = "none";
-    finalContainer.style.display = "none";
-    mainContainer.children[0].style.display = "block";
-    regContainer.style.display = "block";
-    regContainer.classList.contains("regHide") ? regContainer.classList.remove("regHide") : null;
-    currentQuestion = 0;
-    correctAnswers = 0;
-    timer.textContent = "5";
-    Array.from(answerContainer.children).forEach((el) => {
-        el.style.backgroundColor = "rgba(93, 155, 164, 0.7)";
-    });
+function Power(base, exponent) {
+    this.base = base;
+    this.exponent = exponent;
 }
 
-async function askQuestion(id, button) {
-    const question = await getQuestion(currentQuestion);
-    if (button.textContent == question.correctAnswer) {
-        button.style.backgroundColor = "rgba(5, 158, 0, 0.7)";
-        correctAnswers++;
-        currentQuestion++
-    } else {
-        currentQuestion++
-        button.style.backgroundColor = "rgba(156, 0, 0, 0.9)";
+Power.prototype.calculate = function() {
+    return Math.pow(this.base, this.exponent);
+}
+
+function calculatePower(base, exponent) {
+    const powerObj = new Power(base, exponent);
+    const result = powerObj.calculate();
+
+    return result;
+}
+
+console.log(calculatePower(8, 3));
+
+function createUrl(domain) {
+    return function(url) {
+        return `http://${url}.${domain}`;
     }
-    nextButton.style.display = "block";
-};
+}
 
-async function nextQuestion() {
-    nextButton.style.display = "none";
-    if (currentQuestion <= 9) {
-        Array.from(answerContainer.children).forEach((el) => {
-            el.style.backgroundColor = "rgba(93, 155, 164, 0.7)";
-        });
-
-        const question = await getQuestion(currentQuestion);
-        questionContainer.children[1].textContent = question.text;
-
-        for (let i = 0; i < question.options.length; i++) {
-            answerContainer.children[i].textContent = question.options[i];
-        }
-    } else {
-        answerContainer.style.display = "none";
-        questionContainer.style.display = "none";
-        finalContainer.style.display = "block";
-        finalContainer.children[0].textContent = `Правильных ответов: ${correctAnswers}`;
-    }
-};
-
-nextButton.addEventListener("click", async () => {
-    return await nextQuestion(currentQuestion);
-});
-
-regButton.addEventListener("click", () => {
-    if (!regInput || regInput.value.length < 1) throw new Error("Регистрация отменена. Значение в Input пустое.");
-    if (regInput.value.length < 3) throw new Error("Регистрация отменена. Значение в Input меньше 3х символов.");
-    addToLocal("userName", regInput.value);
-
-    if (!regContainer.classList.contains("regHide")) {
-        regContainer.classList.add("regHide");
-    }
-
-    sendNotification(`Привет, ${regInput.value}!`, "success");
-    timer.style.display = "block";
-
-    timerInterval = setInterval(async () => {
-        let newNumber = parseInt(timer.textContent) - 1;
-        if (newNumber > 0) {
-            timer.textContent = newNumber;
-        } else {
-            clearInterval(timerInterval);
-            await startGame();
-        }
-    }, 1000);
-});
-
-Array.from(answerContainer.children).forEach((el) => {
-    el.addEventListener("click", async () => {
-        await askQuestion(currentQuestion, el);
-    });
-})
-
-document.querySelector(".resetButton").addEventListener("click", () => {
-    return resetGame();
-});
+const createMyUrl = createUrl("com");
+console.log(createMyUrl("google"));
