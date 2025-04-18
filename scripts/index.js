@@ -1,132 +1,103 @@
 import { Functions } from "./functions.js";
 const functions = new Functions();
 
-document.getElementById('search-btn').addEventListener('click', async function() {
-    const title = document.getElementById('movie-title').value.trim();
-    if (!title) return;
+class Good {
+    constructor(name, price, color) {
+        this._width = 3;
+        this._name = name;
+        this._price = price;
+        this._color = color;
+    };
 
-    const data = await functions.getFilmsData(title);
-    const container = document.getElementById('movie-container');
-    container.innerHTML = '';
-
-    if (data.Response === "True") {
-        data.Search.sort(function(a, b) { 
-            if (b.Year > a.Year) return 1 
-            if (b.Year < a.Year) return -1 
-            return 0
-        });
-
-        data.Search.forEach(movie => {
-            const poster = (movie.Poster && movie.Poster !== "N/A") ? movie.Poster : "./images/no-logo.png";
-            const movieHTML = `
-                <div class="movie">
-                <img src="${poster}" alt="Постер фильма">
-                <div class="movie-details">
-                    <h2>${movie.Title}</h2>
-                    <p><strong>Год:</strong> ${movie.Year}</p>
-                </div>
-                </div>
-            `;
-            container.innerHTML += movieHTML;
-        });
-    } else {
-        container.innerHTML = '<p>Фильм не найден</p>';
+    create() {
+        const container = document.querySelector(".flexContainer");
+        const newItem = document.createElement("div");
+        newItem.classList.add("item");
+        const nameText = document.createElement("p");
+        const priceText = document.createElement("p");
+        nameText.textContent = `Name: ${this._name}`;
+        priceText.textContent = `Price: ${this._price}`;
+        newItem.appendChild(nameText);
+        newItem.appendChild(priceText);
+        newItem.style.background = this._color;
+        newItem.style.border = `${this._width}px solid black`;
+        container.appendChild(newItem);
     }
-});
-
-const now = new Date();
-
-const dateStore = {
-    day: now.getDate(),
-    month: now.getMonth() + 1,
-    year: now.getFullYear()
-};
-
-const Person = {};
-Object.defineProperties(Person, {
-    firstName: {
-        value: "Иван",
-        writable: true,
-        enumerable: true,
-        configurable: false
-    },
-    lastName: {
-        value: "Иван",
-        writable: true,
-        enumerable: true,
-        configurable: false
-    },
-
-    day: {
-        enumerable: true,
-        configurable: false,
-        get() {
-            return dateStore.day;
-        },
-        set(val) {
-            const num = Number(val);
-            if (!Number.isInteger(num) || num < 1 || num > 31) {
-                throw new Error('Неверный день: должно быть целое от 1 до 31');
-            }
-            dateStore.day = num;
-        }
-    },
-
-    month: {
-        enumerable: true,
-        configurable: false,
-        get() {
-            return dateStore.month;
-        },
-        set(val) {
-            const num = Number(val);
-            if (!Number.isInteger(num) || num < 1 || num > 12) {
-                throw new Error('Неверный месяц: должно быть целое от 1 до 12');
-            }
-            dateStore.month = num;
-        }
-    },
-
-    year: {
-        enumerable: true,
-        configurable: false,
-        get() {
-            return dateStore.year;
-        },
-        set(val) {
-            const num = Number(val);
-            if (!Number.isInteger(num) || num < 1900) {
-                throw new Error('Неверный год: должно быть целое ≥ 1900');
-            }
-            dateStore.year = num;
-        }
-    }
-});
-
-console.log('Имя до:', Person.firstName);
-Person.firstName = 'Сергей';
-console.log('Имя после:', Person.firstName);
-
-Person.day = 15;
-Person.month = 12;
-Person.year = 2022;
-let text = "";
-
-for (const key in Person) {
-  if (Object.prototype.hasOwnProperty.call(Person, key)) {
-    text += `${key}: ${Person[key]}\n`
-  }
 }
 
-console.log(text);
+const item1 = new Good("Iphone 16", "50 000", "white");
+const item2 = new Good("Iphone 15", "30 000", "white");
 
-const factGen = functions.factorialGenerator();
-factGen.next().value;
+item1.create();
+item2.create();
 
-console.log(factGen.next().value);
-console.log(factGen.next().value);
-console.log(factGen.next().value);
-console.log(factGen.next().value);
-console.log(factGen.next().value);
+class TestUser {
+    constructor(age) {
+        this._default_age = age > 0 ? age : 14;
+    };
 
-delete Person.lastName;
+    get age() {
+        return this._default_age;
+    }
+
+    set age(value) {
+        if (value <= 0 || value > 120) return console.error("Некорректный возраст.");
+        this._default_age = value;
+    }
+}
+
+const user1 = new TestUser();
+const user2 = new TestUser(24);
+console.log(user1.age);
+console.log(user2.age);
+
+user2.age = 121;
+
+class User {
+    static type = "User";
+    static baseId = 0;
+    constructor(name) {
+        this.id = User.baseId;
+        User.baseId++;
+        this.name = name;
+        console.log(`User ${this.name} created!!!`);
+    };
+
+    comment(message) {
+        const mainContainer = document.querySelector(".textContainer");
+        if (mainContainer) {
+            const msg = document.createElement("h2");
+            msg.textContent = `${this.name} - ${message}`;
+            msg.style.fontWeight = 400;
+            mainContainer.appendChild(msg);
+        }
+        
+    }
+}
+
+const testuser = new User("Vlad");
+const testuser2 = new User("Kostya");
+testuser.comment("Message");
+testuser2.comment("Message two");
+
+class ModerateUser extends User {
+    static type = "Moderator";
+    constructor(name, age) {
+        super(name);
+        this.age = age;
+    };
+
+    comment(message) {
+        const mainContainer = document.querySelector(".textContainer");
+        if (mainContainer) {
+            const msg = document.createElement("h2");
+            msg.textContent = `${this.name} - ${message}`;
+            msg.style.fontWeight = 800;
+            mainContainer.appendChild(msg);
+        }
+        
+    }
+}
+
+const testuser3 = new ModerateUser("Admin", 21);
+testuser3.comment("Здарова");
