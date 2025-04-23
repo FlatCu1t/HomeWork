@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap');
 
 * {
     margin: 0;
@@ -6,68 +6,73 @@
 }
 
 body {
-    font-family: "Merriweather", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
+    font-family: "Abhaya Libre", serif;
+    font-weight: 600;
     font-style: normal;
     overflow-x: hidden;
-    background-image: url(/images/bg.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-blend-mode: darken;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: auto;
+    position: relative;
 }
 
-.container {
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: max-content;
-}
-
-.flexContainer {
-    position: relative;
-    left: 100px;
-    top: 100px;
+.cards_container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    height: auto;
+    max-width: 85vw;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     gap: 50px;
-    row-gap: 30px;
-    width: max-content;
-    height: max-content;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
 }
 
-.textContainer {
+.card {
     position: relative;
-    left: 100px;
-    top: 450px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 30px;
-    width: max-content;
-    height: max-content;
+    width: 350px;
+    height: 450px;
+    border-radius: 25px;
+    background-color: black;
 }
 
-.flexContainer .item {
-    width: 200px;
-    height: 100px;
-}
-
-.flexContainer .item p {
-    color: black;
-    font-weight: 600 !important;
-    margin: 10px 10px 10px 10px;
-}
-
-h2 {
-    left: 100px;
-    top: 260px;
+.card p {
+    position: absolute;
     color: white;
-    font-size: 32px;
+    font-size: 20px;
+    left: 30px;
+    top: 30px;
+}
+
+.card button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    transition: transform 0.3s;
+    font-size: 20px;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+.card .email {
+    top: 80px;
+}
+
+.card .tel {
+    top: 130px;
 }

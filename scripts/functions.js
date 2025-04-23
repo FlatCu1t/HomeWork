@@ -1,4 +1,6 @@
 export class Functions {
+    static user = { name: "Vlad", age: 21, address: { street: "Street", district: "District" }, city: "Astana" };
+
     utils = {
         sp: (int) => {
             int = int.toString();
@@ -73,22 +75,49 @@ export class Functions {
         return { seconds: s, minutes: m, hours: h, days: d, years: years, text: text };
     };
 
-    async getFilmsData(title) {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=83f2b988&s=${encodeURIComponent(title)}`);
+    getObject(...values) {
+        let obj = { name: "", email: "", telephone: "" }
+        values.map((el, indx) => {
+            switch (indx) {
+                case 0:
+                    obj.name = el;
+                    break;
+                case 1:
+                    obj.email = el;
+                    break;
+                case 2:
+                    obj.telephone = el;
+                    break;
+                default:
+                    break;
+            }
+        });
+        return obj;
+    }
+
+    concat_massives(...massives) {
+        return console.log(massives.flat());
+    }
+
+    async getUsers() {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
         if (response.ok && response.status == 200) {
             const data = await response.json();
-            return data ? data : null;
+            return data;
         }
     }
 
-    * factorialGenerator() {
-        let n = 0;
-        let result = 1;
-
-        while (true) {
-            result = result * n || 1;
-            n++;
-            yield result;
+    teest(...values) {
+        if (values[0].length > 0) {
+            values[0].map((el) => {
+                const { id: id, title: title } = el;
+                return console.log(`Пользователь ${id}. Заметка: ${title}`);
+            });
+        } else {
+            values.map((el) => {
+                const { id: id, title: title } = el;
+                return console.log(`Пользователь ${id}. Заметка: ${title}`);
+            });
         }
     }
-}
+};
