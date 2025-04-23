@@ -6,32 +6,48 @@
         <title>Заголовок</title>
     </head>
     <body>
-      <div class="cards_container">
-        <div class="card">
-          <p class="name">Name: Vlad</p>
-          <p class="email">Email: ivlad6543@gmail.com</p>
-          <p class="tel">Telephone: +77756163523</p>
-          <button>Get info</button>
+      <header>
+        <nav>
+          <ul>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Fertilizer</a></li>
+            <li><a href="#">Guide</a></li>
+          </ul>
+        </nav>
+        <h2>Happiness blooms from within</h2>
+        <p>Our environment, the world in which we live and work, is a mirror of our attitudes and expectations.</p>
+        <img src="/images/sofa.svg" alt="sofa" loading="lazy">
+        <button>Shop now</button>
+        <div class="headerButtons_container">
+          <div class="searchBtn"></div>
+          <div class="userBtn"></div>
+          <div class="cartBtn"></div>
         </div>
-        <div class="card">
-          <p class="name">Name: Artyom</p>
-          <p class="email">Email: artyom@gmail.com</p>
-          <p class="tel">Telephone: +7726918932</p>
-          <button>Get info</button>
-        </div>
-        <div class="card">
-          <p class="name">Name: Katya</p>
-          <p class="email">Email: kat.ya@bk.ru</p>
-          <p class="tel">Telephone: +77194883292</p>
-          <button>Get info</button>
-        </div>
-        <div class="card">
-          <p class="name">Name: Evgeniy</p>
-          <p class="email">Email: evgen@mail.ru</p>
-          <p class="tel">Telephone: +77029748942</p>
-          <button>Get info</button>
-        </div>
-      </div>
+      </header>
+      <main>
+        <section class="firstSection">
+          <div class="inputs_container">
+            <select id="categorySelect">
+              <option value="">Категория</option>
+            </select>
+            <select id="subcategorySelect" disabled>
+              <option value="">— сначала выберите категорию —</option>
+            </select>
+            <input id="minPriceInput" type="text" placeholder="От...">
+            <input id="maxPriceInput" type="text" placeholder="До...">
+          </div>
+          <div class="firstSection_searchBtn">
+            <img src="/images/search.svg" alt="search" loading="lazy">
+          </div>
+        </section>
+        <section class="secondSection">
+          <h2>Category (0)</h2>
+          <div class="items_container">
+          </div>
+        </section>
+        <section class="thirdSection"></section>
+      </main>
       <script type="module" src="/scripts/index.js"></script>
     </body>
 </html>

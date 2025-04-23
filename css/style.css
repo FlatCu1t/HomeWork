@@ -7,72 +7,256 @@
 
 body {
     font-family: "Abhaya Libre", serif;
-    font-weight: 600;
+    font-weight: 800;
     font-style: normal;
     overflow-x: hidden;
+}
+
+header {
     width: 100%;
-    height: auto;
+    height: 100vh;
+    background-color: #004F44;
     position: relative;
 }
 
-.cards_container {
+header h2 {
+    color: white;
+    position: absolute;
+    font-size: 64px;
+    max-width: 350px;
+    left: 250px;
+    top: 250px;
+}
+
+header p {
+    position: absolute;
+    color: #EFF7F5;
+    font-size: 16px;
+    left: 250px;
+    top: 500px;
+    max-width: 400px;
+    line-height: 30px;
+    font-weight: 500 !important;
+}
+
+header button {
+    position: absolute;
+    width: 156px;
+    height: 72px;
+    border: none;
+    background-color: #EFF7F5;
+    text-align: center;
+    color: #004F44;
+    font-size: 16px;
+    left: 250px;
+    top: 600px;
+    transition: transform 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+header img {
+    position: absolute;
+    right: 300px;
+    top: 200px;
+    width: 539px;
+    height: 573px;
+}
+
+header nav ul {
+    list-style-type: none;
+    position: absolute;
+    left: 250px;
+    top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 50px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    font-weight: 500 !important;
+}
+
+.headerButtons_container {
+    position: absolute;
+    right: 300px;
+    top: 50px;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+}
+
+.searchBtn, .userBtn, .cartBtn {
+    width: 30px;
+    height: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+.searchBtn {
+    background-image: url(/images/search.svg);
+}
+
+.userBtn {
+    background-image: url(/images/user.svg);
+}
+
+.cartBtn {
+    background-image: url(/images/cart.svg);
+}
+
+main section {
+    width: 100%;
+    position: relative;
+}
+
+.firstSection {
+    height: 30vh;
+}
+
+.firstSection .inputs_container {
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 250px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.firstSection input, .firstSection select {
+    width: 291px;
+    height: 59px;
+    border: 1px solid #004F44;
+    font-size: 16px;
+    padding-left: 20px;
+    color: #004F44;
+}
+
+.firstSection select {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.firstSection input::placeholder {
+    color: #004F44;
+    font-size: 16px;
+}
+
+.firstSection_searchBtn {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: none;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 100px;
+    background-color: #004F44;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.firstSection_searchBtn img {
+    width: 28px;
+    height: 28px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: max-content;
-    height: auto;
-    max-width: 85vw;
+}
+
+.secondSection {
+    height: 10vh;
+}
+
+.secondSection h2 {
+    position: absolute;
+    color: #004F44;
+    font-size: 30px;
+    font-weight: 400 !important;
+    left: 250px;
+}
+
+.secondSection .items_container {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 30px;
+    row-gap: 50px;
+    width: 70%;
     align-items: flex-start;
     justify-content: center;
     align-content: flex-start;
 }
 
-.card {
+.secondSection .items_container .item {
     position: relative;
-    width: 350px;
-    height: 450px;
+    width: 280px;
+    height: 480px;
     border-radius: 25px;
-    background-color: black;
+    background-color: rgb(216, 216, 216);
 }
 
-.card p {
+.secondSection .items_container .item .imgSection {
     position: absolute;
-    color: white;
-    font-size: 20px;
-    left: 30px;
-    top: 30px;
+    left: 0;
+    top: 0;
+    width: 271px;
+    height: 403px;
+    border-radius: 25px 25px 0px 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
-.card button {
+.secondSection .items_container .item p {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: 30px;
+    color: #004F44;
+    left: 10px;
+    right: 10px;
     bottom: 50px;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    text-align: center;
-    background-color: white;
-    color: black;
-    transition: transform 0.3s;
-    font-size: 20px;
-
-    &:hover {
-        cursor: pointer;
-        transform: translateX(-50%) scale(1.1);
-    }
+    max-width: 270px;
 }
 
-.card .email {
-    top: 80px;
+.secondSection .items_container .item .priceText {
+    position: absolute;
+    font-size: 30px;
+    color: #004F44;
+    left: 10px;
+    right: 10px;
+    bottom: 15px;
+    max-width: 270px;
 }
 
-.card .tel {
-    top: 130px;
+.thirdSection {
+    height: 10vh;
 }
