@@ -1,0 +1,42 @@
+[
+    {
+        "img": "./images/nfts/nft_1.svg",
+        "nftName": "DSGN Animals",
+        "nftOwner": "MrFox",
+        "nftOwnerAvatar": "./images/nft_owner_1.svg",
+        "nftCost": 0.5,
+        "nftID": 1
+    },
+    {
+        "img": "./images/nfts/nft_2.svg",
+        "nftName": "Magic Mushrooms",
+        "nftOwner": "Shroomie",
+        "nftOwnerAvatar": "./images/nft_owner_2.svg",
+        "nftCost": 1.2,
+        "nftID": 2
+    },
+    {
+        "img": "./images/nfts/nft_3.svg",
+        "nftName": "Disco Machines",
+        "nftOwner": "BeKind2Robots",
+        "nftOwnerAvatar": "./images/nft_owner_3.svg",
+        "nftCost": 0.85,
+        "nftID": 3
+    },
+    {
+        "img": "./images/nfts/nft_4.svg",
+        "nftName": "DSGN Animals",
+        "nftOwner": "MrFox",
+        "nftOwnerAvatar": "./images/nft_owner_1.svg",
+        "nftCost": 0.35,
+        "nftID": 4
+    },
+    {
+        "img": "./images/nfts/nft_5.svg",
+        "nftName": "DSGN Animals",
+        "nftOwner": "MrFox",
+        "nftOwnerAvatar": "./images/nft_owner_1.svg",
+        "nftCost": 1.45,
+        "nftID": 5
+    }
+]

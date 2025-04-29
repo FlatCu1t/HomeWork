@@ -1,0 +1,554 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --background: #2B2B2B;
+    --background-secondary: #3B3B3B;
+    --second-color: #A259FF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+body {
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow-x: hidden;
+    width: 100%;
+    height: auto;
+    position: relative;
+    background-color: var(--background);
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    background-color: var(--background);
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+header .title {
+    position: relative;
+    width: max-content;
+    height: max-content;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    align-items: start;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+header .title img {
+    width: 32px;
+    height: 32px;
+    left: 0;
+}
+
+header .title h1 {
+    color: white;
+    font-size: 28px;
+    left: 40px;
+    text-wrap: nowrap;
+    font-weight: 500 !important;
+}
+
+header nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    position: absolute;
+    right: 15%;
+    top: 50%;
+    transform: translate(-15%, -50%);
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.header_cart_Btn {
+    position: absolute;
+    width: 152px;
+    height: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--second-color);
+    border: none;
+    right: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-50%) scale(1.05);
+    }
+}
+
+.header_cart_Btn div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.header_cart_Btn div img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.header_cart_Btn div p {
+    color: white;
+    font-size: 20px;
+    text-wrap: nowrap;
+    font-weight: 600 !important;
+    cursor: pointer;
+}
+
+.cart_menu {
+    position: relative;
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    border-radius: 15px;
+    left: 62%;
+    top: 0;
+    opacity: 0.0;
+    display: none;
+    z-index: 1;
+    animation: cartMenu 0.5s forwards;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.cart_menu::-webkit-scrollbar {
+    display: none;
+}
+
+.hidden {
+    animation: cartMenu_close 0.5s forwards;
+}
+
+.visible {
+    display: none;
+}
+
+@keyframes cartMenu {
+    0% {
+        opacity: 0.0;
+    }
+
+    100% {
+        opacity: 1.0;
+    }
+}
+
+@keyframes cartMenu_close {
+    0% {
+        opacity: 1.0;
+    }
+
+    100% {
+        opacity: 0.0;
+    }
+}
+
+section p {
+    color: #FFFFFF;
+    font-size: 22px;
+    max-width: 520px;
+    line-height: 40px;
+}
+
+.hero_information {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 800px;
+    height: 600px;
+    left: 140px;
+    top: 150px;
+}
+
+section .hero_information h2 {
+    color: white;
+    font-weight: 600 !important;
+    font-size: 67px;
+    max-width: 450px;
+}
+
+.header_getStarted_Btn {
+    position: relative;
+    width: 224px;
+    height: 60px;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--second-color);
+    transition: transform 0.35s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.header_getStarted_Btn div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.header_getStarted_Btn div p {
+    color: white;
+    font-size: 16px;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.header_additional_information {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    width: max-content;
+    height: max-content;
+    position: relative;
+    bottom: -130px;
+    left: 140px;
+    gap: 100px;
+}
+
+.additional_info {
+    width: max-content;
+    height: 80px;
+}
+
+.additional_info p:first-child {
+    color: white;
+    font-size: 28px;
+    font-weight: 700 !important;
+}
+
+.additional_info p:last-child {
+    color: white;
+    font-size: 24px;
+    font-weight: 400 !important;
+}
+
+@keyframes nftAnim {
+    0% {
+        transform: translateY(-0%);
+    }
+
+    50% {
+        transform: translateY(-13%);
+    }
+}
+
+.hero_nft {
+    position: relative;
+    width: 510px;
+    height: 510px;
+    left: 60%;
+    bottom: 480px;
+    border-radius: 20px;
+    background-color: var(--background-secondary);
+    animation: nftAnim 5.5s infinite ease-in-out;
+}
+
+.hero_nft_image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: 401px;
+    border-radius: 20px 20px 0px 0px;
+    background-image: url(/images/nft_image.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+}
+
+.nft_info {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    width: max-content;
+    height: max-content;
+    left: 20px;
+    bottom: 10px;
+}
+
+.nft_info p {
+    font-weight: 600 !important;
+    font-size: 22px;
+}
+
+.nft_user {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: max-content;
+    height: max-content;
+}
+
+.nft_user img {
+    width: 24px;
+    height: 24px;
+}
+
+.nft_user p {
+    font-weight: 300 !important;
+    font-size: 16px;
+}
+
+.shop_section h2 {
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    font-size: 32px;
+}
+
+.items {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    width: max-content;
+    height: max-content;
+    max-width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    align-content: flex-start;
+    box-sizing: border-box;
+}
+
+.item {
+    position: relative;
+    width: 330px;
+    height: 525px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    transition: transform 0.35s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    &:hover .item_img {
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    &:hover .nftCost {
+        color: rgba(255, 255, 255, 1.0);
+    }
+}
+
+.item_img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: 330px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.35s;
+}
+
+.item .nftName {
+    color: white;
+    font-weight: 600 !important;
+    font-size: 22px;
+    position: absolute;
+    left: 0;
+    bottom: 80px;
+    cursor: pointer;
+}
+
+.item .nftOwner {
+    color: white;
+    font-weight: 400 !important;
+    font-size: 16px;
+    position: absolute;
+    left: 35px;
+    bottom: 37px;
+    cursor: pointer;
+}
+
+.item .nftCost {
+    color: rgba(255, 255, 255, 0.0);
+    font-weight: 500 !important;
+    font-size: 32px;
+    position: absolute;
+    left: 50%;
+    top: 28%;
+    transform: translate(-50%, -28%);
+    cursor: pointer;
+    transition: color 0.35s;
+    text-align: center;
+    line-height: 50px;
+}
+
+.item img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    bottom: 45px;
+    cursor: pointer;
+}
+
+.cartItems_container {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: inherit;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.cartItem {
+    position: relative;
+    width: 90%;
+    height: 70px;
+    background-color: #c7c7c7;
+    box-sizing: border-box;
+    border-radius: 15px;
+    transition: transform 0.35s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.03);
+    }
+}
+
+.cartItem img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 0;
+    top: 0;
+    border-radius: 15px 0px 0px 15px;
+}
+
+.cartItem .counter {
+    position: relative;
+    left: -10px;
+    bottom: -55px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 3;
+}
+
+.cartItem .counter span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600 !important;
+}
+
+.cartItem p {
+    position: absolute;
+    font-size: 18px;
+}
+
+.cartItem p:first-of-type {
+    left: 80px;
+    top: 5px;
+    font-weight: 600 !important;
+}
+
+.cartItem p:last-of-type {
+    left: 110px;
+    bottom: 5px;
+}
+
+.cartItem img:last-of-type {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    left: 77px;
+    top: 61%;
+}
