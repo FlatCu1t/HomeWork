@@ -1,0 +1,74 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    transition: width .3s ease;
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: 0;
+}
+
+.sidebar .top, .sidebar .bottom {
+    flex: 1;
+}
+
+.sidebar .top {
+    background: lightblue;
+}
+
+.sidebar .bottom {
+    background: lightpink;
+}
+
+.toggle {
+    width: 30px;
+    background: #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: background .2s;
+}
+
+.toggle:hover {
+    background: #bbb;
+}
+
+.toggle .arrow {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content .top, .content .bottom {
+    flex: 1;
+}
+
+.content .top {
+    background: #00b8a9;
+}
+
+.content .bottom {
+    background: peachpuff;
+}

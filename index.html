@@ -3,17 +3,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/index.css">
-        <title>USERS</title>
+        <title>TITLE</title>
     </head>
     <body>
-      <main>
-        <section>
-          <h2>Коробка с юзерами</h2>
-          <div class="wrapper">
-            <div class="users_container"></div>
-          </div>
-        </section>
-      </main>
+      <p class="charLengthText">String should be <input id="charLength" type="text" value="1"> characters long</p>
+      <p class="which">Which characters are allowed to occur in the strings?</p>
+      <div class="checkbox_container">
+        <p><input id="digits" type="checkbox"> Numeric digits (0-9)</p>
+        <p><input id="upper" type="checkbox"> Uppercase letters (A-Z)</p>
+        <p><input id="lower" type="checkbox"> Lowercase letters (a-z)</p>
+      </div>
+      <p id="resultText">Result: <input id="result" type="text"></p>
+      <button id="generateBtn">Generate</button>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="module" src="/scripts/index.js"></script>
     </body>
 </html>

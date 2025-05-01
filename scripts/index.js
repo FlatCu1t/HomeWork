@@ -1,18 +1,45 @@
 import { Functions } from "./functions.js";
 const functions = new Functions();
 
-(async () => {
-    const users = await functions.createMap();
-    const container = document.querySelector(".users_container");
-    if (container) {
-        container.innerHTML = "";
-        for (const [key, value] of users.entries()) {
-            const div = document.createElement("div");
-            const text = document.createElement("p");
-            div.classList.add("user");
-            text.innerHTML += `(ID: ${key}) -> ${value}<br>`;
-            div.appendChild(text);
-            container.appendChild(div);
+const generateBtn = $("#generateBtn");
+
+const charSets = {
+    digits: '0123456789',
+    upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    lower: 'abcdefghijklmnopqrstuvwxyz'
+};
+
+if (generateBtn) {
+    generateBtn.on("click", function() {
+        let length = parseInt($('#charLength').val(), 10);
+
+        if (isNaN(length) || length < 1) {
+            alert('Пожалуйста, введите корректную длину (число ≥ 1).');
+            return;
         }
-    }
-})();
+
+        let availableChars = '';
+        if ($('#digits').is(':checked')) {
+          availableChars += charSets.digits;
+        }
+        if ($('#upper').is(':checked')) {
+          availableChars += charSets.upper;
+        }
+        if ($('#lower').is(':checked')) {
+          availableChars += charSets.lower;
+        }
+
+        if (availableChars.length === 0) {
+          alert('Пожалуйста, выберите хотя бы один тип символов.');
+          return;
+        }
+
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          let idx = Math.floor(Math.random() * availableChars.length);
+          result += availableChars[idx];
+        }
+
+        $('#result').val(result);
+    });
+};
