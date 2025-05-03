@@ -6,15 +6,19 @@
         <title>TITLE</title>
     </head>
     <body>
-      <p class="charLengthText">String should be <input id="charLength" type="text" value="1"> characters long</p>
-      <p class="which">Which characters are allowed to occur in the strings?</p>
-      <div class="checkbox_container">
-        <p><input id="digits" type="checkbox"> Numeric digits (0-9)</p>
-        <p><input id="upper" type="checkbox"> Uppercase letters (A-Z)</p>
-        <p><input id="lower" type="checkbox"> Lowercase letters (a-z)</p>
+      <p id="title">Create new Color</p>
+      <div class="inputs_container">
+        <p>Color:<br><input type="text"></p>
+        <p>Type:<br><select id="typeSelect">
+          <option value="RGB">RGB</option>
+          <option value="RGBA">RGBA</option>
+          <option value="HEX">HEX</option>
+        </select></p>
+        <p>Code:<br><input type="text"></p>
+        <button id="saveBtn">Save</button>
       </div>
-      <p id="resultText">Result: <input id="result" type="text"></p>
-      <button id="generateBtn">Generate</button>
+      <div class="colors_container">
+      </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="module" src="/scripts/index.js"></script>
     </body>
