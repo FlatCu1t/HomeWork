@@ -79,146 +79,29 @@ export class Functions {
             const data = await response.json();
             return data ? data : response;
         } else {
-            return response.statusText;
+            throw new Error(`getData get error.`, response.statusText);
         };
     };
 
-    clearErrors() {
-        $('.error-message').remove();
-    }
-    
-    getErrors(colors) {
-        const errors = [];
-        const $inputs = $('.inputs_container input');
-        const mode = $('#typeSelect').val();
-    
-        const name = $inputs.eq(0).val().trim();
-        if (!name) {
-            errors.push({ index: 0, msg: 'Введите название цвета' });
-        }
-
-        if (colors.find((e) => e == name)) {
-            console.log(`FINDED`);
-            errors.push({ index: 0, msg: 'Это название цвета уже используется.' });
-        }
-    
-        const val = $inputs.eq(1).val().trim();
-        if (!val) {
-            errors.push({ index: 2, msg: 'Введите код цвета' });
-        } else if (mode === 'RGB' || mode === 'RGBA') {
-            const parts = val.split(/\s*,\s*/);
-            const expected = mode === 'RGB' ? 3 : 4;
-            if (parts.length !== expected) {
-                errors.push({
-                    index: 2,
-                    msg: `Ожидалось ${expected} значений через запятую`
-                });
-            } else {
-                parts.forEach((el, i) => {
-                    const num = Number(el);
-                    const ok = i < 3 ? Number.isInteger(num) && num >= 0 && num <= 255 : !isNaN(num) && num >= 0 && num <= 1;
-                    if (!ok) {
-                        const range = i < 3 ? '0–255' : '0–1';
-                        errors.push({
-                            index: 2,
-                            msg: `Неверное значение #${i + 1} (должно быть в диапазоне ${range})`
-                        });
-                    }
-                });
-            }
-        } else if (mode === 'HEX') {
-            if (!/^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(val)) {
-                errors.push({ index: 2, msg: 'HEX: формат #RGB или #RRGGBB' });
-            }
-        }
-
-        colors.push(name);
-    
-        return errors;
-    }
-    
-    showError(index, msg) {
-        const $para = $('.inputs_container p').eq(index);
-        $para.find('.error-message').remove();
-        $para.append($('<span class="error-message"></span>').text(msg));
-    }
-    
-    validateAndShow(colors) {
-        this.clearErrors();
-        const errors = this.getErrors(colors);
-        if (errors.length) {
-            errors.forEach(e => this.showError(e.index, e.msg));
-            return false;
-        }
-
-        return true;
+    checkInputs(inputs) {
+        if (/^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(inputs.eq(2).val())) return true;
+        return false;
     }
 
-    getContrastYIQ(rgbStr) {
-        const [r, g, b] = rgbStr.split(/\s*,\s*/).map(n => parseInt(n, 10));
-        const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-        return yiq >= 128 ? '#000000' : '#ffffff';
-    }
-    
-    addColor() {
-        const $inputs = $('.inputs_container input');
-        const mode = $("#typeSelect").val();
-        const code = $inputs.eq(1).val().trim();
-        if (!code) return;
-      
-        let bgColor;
-        if (mode === "RGB") {
-            bgColor = `rgb(${code})`;
-        } else if (mode === "RGBA") {
-            bgColor = `rgba(${code})`;
+    showError(msg) {
+        const notification = $(".notification");
+        if (notification?.hasClass("hidden")) {
+            notification?.text(msg)
+            notification?.removeClass("hidden")
+            notification?.addClass("visible")
+
+            setTimeout(() => {
+                notification?.text("")
+                notification?.removeClass("visible")
+                notification?.addClass("hidden")
+            }, 5000);
         } else {
-            bgColor = code;
-        }
-      
-        const rgbOnly = code.replace(/rgba?\(|\)|\s/g, '').split(',').slice(0, 3).join(',');
-        const contrast = this.getContrastYIQ(rgbOnly);
-      
-        const $container = $(".colors_container");
-        const $item = $(`
-          <div class="color_item" style="background-color: ${bgColor}">
-            <div class="color_info" style="background-color: ${contrast}">
-                <p style="color: ${bgColor}">${$inputs.eq(0).val().trim()}</p>
-                <p style="color: ${bgColor}">${bgColor}</p>
-            </div>
-          </div>
-        `);
-      
-        $container.append($item);
-    }
-
-    getFormInputs() {
-        const container = $(".form_container");
-        if (container) {
-            return container.find("input");
-        }
-    }
-
-    getPercents() {
-        const inputs = this.getFormInputs();
-        if (inputs && inputs.length > 0) {
-            const inputPercent = 100 / inputs.length;
-            const textureWidthPerInput = 500 / inputs.length;
-            const progressBar = $(".progress_bar_texture");
-            let totalPercent = 0;
-            let totalWidth = 0;
-            progressBar.text("");
-            Array.from(inputs).forEach((el) => {
-                if (el.value.length > 1 || el.textContent.length > 1) {
-                    totalPercent += inputPercent;
-                    totalWidth += textureWidthPerInput;
-                }
-            });
-
-            progressBar.animate({
-                width: totalWidth
-            }, 250);
-
-            return totalPercent;
+            return;
         }
     }
 }

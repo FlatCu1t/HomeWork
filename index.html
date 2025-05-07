@@ -6,19 +6,54 @@
         <title>TITLE</title>
     </head>
     <body>
-      <p id="title">Create new Color</p>
-      <div class="inputs_container">
-        <p>Color:<br><input type="text"></p>
-        <p>Type:<br><select id="typeSelect">
-          <option value="RGB">RGB</option>
-          <option value="RGBA">RGBA</option>
-          <option value="HEX">HEX</option>
-        </select></p>
-        <p>Code:<br><input type="text"></p>
-        <button id="saveBtn">Save</button>
-      </div>
-      <div class="colors_container">
-      </div>
+      <header>
+        <img id="logo" src="/images/logo.svg" alt="boat" loading="lazy">
+        <img id="boat" src="/images/boat.svg" alt="boat" loading="lazy">
+        <nav>
+          <ul>
+            <li><a href="" style="color: #EB1B24;">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Products</a></li>
+            <li><a href="">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header_container">
+          <div id="search"></div>
+          <div id="cart"></div>
+        </div>
+        <h2 id="headphone_Name">boAt Rockerz 460</h2>
+        <p>BLUETOOTH HEADPHONES</p>
+        <p id="cost">$199</p>
+        <div class="buttons_container">
+          <button id="cartButton" type="button">Add to Cart</button>
+          <button id="detailsButton" type="button">More Details</button>
+        </div>
+        <img id="headphones" src="/images/headphones.svg" alt="boAt Rockerz" loading="lazy">
+        <div class="currentPage_container">
+          <div class="pageCurrent"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+          <div class="page"></div>
+        </div>
+        <div class="darken hidden"></div>
+        <div class="modal_container hidden">
+          <h2>CART</h2>
+          <form action="">
+            <input type="text" value="boAt Rockerz 460" readonly>
+            <input type="text" value="Count (1)" readonly>
+            <input type="text" placeholder="Your Phone">
+          </form>
+          <div class="countChange_container">
+            <div class="countChange_more"><span>+</span></div>
+            <div class="countChange_less"><span>-</span></div>
+          </div>
+          <div class="modal_buttons_container">
+            <button id="modalCancel" type="button">Cancel</button>
+            <button id="modalSend" type="button">Send</button>
+          </div>
+        </div>
+        <div class="notification hidden"></div>
+      </header>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="module" src="/scripts/index.js"></script>
     </body>
