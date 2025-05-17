@@ -3,58 +3,58 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"/>
         <title>TITLE</title>
     </head>
     <body>
-      <header>
-        <img id="logo" src="/images/logo.svg" alt="boat" loading="lazy">
-        <img id="boat" src="/images/boat.svg" alt="boat" loading="lazy">
-        <nav>
-          <ul>
-            <li><a href="" style="color: #EB1B24;">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Products</a></li>
-            <li><a href="">Contact</a></li>
-          </ul>
-        </nav>
-        <div class="header_container">
-          <div id="search"></div>
-          <div id="cart"></div>
-        </div>
-        <h2 id="headphone_Name">boAt Rockerz 460</h2>
-        <p>BLUETOOTH HEADPHONES</p>
-        <p id="cost">$199</p>
-        <div class="buttons_container">
-          <button id="cartButton" type="button">Add to Cart</button>
-          <button id="detailsButton" type="button">More Details</button>
-        </div>
-        <img id="headphones" src="/images/headphones.svg" alt="boAt Rockerz" loading="lazy">
-        <div class="currentPage_container">
-          <div class="pageCurrent"></div>
-          <div class="page"></div>
-          <div class="page"></div>
-          <div class="page"></div>
-        </div>
-        <div class="darken hidden"></div>
-        <div class="modal_container hidden">
-          <h2>CART</h2>
-          <form action="">
-            <input type="text" value="boAt Rockerz 460" readonly>
-            <input type="text" value="Count (1)" readonly>
-            <input type="text" placeholder="Your Phone">
-          </form>
-          <div class="countChange_container">
-            <div class="countChange_more"><span>+</span></div>
-            <div class="countChange_less"><span>-</span></div>
+      <section class="slider-container">
+    <div class="owl-carousel owl-theme">
+      <div class="item">
+        <div class="slide-content">
+          <div class="slide-text">
+            <h2>www.sitehere.ru</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed ornare velit. In null lacus, semper quis viverra et, semper in augue. Vestibulum ante ipsum primis in faucibus orci.</p>
           </div>
-          <div class="modal_buttons_container">
-            <button id="modalCancel" type="button">Cancel</button>
-            <button id="modalSend" type="button">Send</button>
+          <div class="slide-image">
+            <a href="images/slide-2.jpg" data-fancybox="gallery">
+              <img src="images/slide-1.jpg" alt="Фото 1">
+            </a>
           </div>
         </div>
-        <div class="notification hidden"></div>
-      </header>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <div class="slide-text">
+            <h2>Заголовок слайда 2</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit aliquid vitae beatae harum! Consequuntur laborum, reiciendis quasi, magni totam repellendus, voluptatem saepe nesciunt minima quibusdam molestias quidem! Placeat, commodi ipsum.</p>
+          </div>
+          <div class="slide-image">
+            <a href="images/slide-2.jpg" data-fancybox="gallery">
+              <img src="images/slide-1.jpg" alt="Фото 2">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slide-content">
+          <div class="slide-text">
+            <h2>Заголовок слайда 3</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi atque molestias quis accusantium aperiam numquam. Sint modi nam quibusdam ipsa quis eligendi rem amet est! Aperiam amet maiores reiciendis aut!</p>
+          </div>
+          <div class="slide-image">
+            <a href="images/slide-2.jpg" data-fancybox="gallery">
+              <img src="images/slide-1.jpg" alt="Фото 3">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
       <script type="module" src="/scripts/index.js"></script>
     </body>
 </html>

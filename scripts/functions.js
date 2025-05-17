@@ -82,26 +82,4 @@ export class Functions {
             throw new Error(`getData get error.`, response.statusText);
         };
     };
-
-    checkInputs(inputs) {
-        if (/^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(inputs.eq(2).val())) return true;
-        return false;
-    }
-
-    showError(msg) {
-        const notification = $(".notification");
-        if (notification?.hasClass("hidden")) {
-            notification?.text(msg)
-            notification?.removeClass("hidden")
-            notification?.addClass("visible")
-
-            setTimeout(() => {
-                notification?.text("")
-                notification?.removeClass("visible")
-                notification?.addClass("hidden")
-            }, 5000);
-        } else {
-            return;
-        }
-    }
 }
