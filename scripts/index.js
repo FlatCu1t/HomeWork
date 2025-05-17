@@ -15,9 +15,11 @@ $(document).ready(function() {
     if (!name) {
       errors.push('Поле "Имя" не заполнено.');
     }
+    
     if (!phoneComplete) {
       errors.push('Телефон введен неверно.');
     }
+
     if (!password) {
       errors.push('Поле "Пароль" не заполнено.');
     }
