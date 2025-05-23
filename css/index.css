@@ -6,77 +6,84 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #f5f7fa;
-  color: #333;
-  line-height: 1.6;
+  background: #393939;
+  position: relative;
+  width: 100vw;
+  height: auto;
+}
+
+header {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+header img {
+  position: absolute;
+  right: 200px;
+  top: 55%;
+  transform: translateY(-55%);
+  width: 550px;
+  height: 700px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 1.0);
+  animation: avaAnim 4s ease-in-out infinite;
+}
+
+nav ul {
+  list-style-type: none;
   display: flex;
-  justify-content: center;
-  padding: 40px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 80px;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.container {
-  background: #fff;
-  max-width: 480px;
-  width: 100%;
-  padding: 30px 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+  transition: font-size 0.25s;
+
+  &:hover {
+    cursor: pointer;
+    font-size: 28px;
+    text-decoration: underline;
+  }
 }
 
-h1 {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  color: #444;
+@keyframes avaAnim {
+  0% {
+    top: 55%;
+    transform: translateY(-55%);
+  }
+
+  50% {
+    top: 45%;
+    transform: translateY(-45%);
+  }
+
+  100% {
+    top: 55%;
+    transform: translateY(-55%);
+  }
 }
 
-#user-info {
-  background: #fafafa;
-  border: 1px solid #e1e4e8;
-  padding: 12px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.9rem;
-  margin-bottom: 24px;
-  white-space: pre-wrap;
+header h2 {
+  position: absolute;
+  font-size: 62px;
+  color: white;
+  left: 150px;
+  top: 150px;
 }
 
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  grid-gap: 12px;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-input, select {
-  padding: 8px 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-input:focus, select:focus {
-  border-color: #6ca0dc;
-  outline: none;
-  box-shadow: 0 0 3px rgba(108,160,220,0.5);
-}
-
-button {
-  padding: 10px 16px;
-  font-size: 1rem;
-  background: #6ca0dc;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-button:hover {
-  background: #5b8ac4;
-}
-
-#result {
-  font-weight: bold;
-  font-size: 1.1rem;
+header p {
+  position: absolute;
+  font-size: 32px;
+  color: rgb(154, 154, 154);
+  left: 160px;
+  top: 300px;
 }

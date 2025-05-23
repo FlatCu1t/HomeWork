@@ -6,24 +6,19 @@
         <title>TITLE</title>
     </head>
     <body>
-      <div class="container">
-        <h1>Информация о пользователе</h1>
-        <pre id="user-info">Загрузка...</pre>
-
-        <h1>Калькулятор</h1>
-        <form id="calc-form">
-          <input type="number" id="a" placeholder="Число A" required>
-          <input type="number" id="b" placeholder="Число B" required>
-          <select id="op">
-            <option value="add">+</option>
-            <option value="subtract">−</option>
-            <option value="multiply">×</option>
-            <option value="divide">÷</option>
-          </select>
-          <button type="submit">Вычислить</button>
-        </form>
-        <p>Результат: <span id="result">—</span></p>
-      </div>
-      <script type="module" src="/scripts/index.js"></script>
+      <header>
+        <h2>Vlad Issayev</h2>
+        <p>Hello buddy</p>
+        <nav>
+          <ul>
+            <li><a href="users">Users</a></li>
+            <li><a href="devices">Devices</a></li>
+            <li><a href="text">Text</a></li>
+            <li><a href="about">About</a></li>
+          </ul>
+        </nav>
+        <img src="images/header_ava.jpg" alt="" loading="lazy">
+      </header>
+      <script type="module" src="scripts/index.js"></script>
     </body>
 </html>
