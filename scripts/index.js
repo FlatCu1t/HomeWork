@@ -1,35 +1,42 @@
 import { Functions } from "./functions.js";
 const functions = new Functions();
 
-$(document).ready(function() {
-  $('#phone').inputmask('+998 99 999-99-99');
+import { getUserInfo } from './userInfo.js';
+import { add, subtract, multiply, divide } from './baseOperations.js';
 
-  $('#registrationForm').on('submit', function(e) {
-    e.preventDefault();
-    const name = $('#name').val().trim();
-    const phoneEl = $('#phone');
-    const phoneComplete = $('#phone').inputmask("isComplete");
-    const password = $('#password').val().trim();
-    const errors = [];
+document.addEventListener('DOMContentLoaded', () => {
+  const user = getUserInfo();
+  document.getElementById('user-info').textContent = JSON.stringify(user, null, 2);
 
-    if (!name) {
-      errors.push('Поле "Имя" не заполнено.');
-    }
-    
-    if (!phoneComplete) {
-      errors.push('Телефон введен неверно.');
-    }
+  const form = document.getElementById('calc-form');
+  form.addEventListener('submit', event => {
+    event.preventDefault();
 
-    if (!password) {
-      errors.push('Поле "Пароль" не заполнено.');
-    }
+    const a = parseFloat(document.getElementById('a').value);
+    const b = parseFloat(document.getElementById('b').value);
+    const op = document.getElementById('op').value;
 
-    if (errors.length) {
-      errors.forEach(function(msg) {
-        toastr.error(msg, 'Ошибка');
-      });
-    } else {
-      toastr.success('Успешная регистрация!', 'OK');
+    let result;
+    try {
+      switch (op) {
+        case 'add':
+          result = add(a, b);
+          break;
+        case 'subtract':
+          result = subtract(a, b);
+          break;
+        case 'multiply':
+          result = multiply(a, b);
+          break;
+        case 'divide':
+          result = divide(a, b);
+          break;
+        default:
+          throw new Error('Неизвестная операция');
+      }
+      document.getElementById('result').textContent = result;
+    } catch (err) {
+      document.getElementById('result').textContent = 'Ошибка: ' + err.message;
     }
   });
 });
