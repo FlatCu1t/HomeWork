@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #393939;
+  position: relative;
+  width: 100vw;
+  height: auto;
+  overflow-x: hidden;
+}
+
+.main_container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.login_form, .register_form {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 600px;
+    background-color: #494949;
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.6);
+}
+
+.login_form h2, .register_form h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 42px;
+    top: 20px;
+    text-wrap: nowrap;
+}
+
+.login_form form, .register_form form {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -60%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 50px;
+}
+
+.login_form input, .register_form input {
+    width: 250px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding-left: 10px;
+    font-size: 20px;
+    background-color: #393939;
+    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.5);
+}
+
+.login_form input::placeholder, .register_form input::placeholder {
+    color: white;
+}
+
+.login_form button, .register_form button {
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.35s;
+    align-self: center;
+    justify-self: center;
+    background-color: #393939;
+    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+#openRegForm, #openLogForm {
+    position: absolute;
+    color: rgb(30, 30, 39);
+    text-decoration: underline;
+    font-size: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    font-weight: 500;
+    transition: color 0.35s;
+    text-wrap: nowrap;
+
+    &:hover {
+        cursor: pointer;
+        color: rgb(46, 46, 169);
+    }
+}
+
+.alarm {
+    position: absolute;
+    right: -400px;
+    top: 50px;
+    min-width: 100px;
+    min-height: 50px;
+    max-width: 350px;
+    max-height: 200px;
+    overflow-y: auto;
+    color: white;
+    background-color: green;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 12px;
+    animation: alarmAnim 3s ease-in-out forwards;
+}
+
+.alarm::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes alarmAnim {
+    0% {
+        right: -400px;
+    }
+
+    40%, 80% {
+        right: 50px;
+    }
+
+    100% {
+        right: -400px;
+    }
+}

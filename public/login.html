@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Заголовок</title>
+</head>
+<body>
+    <div class="main_container">
+        <div class="login_form visible">
+            <h2>L O G I N</h2>
+            <form action="" method="">
+                <input class="logInput" type="text" placeholder="Имя / Почта" required>
+                <input class="logInput" type="password" placeholder="Пароль" required>
+                <button type="submit">LOGIN</button>
+            </form>
+            <p id="openRegForm">Нету аккаунта? Зарегистрируйтесь!</p>
+        </div>
+
+        <div class="register_form hidden">
+            <h2>R E G I S T E R</h2>
+            <form>
+                <input class="regInput" type="text" placeholder="Имя" required>
+                <input class="regInput" type="tel" pattern="^\+?[0-9\s\-\.\(\)]{7,20}$" title="Введите корректный номер телефона" placeholder="Телефон" required>
+                <input class="regInput" type="email" pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$" title="Введите корректный адрес электронной почты" placeholder="Почта" required>
+                <input class="regInput" type="password" placeholder="Пароль" required>
+                <button type="submit">REGISTER</button>
+            </form>
+            <p id="openLogForm">Уже есть аккаунт? Авторизуйтесь!</p>
+        </div>
+        <div class="alarm hidden"></div>
+    </div>
+    <script type="module" src="/scripts/login.js"></script>
+</body>
+</html>
