@@ -51,7 +51,7 @@ app.post("/users/set", async (req, res) => {
       });
 
       await fs.promises.writeFile(path.join(__mainDir, "public", "data", "users.json"), JSON.stringify(data, null, 2), "utf-8");
-      res.sendStatus(200);
+      res.sendStatus(200)
     }
   }
 });
