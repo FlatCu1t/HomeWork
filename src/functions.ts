@@ -105,25 +105,4 @@ export class Functions {
             throw new Error(`getData get error.\n` + response.statusText);
         };
     };
-
-    alarmVisible(alarm: any, show: true | false) {
-        if (show == false) {
-            alarm.classList.remove("visible")
-            alarm.classList.add("hidden")
-        }
-
-        if (show == true) {
-            alarm.classList.remove("hidden")
-            alarm.classList.add("visible")
-        }
-    }
-
-    showAlarm(alarm: any, type: "success" | "error", text: string) {
-        this.alarmVisible(alarm, false);
-        setTimeout(() => {
-            this.alarmVisible(alarm, true);
-        }, 50);
-        alarm.textContent = text;
-        type == "success" ? alarm.style.backgroundColor = "green" : alarm.style.backgroundColor = "red";
-    }
 }

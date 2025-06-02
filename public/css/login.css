@@ -19,75 +19,64 @@ body {
     height: 100vh;
 }
 
-.hidden {
-    display: none;
-}
-
-.visible {
-    display: block;
-}
-
-.login_form, .register_form {
+.loginForm, .regForm {
     position: relative;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 600px;
-    background-color: #494949;
-    border-radius: 25px;
-    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.6);
+    width: 600px;
+    height: 800px;
+    background-color: black;
+    border-radius: 20px;
 }
 
-.login_form h2, .register_form h2 {
+.loginForm h2, .regForm h2 {
+    color: white;
+    font-size: 42px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
-    font-size: 42px;
-    top: 20px;
-    text-wrap: nowrap;
+    top: 50px;
 }
 
-.login_form form, .register_form form {
+.loginForm form, .regForm form {
     position: absolute;
     left: 50%;
-    top: 60%;
-    transform: translate(-50%, -60%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    row-gap: 50px;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
 }
 
-.login_form input, .register_form input {
+.loginForm form input, .regForm form input {
     width: 250px;
     height: 40px;
     border: none;
-    border-radius: 12px;
-    color: white;
+    border-radius: 8px;
     padding-left: 10px;
-    font-size: 20px;
-    background-color: #393939;
-    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.5);
+    color: black;
+    font-size: 18px;
+    box-shadow: 0px 0px 12px 2px rgba(255, 255, 255, 0.5);
 }
 
-.login_form input::placeholder, .register_form input::placeholder {
-    color: white;
+.loginForm form input::placeholder, .regForm form input::placeholder {
+    color: black;
 }
 
-.login_form button, .register_form button {
+.loginForm button, .regForm button {
     width: 150px;
     height: 40px;
-    border-radius: 10px;
     border: none;
-    transition: transform 0.35s;
-    align-self: center;
-    justify-self: center;
-    background-color: #393939;
-    box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.5);
-    color: white;
+    border-radius: 15px;
+    color: black;
     font-size: 20px;
+    position: absolute;
+    bottom: -170px;
+    transition: transform 0.35s;
 
     &:hover {
         cursor: pointer;
@@ -95,55 +84,31 @@ body {
     }
 }
 
-#openRegForm, #openLogForm {
+.regForm button {
+    bottom: -80px;
+}
+
+.loginForm p, .regForm p {
     position: absolute;
-    color: rgb(30, 30, 39);
-    text-decoration: underline;
-    font-size: 18px;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 20px;
-    font-weight: 500;
-    transition: color 0.35s;
+    bottom: 100px;
+    font-size: 20px;
+    text-decoration: underline;
+    color: rgb(164, 164, 164);
     text-wrap: nowrap;
+    transition: color 0.35s;
 
     &:hover {
         cursor: pointer;
-        color: rgb(46, 46, 169);
+        color: white;
     }
 }
 
-.alarm {
-    position: absolute;
-    right: -400px;
-    top: 50px;
-    min-width: 100px;
-    min-height: 50px;
-    max-width: 350px;
-    max-height: 200px;
-    overflow-y: auto;
-    color: white;
-    background-color: green;
-    font-size: 18px;
-    padding: 10px;
-    border-radius: 12px;
-    animation: alarmAnim 3s ease-in-out forwards;
+.visible {
+    display: block;
 }
 
-.alarm::-webkit-scrollbar {
+.hidden {
     display: none;
-}
-
-@keyframes alarmAnim {
-    0% {
-        right: -400px;
-    }
-
-    40%, 80% {
-        right: 50px;
-    }
-
-    100% {
-        right: -400px;
-    }
 }

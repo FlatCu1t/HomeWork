@@ -6,46 +6,126 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 const __mainDir = path.resolve();
+const __publicDir = path.join(__mainDir, "public");
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__mainDir, "public", "index.html"));
-});
 app.use(express.static(path.join(__mainDir, 'public')));
+app.set('view engine', 'ejs');
+app.set('views', './public/views');
+app.get("/", (req, res) => {
+    res.render("index", { user: null });
+});
 app.get("/login", (req, res) => {
-    res.sendFile(path.join(__mainDir, "public", "login.html"));
+    res.render("login");
 });
-app.post("/users/get", (req, res) => {
-    res.status(200).sendFile(path.join(__mainDir, "public", "data", "users.json"));
-});
-app.post("/updatedPassword", async (req, res) => {
-    if (!req.body)
-        res.status(400);
-    let { password } = req.body;
-    password = crypto.createHash("sha256").update(password).digest('hex');
-    res.json({ password });
-});
-app.post("/users/set", async (req, res) => {
-    if (!req.body)
-        res.status(400);
-    const response = await fs.promises.readFile(path.join(__mainDir, "public", "data", "users.json"), "utf-8");
-    if (response) {
-        const data = JSON.parse(response);
-        let { name, id, email, password, telephone } = req.body;
-        password = crypto.createHash("sha256").update(password).digest('hex');
-        const user = data.users.find((x) => x.id == id);
-        if (!user) {
-            data.users.push({
-                id: id,
-                name: name,
-                email: email,
-                password: password,
-                phone: telephone
-            });
-            await fs.promises.writeFile(path.join(__mainDir, "public", "data", "users.json"), JSON.stringify(data, null, 2), "utf-8");
-            res.sendStatus(200);
+app.get("/cabinet", async (req, res) => {
+    if (!req.query) {
+        res.status(404).send("Произошла ошибка. req.query нету.");
+        return;
+    }
+    const response = await fetch("http://localhost:3000/users/get", {
+        method: "POST",
+        headers: { "content-type": "application/json; charset=utf-8" }
+    });
+    if (response.ok && response.status == 200) {
+        const data = await response.json();
+        const user = data.users.find((x) => x.id == req.query.userID);
+        if (user) {
+            res.render("cabinet", { user: user });
         }
+        else {
+            res.render("cabinet", { user: null });
+        }
+    }
+});
+app.post("/login", async (req, res) => {
+    if (!req.body) {
+        res.status(404).send("Произошла ошибка. req.body нету.");
+        return;
+    }
+    const response = await fetch("http://localhost:3000/users/get", {
+        method: "POST",
+        headers: { "content-type": "application/json; charset=utf-8" }
+    });
+    if (response.ok && response.status == 200) {
+        const { userLogin, password } = req.body;
+        const data = await response.json();
+        const user = data.users.find((x) => x.login == userLogin);
+        if (user) {
+            if (user.password == crypto.createHash("sha256").update(password).digest("hex")) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(401);
+            }
+        }
+    }
+});
+app.post("/users/get", async (req, res) => {
+    try {
+        const fileContent = await fs.promises.readFile(path.join(__publicDir, "data", "users.json"), { encoding: "utf-8" });
+        const usersData = JSON.parse(fileContent);
+        return res.status(200).json(usersData);
+    }
+    catch (err) {
+        console.error("Ошибка при чтении users.json:", err);
+        return res.status(500).json({ error: "Не удалось прочитать список пользователей" });
+    }
+});
+app.post("/users/add", async (req, res) => {
+    if (!req.body) {
+        res.status(404).send("Возникла ошибка.");
+        return;
+    }
+    const response = await fs.promises.readFile(path.join(__publicDir, "data", "users.json"), "utf-8");
+    const data = JSON.parse(response);
+    if (data) {
+        const { user } = req.body;
+        data.users.push({
+            id: data.users.length + 1,
+            login: user.login,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+            password: crypto.createHash("sha256").update(user.password).digest("hex")
+        });
+        await fs.promises.writeFile(path.join(__publicDir, "data", "users.json"), JSON.stringify(data, null, 2), "utf-8");
+        res.sendStatus(200);
+    }
+});
+app.post("/users/update", async (req, res) => {
+    try {
+        const { id, avatar, name, email, login, password } = req.body;
+        if (typeof id !== "number") {
+            return res.status(400).json({ error: "Некорректный или отсутствующий id пользователя" });
+        }
+        const fileContent = await fs.promises.readFile(path.join(__publicDir, "data", "users.json"), { encoding: "utf-8" });
+        const usersData = JSON.parse(fileContent);
+        if (!Array.isArray(usersData.users)) {
+            return res.status(500).json({ error: "Неверный формат файла users.json (нет поля users)" });
+        }
+        const userIndex = usersData.users.findIndex((u) => u.id === id);
+        if (userIndex === -1) {
+            return res.status(404).json({ error: `Пользователь с id=${id} не найден` });
+        }
+        const updatingFields = { avatar, name, email, login, password };
+        Object.entries(updatingFields).forEach(([fieldKey, fieldValue]) => {
+            if (fieldValue !== undefined) {
+                usersData.users[userIndex][fieldKey] = fieldValue;
+            }
+        });
+        const newFileContent = JSON.stringify(usersData, null, 2);
+        await fs.promises.writeFile(path.join(__publicDir, "data", "users.json"), newFileContent, { encoding: "utf-8" });
+        return res.status(200).json({
+            success: true,
+            user: usersData.users[userIndex],
+            message: `Пользователь с id=${id} успешно обновлён`
+        });
+    }
+    catch (err) {
+        console.error("Ошибка в /users/update:", err);
+        return res.status(500).json({ error: "Внутренняя ошибка сервера при обновлении пользователя" });
     }
 });
 app.use((req, res) => {

@@ -1,3 +1,20 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": 1,
+      "login": "adm",
+      "name": "123",
+      "email": "ivlad6543@gmail.com",
+      "avatar": "https://i.gifer.com/76cI.gif",
+      "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
+    },
+    {
+      "id": 2,
+      "login": "admm",
+      "name": "123",
+      "email": "ivlad654@gmail.com",
+      "avatar": "/images/no-avatar.jpg",
+      "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
+    }
+  ]
 }
