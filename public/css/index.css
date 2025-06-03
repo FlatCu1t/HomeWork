@@ -12,38 +12,3 @@ body {
   height: auto;
   overflow-x: hidden;
 }
-
-header {
-  width: 100vw;
-  height: 100px;
-  position: relative;
-}
-
-header h2 {
-  font-size: 24px;
-  color: white;
-  position: absolute;
-  left: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#cabinetButton {
-  position: absolute;
-  width: 120px;
-  height: 50px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 20px;
-  right: 100px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: black;
-  transition: transform 0.35s;
-
-  &:hover {
-    cursor: pointer;
-    transform: translateY(-50%) scale(1.07);
-  }
-}
