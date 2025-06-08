@@ -12,3 +12,36 @@ body {
   height: auto;
   overflow-x: hidden;
 }
+
+.main_container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.main_container h2 {
+  color: white;
+  font-size: 54px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50px;
+}
+
+.info_container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  top: 200px;
+  left: 100px;
+}
+
+.info_container p {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}

@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #393939;
+  position: relative;
+  width: 100vw;
+  height: auto;
+  overflow-x: hidden;
+}
+
+.main_container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+h2 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 54px;
+    color: white;
+}

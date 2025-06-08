@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #393939;
+  position: relative;
+  width: 100vw;
+  height: auto;
+  overflow-x: hidden;
+}
+
