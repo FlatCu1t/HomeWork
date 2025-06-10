@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (response.ok && response.status == 200) {
-        let data = await response.json();
-        data = JSON.parse(data);
+        const data = await response.json();
 
         worksContainer?.innerHTML == "";
-        data.works.forEach((el: any) => {
+        data.forEach((el: any) => {
             const newItem = document.createElement("div");
             const workTitle = document.createElement("p");
             const workDate = document.createElement("p");

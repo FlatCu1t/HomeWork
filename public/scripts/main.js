@@ -3,9 +3,9 @@ const functions = new Functions();
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
-import fs from "fs";
 import { MongoClient } from "mongodb";
 import mongoose from "mongoose";
+import WorkSchema from "./schemas.js";
 import 'dotenv/config';
 const client = new MongoClient(process.env.dbURL || "");
 mongoose.connect(process.env.dbURL || "").catch((err) => console.error(err));
@@ -31,48 +31,40 @@ app.post("/works/addWork", async (req, res) => {
         res.sendStatus(500);
         return;
     }
-    const { workName, workDate, workImage } = req.body;
     try {
-        const response = await fetch("http://localhost:3000/getWorks");
-        if (response.ok && response.status == 200) {
-            let data = await response.json();
-            if (data) {
-                data = JSON.parse(data);
-                data.works.push({
-                    workID: data.works.length + 1,
-                    workName: workName,
-                    workDate: workDate,
-                    workImage: workImage
-                });
-                await fs.promises.writeFile(path.join(__publicDir, "data", "works.json"), JSON.stringify(data, null, 2), "utf-8");
-                res.sendStatus(200);
-            }
-        }
+        const { workID, workName, workDate, workImage } = req.body;
+        await WorkSchema.insertOne({ workID: parseInt(workID), workName: workName, workDate: workDate, workImage: workImage });
+        res.sendStatus(200);
     }
     catch (error) {
-        res.sendStatus(500);
+        res.status(404).send(`404 Error. ${error}`);
     }
 });
 app.get("/works/:workID", async (req, res) => {
-    const workID = req.params.workID;
-    const response = await fetch("http://localhost:3000/getWorks");
-    if (response.ok && response.status == 200) {
-        let data = await response.json();
-        data = JSON.parse(data);
-        const finded = data.works.find((x) => x.workID == workID);
-        if (!finded) {
-            return res.render("404");
+    try {
+        const workID = req.params.workID;
+        const data = await WorkSchema.findOne({ workID: workID });
+        if (data?.workID) {
+            res.render("works", { work: data });
         }
-        res.render("works", { work: finded });
+        else {
+            res.render("404");
+        }
+    }
+    catch (error) {
+        res.status(404).send(`404 Error. ${error}`);
     }
 });
 app.get("/contacts", (req, res) => {
     res.render("contacts", { user: null });
 });
 app.get("/getWorks", async (req, res) => {
-    const data = await fs.promises.readFile(path.join(__publicDir, "data", "works.json"), "utf-8");
-    if (data) {
+    try {
+        const data = await WorkSchema.find();
         res.json(data);
+    }
+    catch (error) {
+        res.status(404).send(`404 Error. ${error}`);
     }
 });
 app.use((req, res) => {

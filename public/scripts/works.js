@@ -6,10 +6,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         headers: { "content-type": "application/json; charset=utf-8" }
     });
     if (response.ok && response.status == 200) {
-        let data = await response.json();
-        data = JSON.parse(data);
+        const data = await response.json();
         worksContainer?.innerHTML == "";
-        data.works.forEach((el) => {
+        data.forEach((el) => {
             const newItem = document.createElement("div");
             const workTitle = document.createElement("p");
             const workDate = document.createElement("p");
