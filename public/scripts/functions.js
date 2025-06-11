@@ -1,7 +1,7 @@
 import { utils } from './utils.js';
 export class Functions {
     getUnix() {
-        const nowUtcSec = Math.floor(Date.now() / 1000);
+        const nowUtcSec = Math.floor(Date.now());
         return nowUtcSec + Math.floor(5 * 3600);
     }
     unixStamp(stamp) {

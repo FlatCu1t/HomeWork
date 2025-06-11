@@ -1,19 +1,38 @@
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/index.css">
-        <title>TITLE</title>
-    </head>
-    <body>
-      <div class="main_container">
-        <h2>Главная страница</h2>
-        <div class="info_container">
-          <p>Имя: Влад</p>
-          <p>Возраст: 21 год</p>
-          <p>Увлечения: node.js, javascript, vue.js, react.js</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>Title</title>
+</head>
+<body>
+  <div class="main_container">
+    <div class="left_section_rooms">
+      <h2 id="leftSection_title">ROOMS</h2>
+      <div class="user_container">
+        <img id="userAvatar" src="" alt="avatar" loading="lazy">
+        <p id="userName"></p>
+        <button id="logOutButton" type="button">Log Out</button>
+      </div>
+      <div class="rooms_container">
+        <div class="room" data-roomID="room1">
+          <h2>Room #1</h2>
+        </div>
+        <div class="room" data-roomID="room2">
+          <h2>Room #2</h2>
+        </div>
+        <div class="room" data-roomID="room3">
+          <h2>Room #3</h2>
         </div>
       </div>
-      <script type="module" src="/scripts/index.js"></script>
-    </body>
+      <div class="right_section_sendMessage">
+        <input id="messageInput" type="text" placeholder="Message">
+        <button id="sendBtn">Send</button>
+      </div>
+      <div class="right_section_messages">
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/scripts/index.js"></script>
+</body>
 </html>

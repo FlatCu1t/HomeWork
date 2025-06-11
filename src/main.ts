@@ -7,7 +7,11 @@ import path from "path";
 import fs from "fs";
 import { MongoClient } from "mongodb";
 import mongoose from "mongoose";
-import WorkSchema from "./schemas.js";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import crypto from "crypto";
+import Schemas from "./schemas.js";
+const { User, Message, Counter } = Schemas;
 import 'dotenv/config'
 
 const client = new MongoClient(process.env.dbURL || "");
@@ -21,58 +25,111 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__mainDir, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', './public/views');
+const server = createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+})
+
+io.on('connection', async (socket) => {
+    console.log('connect');
+    socket.on("join room", async (roomName) => {
+        socket.join(roomName)
+        console.log(`${socket.id} in room ${roomName}`);
+        const messages = await Message.find({ roomID: roomName });
+        io.to(roomName).emit('room messages', messages);
+    })
+
+    socket.on('chat message', async ({ room, message }) => {
+      const counter: any = await Counter.find({});
+      await Message.insertOne({ id: counter[0].id, roomID: room, messageTime: functions.unixStamp(functions.getUnix()).text, messageText: message.text, fromAvatar: message.user.avatar, fromName: message.user.userName })
+      await Counter.updateOne({ id: counter[0].id }, { $set: { id: counter[0].id + 1 } });
+      io.to(room).emit('chat message', message)
+    })
+
+    socket.on('disconnect',()=>{
+        console.log('dissconect');
+    })
+})
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/works", (req, res) => {
-  res.render("works", { work: null });
+app.get("/login", (req, res) => {
+  res.render("login");
 });
 
-app.get("/works/addWork", (req, res) => {
-  res.render("addWork");
+app.get("/allUsers", async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
 });
 
-app.post("/works/addWork", async (req, res) => {
+app.post("/user", async (req, res) => {
   if (!req.body) {
-    res.sendStatus(500);
+    res.status(500).send("Req Body is undefined.");
     return;
   }
 
   try {
-    const { workID, workName, workDate, workImage } = req.body;
-    await WorkSchema.insertOne({ workID: parseInt(workID), workName: workName, workDate: workDate, workImage: workImage })
-    res.sendStatus(200);
-  } catch (error) {
-    res.status(404).send(`404 Error. ${error}`);
-  }
-});
-
-app.get("/works/:workID", async (req, res) => {
-  try {
-    const workID = req.params.workID;
-    const data: any = await WorkSchema.findOne({ workID: workID });
-    if (data?.workID) {
-      res.render("works", { work: data });
+    const { userID } = req.body;
+    const user = await User.findOne({ userLogin: userID });
+    if (user) {
+      res.json(user);
     } else {
-      res.render("404");
+      res.status(500).send("User not found!");
     }
   } catch (error) {
-    res.status(404).send(`404 Error. ${error}`);
+    res.status(500).send(`Error: ${error}`);
+    return;
   }
 });
 
-app.get("/contacts", (req, res) => {
-  res.render("contacts", { user: null });
+app.post("/register", async (req, res) => {
+  if (!req.body) {
+    res.status(500).send("Req Body is undefined.");
+    return;
+  }
+
+  try {
+    const { userID, userLogin, userName, avatar, password } = req.body;
+    if (!await User.findOne({ userLogin: userLogin })) {
+      await User.insertOne({ id: parseInt(userID), userLogin: userLogin, userName: userName, avatar: avatar, password: crypto.createHash("sha256").update(password).digest("hex") });
+      res.sendStatus(200);
+    } else {
+      res.status(500).send("User already exists!");
+    }
+  } catch (error) {
+    res.status(500).send(`Error: ${error}`);
+    return;
+  }
 });
 
-app.get("/getWorks", async (req, res) => {
+app.post("/login", async (req, res) => {
+  if (!req.body) {
+    res.status(500).send("Req Body is undefined.");
+    return;
+  }
+
   try {
-    const data = await WorkSchema.find();
-    res.json(data);
+    const { userLogin, password } = req.body;
+    const user = await User.findOne({ userLogin: userLogin });
+    if (!user) {
+      res.status(500).send("User not found!");
+      return;
+    }
+
+    if (crypto.createHash("sha256").update(password).digest("hex") !== user.password) {
+      res.status(500).send("Incorrect password.");
+      return;
+    }
+
+    res.sendStatus(200);
   } catch (error) {
-    res.status(404).send(`404 Error. ${error}`);
+    res.status(500).send(`Error: ${error}`);
+    return;
   }
 });
 
@@ -80,6 +137,6 @@ app.use((req, res) => {
   res.render("404");
 });
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("http://localhost:3000");
 });

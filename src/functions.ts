@@ -22,11 +22,11 @@ export interface DiffInfo {
 export class Functions {
     
     public getUnix(): number {
-        const nowUtcSec = Math.floor(Date.now() / 1000);
+        const nowUtcSec = Math.floor(Date.now());
         return nowUtcSec + Math.floor(5 * 3600);
     }
     
-    public unixStamp(stamp: number): TimeStampInfo {
+    public unixStamp(stamp: number): any {
         const date = new Date(stamp);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
