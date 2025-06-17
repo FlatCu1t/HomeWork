@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "run:mainScript": "npm run build && node ./public/scripts/main.js",
+    "run:mainScript": "sass ./public/css/index.scss ./public/css/index.css && npm run build && node ./public/scripts/main.js",
     "start": "npm run run:mainScript"
   },
   "repository": {

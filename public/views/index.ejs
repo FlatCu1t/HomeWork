@@ -6,33 +6,411 @@
     <title>Title</title>
 </head>
 <body>
-  <div class="main_container">
-    <div class="left_section_rooms">
-      <h2 id="leftSection_title">ROOMS</h2>
-      <div class="user_container">
-        <img id="userAvatar" src="" alt="avatar" loading="lazy">
-        <p id="userName"></p>
-        <button id="logOutButton" type="button">Log Out</button>
-      </div>
-      <div class="rooms_container">
-        <div class="room" data-roomID="room1">
-          <h2>Room #1</h2>
+  <header>
+        <h1>MORENT</h1>
+        <div class="search_container">
+            <input id="searchInput" type="text" placeholder="Search something here...">
+            <img id="searchImg" src="/images/search.svg" alt="search_img" loading="lazy">
+            <img id="settingImg" src="/images/settings.svg" alt="settings_img" loading="lazy">
         </div>
-        <div class="room" data-roomID="room2">
-          <h2>Room #2</h2>
+        <div class="header_rightTop_container">
+            <img src="/images/like.svg" alt="like" loading="lazy">
+            <img src="/images/notification.svg" alt="notifications" loading="lazy">
+            <img src="/images/second_settings.svg" alt="second_setting" loading="lazy">
+            <img id="userAvatar" src="/images/avatar.jpg" alt="avatar" loading="lazy">
         </div>
-        <div class="room" data-roomID="room3">
-          <h2>Room #3</h2>
-        </div>
-      </div>
-      <div class="right_section_sendMessage">
-        <input id="messageInput" type="text" placeholder="Message">
-        <button id="sendBtn">Send</button>
-      </div>
-      <div class="right_section_messages">
-      </div>
-    </div>
-  </div>
-  <script type="module" src="/scripts/index.js"></script>
+    </header>
+    <main>
+        <section id="sectionOne">
+            <div class="ad_1">
+                <h2 class="adTitle">The Best Platform for Car Rental</h2>
+                <p class="adSubTitle">Ease of doing a car rental safely and reliably. Of course at a low price.</p>
+                <img class="adImg" src="/images/ad1_car.svg" alt="ad1_car" loading="lazy">
+                <button class="adButton">Rental Car</button>
+            </div>
+            <div class="ad_2">
+                <h2 class="adTitle">Easy way to rent a car at a low price</h2>
+                <p class="adSubTitle">Providing cheap car rental services and safe and comfortable facilities.</p>
+                <img class="adImg" src="/images/ad2_car.svg" alt="ad2_car" loading="lazy">
+                <button class="adButton">Rental Car</button>
+            </div>
+            <div class="switchBtn">
+                <img src="/images/arrows.svg" alt="arrows">
+            </div>
+            <div class="switch_leftSide">
+               <div class="title_container">
+                <div class="pointer">
+                    <div class="pointer_dot"></div>
+                </div>
+                <p>Pick-Up</p>
+               </div>
+               <div class="additional_info_container">
+                <div class="locations_info">
+                    <p class="title">Locations</p>
+                    <p class="subtitle">Select your city</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+                <div class="date_info">
+                    <p class="title">Date</p>
+                    <p class="subtitle">Select your date</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+                <div class="time_info">
+                    <p class="title">Time</p>
+                    <p class="subtitle">Select your time</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+               </div>
+            </div>
+            <div class="switch_rightSide">
+               <div class="title_container">
+                <div class="pointer_2">
+                    <div class="pointer_dot"></div>
+                </div>
+                <p>Drop-Off</p>
+                <div class="additional_info_container_2">
+                <div class="locations_info">
+                    <p class="title">Locations</p>
+                    <p class="subtitle">Select your city</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+                <div class="date_info">
+                    <p class="title">Date</p>
+                    <p class="subtitle">Select your date</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+                <div class="time_info">
+                    <p class="title">Time</p>
+                    <p class="subtitle">Select your time</p>
+                    <img src="./images/arrow-down.svg" alt="arrow-down">
+                </div>
+               </div>
+               </div>
+            </div>
+        </section>
+        <section id="sectionTwo">
+            <p class="sectionTitle">Popular Car</p>
+            <p class="viewAll">View All</p>
+            <div class="cars_container">
+                <div class="car">
+                    <p class="carTitle">Koenigsegg</p>
+                    <p class="carCategory">Sport</p>
+                    <img class="carImg" src="/images/ad1_car.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>90L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>2 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$99.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">Nissan GT-R</p>
+                    <p class="carCategory">Sport</p>
+                    <img class="carImg" src="/images/cars/gt-r.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>2 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">Rolls-Royce</p>
+                    <p class="carCategory">Sedan</p>
+                    <img class="carImg" src="/images/cars/rolls-royce.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>75L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>4 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$96.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">Nissan GT-R</p>
+                    <p class="carCategory">Sport</p>
+                    <img class="carImg" src="/images/cars/gt-r.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>2 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">AllNew Rush</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/AllNewRush.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>60L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>4 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$72.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">CR-V</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/cr-v.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>6 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">AllNew Terios</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/AllNewTerios.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>90L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>6 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$74.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">CR-V</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/cr-v_black.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>6 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">MGZX Exclusice</p>
+                    <p class="carCategory">Hatchback</p>
+                    <img class="carImg" src="/images/cars/MGZX-exclusice.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>70L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>4 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$76.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">New MGZS</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/New-MGZS.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>6 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">MGZX Excite</p>
+                    <p class="carCategory">Hatchback</p>
+                    <img class="carImg" src="/images/cars/MGZX-Excite.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>90L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>4 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$74.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+                <div class="car">
+                    <p class="carTitle">New MGZS</p>
+                    <p class="carCategory">SUV</p>
+                    <img class="carImg" src="/images/cars/New-MGZS_gray.svg" alt="carImg" loading="lazy">
+                    <div class="carInfo">
+                        <div class="fuel_container">
+                            <img src="/images/fuel.svg" alt="fuel" loading="lazy">
+                            <p>80L</p>
+                        </div>
+                        <div class="manual_container">
+                            <img src="/images/manual.svg" alt="manual" loading="lazy">
+                            <p>Manual</p>
+                        </div>
+                        <div class="people_container">
+                            <img src="/images/people.svg" alt="people" loading="lazy">
+                            <p>6 People</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>$80.00 / <span>day</span></p>
+                    </div>
+                    <button>Rent Now</button>
+                </div>
+
+            </div>
+            <button id="showMoreButton" type="button">Show more Car</button>
+        </section>
+    </main>
+    <footer>
+        <h2>MORENT</h2>
+        <p id="footerDesc">Our vision is to provide convenience and help increase your sales business.</p>
+        <p id="rights">©2022 MORENT. All rights reserved</p>
+        <p id="privacy">Privacy & Policy</p>
+        <p id="terms">Terms & Condition</p>
+        <p id="footer_ul_title_1">About</p>
+        <ul class="footer_ul_1">
+            <li>How it works</li>
+            <li>Featured</li>
+            <li>Partnership</li>
+            <li>Bussiness Relation</li>
+        </ul>
+        <p id="footer_ul_title_2">Community</p>
+        <ul class="footer_ul_2">
+            <li>Events</li>
+            <li>Blog</li>
+            <li>Podcast</li>
+            <li>Invite a Friend</li>
+        </ul>
+        <p id="footer_ul_title_3">Socials</p>
+        <ul class="footer_ul_3">
+            <li>Discord</li>
+            <li>Instagram</li>
+            <li>Twitter</li>
+            <li>Facebook</li>
+        </ul>
+    </footer>
 </body>
 </html>
