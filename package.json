@@ -1,51 +1,45 @@
 {
-  "name": "newsite",
+  "name": "classwork",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:client": "webpack --config webpack.config.js",
-    "build:server": "tsc -p tsconfig.json",
-    "build": "npm run build:client && npm run build:server",
-    "start": "npm run build:client && npm run build:server && node dist/server.js",
-    "dev": "concurrently \"tsc -w -p tsconfig.json\" \"webpack --watch --config webpack.config.js\" \"nodemon dist/server.js\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FlatCu1t/HomeWork.git"
+    "clean": "rimraf dist public/bundle.js",
+    "build:server": "tsc -p .",
+    "build:client": "webpack --mode production",
+    "build": "npm run clean && npm run build:server && npm run build:client",
+    "start": "npm run build && node ./dist/server/main.js",
+    "dev:server": "ts-node-dev --respawn --transpile-only ./src/server/main.ts",
+    "dev:client": "webpack serve --mode development --open",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FlatCu1t/HomeWork/issues"
-  },
-  "homepage": "https://github.com/FlatCu1t/HomeWork#readme",
   "description": "",
+  "type": "module",
   "dependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
-    "@types/mongoose": "^5.11.96",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.0.0",
     "express": "^5.1.0",
-    "html-webpack-plugin": "^5.6.3",
-    "mongoose": "^8.16.0"
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "concurrently": "^9.2.0",
-    "css-loader": "^7.1.2",
-    "html-loader": "^5.1.0",
-    "mini-css-extract-plugin": "^2.9.2",
-    "nodemon": "^3.1.10",
+    "css-loader": "^6.9.4",
+    "html-webpack-plugin": "^5.6.3",
+    "nodemon": "^2.0.22",
+    "rimraf": "^6.0.1",
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",
-    "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
-    "webpack": "^5.99.9",
-    "webpack-cli": "^6.0.1"
-  },
-  "type": "module"
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
 }

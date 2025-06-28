@@ -1,0 +1,73 @@
+import './index.scss';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const api = '/api/users';
+  const listEl = document.getElementById('user-list')!;
+  const searchEl = document.getElementById('search') as HTMLInputElement;
+  const formContainer = document.getElementById('form-container')!;
+  const formEl = document.getElementById('user-form') as HTMLFormElement;
+  const addBtn = document.getElementById('add-user-btn')!;
+  let editId: string | null = null;
+
+  const fetchUsers = async (search = '') => {
+    const res = await fetch(`${api}?search=${search}`);
+    const users = await res.json();
+    listEl.innerHTML = '';
+    users.forEach((u: any) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${u.avatar || 'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1'}" alt="Avatar">
+        <h3>${u.name}</h3>
+        <p>${u.username}</p>
+        <p>${u.email}</p>
+        <p>${u.phone}</p>
+        <button data-id="${u._id}" class="edit">Edit</button>
+        <button data-id="${u._id}" class="delete">Delete</button>
+      `;
+      listEl.appendChild(card);
+    });
+  };
+
+  searchEl.addEventListener('input', () => fetchUsers(searchEl.value));
+
+  addBtn.addEventListener('click', () => {
+    editId = null;
+    formEl.reset();
+    formContainer.classList.toggle('hidden');
+  });
+
+  listEl.addEventListener('click', async (e) => {
+    const target = e.target as HTMLElement;
+    const id = target.getAttribute('data-id');
+    if (!id) return;
+    if (target.classList.contains('delete')) {
+      await fetch(`${api}/${id}`, { method: 'DELETE' });
+      fetchUsers(searchEl.value);
+    }
+    if (target.classList.contains('edit')) {
+      const res = await fetch(`${api}/${id}`);
+      const user = await res.json();
+      Object.entries(user).forEach(([k,v]: any) => {
+        if (formEl.elements.namedItem(k)) {
+          (formEl.elements.namedItem(k) as HTMLInputElement).value = v;
+        }
+      });
+      editId = id;
+      formContainer.classList.remove('hidden');
+    }
+  });
+
+  formEl.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData: any = new FormData(formEl);
+    const data = Object.fromEntries(formData.entries());
+    const method = editId ? 'PUT' : 'POST';
+    const url = editId ? `${api}/${editId}` : api;
+    await fetch(url, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    formContainer.classList.add('hidden');
+    fetchUsers(searchEl.value);
+  });
+
+  fetchUsers();
+});

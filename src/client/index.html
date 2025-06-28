@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div class="container">
+        <h1>Users</h1>
+        <input type="text" id="search" placeholder="Search users..." />
+        <div id="user-list" class="cards"></div>
+        <button id="add-user-btn">Add User</button>
+        <div id="form-container" class="hidden">
+            <form id="user-form">
+                <input name="name" placeholder="Name" required />
+                <input name="username" placeholder="Username" required />
+                <input name="email" type="email" placeholder="Email" required />
+                <input name="phone" placeholder="Phone" required />
+                <input name="avatar" placeholder="Avatar URL" />
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

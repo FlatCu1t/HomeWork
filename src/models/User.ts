@@ -1,15 +1,19 @@
 import { Schema, model } from 'mongoose';
 
-interface IUser {
-  login: string,
-  password: string,
-  avatar: string
+export interface IUser {
+  name: string;
+  phone: string;
+  username: string;
+  email: string;
+  avatar: string;
 }
 
-const userSchema = new Schema<IUser>({
-  login: { type: String, required: true },
-  password: { type: String, required: true },
-  avatar: { type: String, default: "https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1" }
-}, { timestamps: true });
+const UserSchema = new Schema<IUser>({
+  name: { type: String, required: true },
+  phone: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  avatar: { type: String }
+});
 
-export default model<IUser>('User', userSchema);
+export default model<IUser>('User', UserSchema);
