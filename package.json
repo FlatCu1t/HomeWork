@@ -1,51 +1,18 @@
 {
-  "name": "newsite",
-  "version": "1.0.0",
-  "main": "webpack.config.js",
+  "name": "myvueapp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:client": "webpack --config webpack.config.js",
-    "build:server": "tsc -p tsconfig.json",
-    "build": "npm run build:client && npm run build:server",
-    "start": "npm run build:client && npm run build:server && node dist/server.js",
-    "dev": "concurrently \"tsc -w -p tsconfig.json\" \"webpack --watch --config webpack.config.js\" \"nodemon dist/server.js\""
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FlatCu1t/HomeWork.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FlatCu1t/HomeWork/issues"
-  },
-  "homepage": "https://github.com/FlatCu1t/HomeWork#readme",
-  "description": "",
   "dependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
-    "@types/mongoose": "^5.11.96",
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "html-webpack-plugin": "^5.6.3",
-    "mongoose": "^8.16.0"
+    "vue": "^3.5.17"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0",
-    "css-loader": "^7.1.2",
-    "html-loader": "^5.1.0",
-    "mini-css-extract-plugin": "^2.9.2",
-    "nodemon": "^3.1.10",
-    "sass": "^1.89.2",
-    "sass-loader": "^16.0.5",
-    "style-loader": "^4.0.0",
-    "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
-    "webpack": "^5.99.9",
-    "webpack-cli": "^6.0.1"
-  },
-  "type": "module"
+    "@vitejs/plugin-vue": "^6.0.0",
+    "vite": "^7.0.0"
+  }
 }
