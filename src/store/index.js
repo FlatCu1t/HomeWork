@@ -1,10 +1,8 @@
 import { createStore } from 'vuex'
-import tasks from './modules/tasks'
-import favorites from './modules/favorites'
+import users from "./modules/users.js";
 
 export default createStore({
   modules: {
-    tasks,
-    favorites
+    users
   }
 })
