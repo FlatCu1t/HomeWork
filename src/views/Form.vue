@@ -27,19 +27,23 @@ const emits = defineEmits(
     ["changeType"]
 )
 
-const searchUser = ref('')
+const searchUser  = ref('')
 const pass = ref('')
 const error = ref({ err: false, message: '' })
 const timeOut = ref()
 
-const filteredUser = computed(() => store.getters['users/getUserByName'](searchUser.value))
-
 const addUser = () => {
-  if (!filteredUser.value) {
-    store.dispatch('users/addUser', {name: searchUser, password: pass})
+  const name = searchUser.value.trim()
+  const password = pass.value
+
+  const user = store.getters['users/getUserByName'](name)
+  if (!user) {
+    store.dispatch('users/addUser', { name, password })
     emits('changeType')
+    searchUser.value = ''
+    pass.value = ''
   } else {
-    showError("Такой пользователь уже существует.")
+    showError('Такой пользователь уже существует.')
   }
 }
 
@@ -54,13 +58,22 @@ function showError(message) {
 }
 
 function auth() {
-  if (!filteredUser.value) {
-    showError("Такого пользователя не существует.")
-  } else {
-    if (pass.value !== filteredUser.value.password) return showError("Неверный пароль.")
-    localStorage.setItem('user', filteredUser.value.name)
-    router.push('/')
+  const name = searchUser.value.trim()
+  const user = store.getters['users/getUserByName'](name)
+
+  if (!user) {
+    showError('Такого пользователя не существует.')
+    return
   }
+  if (pass.value !== user.password) {
+    showError('Неверный пароль.')
+    return
+  }
+
+  localStorage.setItem('user', user.name)
+  router.push('/')
+  searchUser.value = ''
+  pass.value = ''
 }
 </script>
 
