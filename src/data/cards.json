@@ -1,0 +1,10 @@
+{
+  "cards": [
+    {
+      "cardID": 1,
+      "cardTitle": "Title",
+      "cardDescription": "Description",
+      "cardIMG": ""
+    }
+  ]
+}
