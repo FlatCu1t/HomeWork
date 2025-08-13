@@ -13,21 +13,7 @@ const routes = [
             {
                 path: '',
                 component: Home,
-            }/*,
-            {
-                path: 'movies',
-                component: Movies,
-            },
-            {
-                path: 'movies/:id',
-                component: MovieLayout,
-                children: [
-                    {
-                        path: '',
-                        component: MovieDetails,
-                    },
-                ],
-            },*/
+            }
         ],
     },
     {
