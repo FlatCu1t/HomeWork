@@ -26,8 +26,3 @@ function setFilter(value) {
   store.dispatch('tasks/setFilter', value)
 }
 </script>
-
-<style>
-.filters button { margin-right: 0.5em; }
-.filters .active { font-weight: bold; }
-</style>

@@ -32,8 +32,3 @@ function toggleFav() {
   store.dispatch('favorites/toggleFavorite', task.value.id)
 }
 </script>
-
-<style>
-.done { text-decoration: line-through; }
-li { display: flex; align-items: center; gap: 0.5em; }
-</style>
