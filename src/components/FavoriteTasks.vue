@@ -19,7 +19,3 @@ import TaskItem from './TaskItem.vue'
 const store = useStore()
 const favorites = computed(() => store.getters['favorites/favoriteTasks'])
 </script>
-
-<style>
-.favorites { margin-top: 2em; }
-</style>

@@ -11,6 +11,3 @@ if(!user) {
   router.push("/reg");
 }
 </script>
-
-<style>
-</style>

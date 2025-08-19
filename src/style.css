@@ -1,26 +1,397 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --bg: #0f172a;
+  --bg-soft: #111827;
+  --surface: #0b1220;
+  --card: #0b1220;
+  --card-border: #1f2937;
+  --text: #e5e7eb;
+  --text-soft: #9ca3af;
+  --primary: #60a5fa;
+  --primary-contrast: #0b1020;
+  --success: #34d399;
+  --warning: #f59e0b;
+  --danger:  #f87171;
+  --muted: #1f2937;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-1: 0 10px 30px rgba(0,0,0,.35);
+  --shadow-2: 0 6px 18px rgba(0,0,0,.3);
+  --ring: 0 0 0 3px rgba(96,165,250,.25);
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f7fb;
+    --bg-soft: #eef2f7;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --card-border: #e5e7eb;
+    --text: #0f172a;
+    --text-soft: #475569;
+    --primary: #2563eb;
+    --primary-contrast: #ffffff;
+    --muted: #e5e7eb;
+    --shadow-1: 0 10px 25px rgba(2,6,23,.08);
+    --shadow-2: 0 6px 16px rgba(2,6,23,.08);
+    --ring: 0 0 0 3px rgba(37,99,235,.2);
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body, #app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.55;
+  background: radial-gradient(1200px 800px at 80% -10%, rgba(96,165,250,.06), transparent 60%),
+  radial-gradient(1000px 700px at 10% -10%, rgba(52,211,153,.06), transparent 55%),
+  var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  margin: 0;
-  padding: 0;
+img { display: block; max-width: 100%; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+h1,h2,h3 { margin: 0 0 .6rem 0; line-height: 1.2; }
+
+button {
+  appearance: none;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, var(--primary), color-mix(in oklab, var(--primary) 85%, #000 15%));
+  color: var(--primary-contrast);
+  padding: .7rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .2s ease, filter .2s ease, border-color .2s ease;
+  box-shadow: var(--shadow-2);
+}
+button:hover { filter: brightness(1.05); }
+button:active { transform: translateY(1px) scale(.99); }
+button:focus-visible { outline: none; box-shadow: var(--ring); }
+
+button.ghost,
+.tasks li button {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  box-shadow: none;
+}
+button.ghost:hover,
+.tasks li button:hover {
+  background: color-mix(in oklab, var(--card) 88%, white 12%);
 }
 
-body, #app {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+.layout {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--bg) 80%, black 20%);
+  border-bottom: 1px solid var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 16px clamp(16px, 4vw, 32px);
+}
+
+header h1 {
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: .3px;
+}
+
+header > button {
+  padding: .6rem .9rem;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 10px;
+}
+
+.main {
+  width: min(1200px, 90%);
+  margin-inline: auto;
+  padding: clamp(16px, 3vw, 28px) 0 48px;
+}
+
+.adminSection {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-1);
+  margin-bottom: 24px;
+}
+
+.adminSection h2 {
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.adminSection .inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+}
+
+.adminSection input[type="text"] {
+  width: 100%;
+  padding: .7rem .9rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  color: var(--text);
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.adminSection input[type="text"]:focus {
+  outline: none; border-color: var(--primary); box-shadow: var(--ring);
+}
+
+.addButton {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .adminSection .inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home {
+  width: min(1280px, 85%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition: transform .18s ease, border-color .2s ease, box-shadow .3s ease;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--card-border) 55%);
+  box-shadow: 0 16px 44px rgba(0,0,0,.35);
+}
+
+.card .content {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  background: var(--bg-soft);
+  border-radius: 12px;
+}
+
+.cardTitle {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: .2px;
+}
+
+.cardDesc {
+  color: var(--text-soft);
+  font-size: .95rem;
+  margin-top: -4px;
+}
+
+.card .content > button {
+  justify-self: start;
+  margin-top: 6px;
+  background: linear-gradient(180deg, var(--danger), color-mix(in oklab, var(--danger) 88%, #000 12%));
+}
+
+.empty { height: 24px; }
+
+.form_container {
+  min-height: clamp(420px, 60vh, 640px);
+  display: grid;
+  place-items: center;
+}
+
+.form_container form {
+  width: min(420px, 92vw);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-1);
+  display: grid;
+  gap: 12px;
+}
+
+.form_container input[type="text"],
+.form_container input[type="password"] {
+  padding: .8rem 1rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--muted);
+  color: var(--text);
+  border-radius: 12px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.form_container input:focus {
+  outline: none; border-color: var(--primary); box-shadow: var(--ring);
+}
+
+.form_container p {
+  margin: 0;
+  font-size: .92rem;
+  color: var(--text-soft);
+  cursor: pointer;
+}
+.form_container p:hover { color: var(--text); }
+
+.form_container .error {
+  color: var(--danger);
+  background: color-mix(in oklab, var(--danger) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--danger) 50%, transparent);
+  padding: .5rem .7rem;
+  border-radius: 10px;
+}
+
+.not-found {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.not-found a {
+  display: inline-block;
+  padding: .6rem .9rem;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+.tasks {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.tasks li {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-2);
+}
+
+.tasks input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.tasks span {
+  font-size: .98rem;
+}
+
+.done {
+  color: var(--text-soft);
+  text-decoration: line-through;
+}
+
+.tasks li button {
+  padding: .5rem .6rem;
+  border-radius: 10px;
+  min-width: 40px;
+}
+
+.favorites {
+  margin-top: 26px;
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-1);
+}
+
+.favorites h2 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.favorites ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid; gap: 10px;
+}
+
+.filters, .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+.filters button {
+  padding: .5rem .8rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+}
+.filters button.active {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border-color: transparent;
+}
+
+.stats {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--card) 85%, white 15%);
+  border: 1px solid var(--card-border);
+  font-size: .95rem;
+  color: var(--text-soft);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
 }
